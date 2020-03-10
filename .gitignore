@@ -1,0 +1,7 @@
+.idea
+target/*
+project/*
+quartus/altde2-115/*
+incremental_db/*
+generated/*
+db/*
