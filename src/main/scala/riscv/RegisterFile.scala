@@ -1,6 +1,7 @@
 package riscv
 
 import chisel3._
+import chisel3.util._
 
 class RegisterFile() extends Module {
   val io = IO(new Bundle {
@@ -17,10 +18,8 @@ class RegisterFile() extends Module {
 
   val regs = Reg(Vec(32, UInt(64.W)))
 
-  when(io.we) {
-    // register in position lit. wadr
-    regs(io.wadr.asUInt) := io.data
-  }
+  // register in position lit. wadr
+  when(io.we) { regs(io.wadr.asUInt) := io.data }
 
   io.out1 := regs(io.adr1.asUInt())
   io.out2 := regs(io.adr2.asUInt())
