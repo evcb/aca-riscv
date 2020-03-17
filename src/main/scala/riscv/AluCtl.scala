@@ -11,40 +11,23 @@ class AluCtl extends Module {
     val alu_ctl = Output(UInt(4.W))
   })
 
-  val funct7_w = VecInit(io.funct7.asBools)
-  val funct3_w = VecInit(io.funct3.asBools)
-  val ALUOP_w = VecInit(io.ALUOP.asBools)
+  val result = WireDefault(8.U)
 
-  val result = VecInit(io.alu_ctl.asBools)
-
- // val signal = VecInit(Cat(io.ALUOP, io.funct7, io.funct3))
-
-  result(3) := ALUOP_w(0) & !ALUOP_w(0)
-  result(2) := ALUOP_w(0) | (ALUOP_w(1) & funct3_w(1))
-  result(1) := !ALUOP_w(1) | !funct3_w(2)
-  result(0) := ALUOP_w(1) & (funct7_w(5) | funct3_w(0))
-
-  io.alu_ctl := result.asUInt
-
-/*
-
-  io.alu_ctl := 0.U
-
-  switch(ALUOP_w) {
-    is(0.U) {
-      io.alu_ctl := 2.U
+  switch(io.ALUOP) {
+    is("b00".U) { result := "b0010".U }
+  }
+  switch(io.ALUOP(0, 0)) {
+    is ("b1".U) { result := "b0110".U }
+  }
+  switch(io.ALUOP(1, 1)) {
+    is ("b1".U) {
+      switch(Cat(io.funct7, io.funct3)) {
+        is ("b0000000000".U) { result := "b0010".U }
+        is ("b0100000000".U) { result := "b0110".U }
+        is ("b0000000111".U) { result := "b0000".U }
+        is ("b0000000110".U) { result := "b0001".U }
+      }
     }
   }
-  switch(ALUOP_w(0)) {
-    is(1.U) {
-      io.alu_ctl := 6.U
-    }
-  }
-  switch()
-    is(3.U) {
-      io.alu_ctl := 6.U
-    }
-
-  }*/
-
+  io.alu_ctl := result
 }
