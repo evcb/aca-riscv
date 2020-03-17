@@ -10,15 +10,20 @@ object AluTest {
 
 class AluTest(dut: Alu) extends PeekPokeTester(dut) {
   // This is exhaustive testing, which usually is not possible
-  for (a <- 0 to 15) {
-    for (b <- 0 to 15) {
-      for (op <- 0 to 3) {
+  var loopCounter = 0;
+  for (a <- 0 to 3) {
+    for (b <- 0 to 3) {
+      for (op <- 0 to 5) {
+        loopCounter = loopCounter + 1
+        println(s"Loop $loopCounter")
         val result =
           op match {
             case 0 => a + b
             case 1 => a - b
             case 2 => a | b
             case 3 => a & b
+            case 4 => if (a < b) 1 else 0
+            case 5 => ~ (a | b)
           }
         val resMask = result & 0x0f
 
@@ -26,7 +31,16 @@ class AluTest(dut: Alu) extends PeekPokeTester(dut) {
         poke(dut.io.a, a)
         poke(dut.io.b, b)
         step(1)
+        println(s"  a = $a; b = $b; op = $op")
+        println(s"  expected = $resMask")
+
         expect(dut.io.result, resMask)
+        if (result == 0)
+          expect (dut.io.zeroFlag, 1)
+        else
+          expect (dut.io.zeroFlag, 0)
+
+        println()
       }
     }
   }

@@ -25,7 +25,7 @@ riscv:
 # Generate the C++ simulation and run the tests
 
 alu-test:
-	$(SBT) "test:runMain simple.AluTester"
+    $(SBT) "test:run riscv.AluTestSpec"
 
 counter-test:
 	$(SBT) "test:runMain simple.CounterTester"
