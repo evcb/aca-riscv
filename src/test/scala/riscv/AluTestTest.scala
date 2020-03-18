@@ -46,7 +46,7 @@ class AluTest(dut: Alu) extends PeekPokeTester(dut) {
   }
 }
 
-class AluTestSpec extends FlatSpec with Matchers {
+class AluTestTest extends FlatSpec with Matchers {
 
   "Alu" should "pass" in {
     iotesters.Driver.execute(AluTest.param,
