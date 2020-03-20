@@ -11,17 +11,17 @@ object Alu
 {
   // Sizes of wires
   def SZ_ALU_FN = UInt(2.W) // size of the ALU operation signal
-  def SZ_INPUT = UInt(64.W) // size of an input
-  def SZ_OUTPUT = UInt(64.W)// size of an output
+  def SZ_INPUT = SInt(64.W) // size of an input
+  def SZ_OUTPUT = SInt(64.W)// size of an output
   def SZ_FLAG = UInt(1.W)
 
   // Supported ALU functions
-  def FN_ADD  = 0.U
-  def FN_SUB  = 1.U
-  def FN_OR = 2.U
-  def FN_AND = 3.U
-  def FN_SLT  = 4.U
-  def FN_NOR = 5.U
+  def FN_ADD  = 2.U
+  def FN_SUB  = 6.U
+  def FN_OR = 1.U
+  def FN_AND = 0.U
+  def FN_SLT  = 7.U
+  def FN_NOR = 12.U
 
 
 }
@@ -49,7 +49,7 @@ class Alu() extends Module {
 
   //Assign default values to outputs
   result := 0.U
-  zeroFlag := (result === 0.U)
+  zeroFlag := (result === 0.S)
 
   //The ALU selection
   switch(fn) {
