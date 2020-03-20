@@ -9,8 +9,8 @@ object RegisterFileTester {
 }
 
 class RegisterFileTester(r: RegisterFile) extends PeekPokeTester(r) {
-  var adr1: UInt = 1.asUInt(32.W)
-  var adr2: UInt = 2.asUInt(32.W)
+  var adr1: UInt = 8.U
+  var adr2: UInt = 11.U
 
   // write data to reg1
   poke(r.io.wrEna, true.B)

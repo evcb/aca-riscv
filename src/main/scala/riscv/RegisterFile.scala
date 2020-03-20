@@ -7,10 +7,10 @@ class RegisterFile() extends Module {
   val io = IO(new Bundle {
     // in
     val wrEna = Input(Bool()) // write enable
-    val rdAddr1 = Input(UInt(32.W))  // read reg address
-    val rdAddr2 = Input(UInt(32.W))  // read reg address
-    val wrAddr = Input(UInt(32.W))  // write reg address
-    val wrData = Input(UInt(64.W))  // optional
+    val rdAddr1 = Input(UInt(5.W))  // read reg address
+    val rdAddr2 = Input(UInt(5.W))  // read reg address
+    val wrAddr = Input(UInt(5.W))  // write reg address
+    val wrData = Input(UInt(64.W))  // write data
     // out
     val rdOut1 = Output(UInt(64.W))  // output for reg1
     val rdOut2 = Output(UInt(64.W))  // output for reg2
