@@ -4,11 +4,11 @@ import chisel3._
 
 class Memory() extends Module {
   val io = IO(new Bundle {
-    val rdAddr = Input(UInt(32.W)) // read address
+    val rdAddr = Input(UInt(10.W)) // read address
 
     val wrEna = Input(Bool()) // write enabled
     val wrData = Input(UInt(64.W)) // write data
-    val wrAddr = Input(UInt(32.W)) // write address
+    val wrAddr = Input(UInt(10.W)) // write address
 
     val rdData = Output(UInt(64.W)) // output
   })
