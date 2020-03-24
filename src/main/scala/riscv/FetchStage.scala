@@ -24,12 +24,12 @@ class FetchStage extends Module {
   val ifRg = RegInit(0.asUInt(97.W)) // pipeline register
 
   // pcWrite to branch
-  // either branch addr or increment
+  // branch addr or increment addr
   when (io.pcWrite) { pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U) }
 
   inMem.io.rdAddr := pcRg
 
-  // output controlled by hazard ctl, for stalls
+  // hazard ctl signal for stalls
   when (io.ifIdWrite) {
     // concatenating ifFlush, instruction and addr
     ifRg := Cat(io.ifFlush, inMem.io.rdData, pcRg)
