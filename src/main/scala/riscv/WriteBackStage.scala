@@ -17,7 +17,6 @@ class WriteBackStage extends Module {
 
     val memWbRegWr = Output(UInt(64.W))  // pass-through MEM_WB_RegWrite
     val memWbRd = Output(UInt(64.W))  // pass-through MEM_WB_Rd
-
     val wbStOut = Output(UInt(128.W))  // pass-through MEM_WB_Rd
   })
 

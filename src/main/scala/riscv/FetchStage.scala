@@ -24,13 +24,13 @@ class FetchStage extends Module {
 
   io.ifOut := 0.U(32.W)  // default assignment
 
-  // Hazard ctl, for stalls
-  // mux with signal from MEM
-  pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U)
-  inMem.io.rdAddr := pcRg
-
   // output controlled by hazard ctl, for stalls
   when (!io.ifIdWrite) {
+    // Hazard ctl, for stalls
+    // mux with signal from MEM
+    pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U)
+    inMem.io.rdAddr := pcRg
+
     // concatenating ifFlush, instruction and address
     io.ifOut := Reg(Cat(io.ifFlush, inMem.io.rdData, pcRg))
   }
