@@ -13,7 +13,7 @@ class FetchStage extends Module {
     val pcSrc = Input(Bool())  // control signal from MEM
     val ifIdPc = Input(Bool()) // control signal from EX
     val pcWrite = Input(Bool())  // control signal from hazard dt EX
-    val ifFlush = Input(Bool())  // bits for the pipeline reg from main ctl EX @TODO: Check width
+    val ifFlush = Input(Bool())  // control signal from main ctl EX @TODO: Check width
     val ifIdWrite = Input(Bool())  // control signal from main ctl EX
 
     val ifOut = Output(UInt(38.W)) // pip. reg, width: ifFlush (1 bit), addr (5 bits), instruction (32 bits)
