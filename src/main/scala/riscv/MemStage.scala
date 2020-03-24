@@ -1,5 +1,5 @@
 /***
- * Mem Stage for RISC-V Rocket processor
+ * Mem Stage for RISC-V Space processor
  * author: E. Ferreira (s190395@student.dtu.dk)
  */
 

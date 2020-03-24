@@ -7,13 +7,13 @@ class Memory() extends Module {
     val rdAddr = Input(UInt(10.W)) // read address
 
     val wrEna = Input(Bool()) // write enabled
-    val wrData = Input(UInt(64.W)) // write data
+    val wrData = Input(UInt(32.W)) // write data
     val wrAddr = Input(UInt(10.W)) // write address
 
-    val rdData = Output(UInt(64.W)) // output
+    val rdData = Output(UInt(32.W)) // output
   })
 
-  val mem = SyncReadMem(1024, UInt(64.W))
+  val mem = SyncReadMem(1024, UInt(32.W))
 
   // read address
   io.rdData := mem.read(io.rdAddr)

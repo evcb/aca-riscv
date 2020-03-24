@@ -10,13 +10,13 @@ class RegisterFile() extends Module {
     val rdAddr1 = Input(UInt(5.W))  // read reg address
     val rdAddr2 = Input(UInt(5.W))  // read reg address
     val wrAddr = Input(UInt(5.W))  // write reg address
-    val wrData = Input(UInt(64.W))  // write data
+    val wrData = Input(UInt(32.W))  // write data
     // out
-    val rdOut1 = Output(UInt(64.W))  // output for reg1
-    val rdOut2 = Output(UInt(64.W))  // output for reg2
+    val rdOut1 = Output(UInt(32.W))  // output for reg1
+    val rdOut2 = Output(UInt(32.W))  // output for reg2
   })
 
-  val rgFiles = Reg(Vec(32, UInt(64.W)))
+  val rgFiles = Reg(Vec(32, UInt(32.W)))
 
   // register in position lit. write address
   when(io.wrEna) { rgFiles(io.wrAddr.asUInt) := io.wrData }
