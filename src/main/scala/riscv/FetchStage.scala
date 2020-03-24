@@ -10,28 +10,30 @@ import chisel3.util._
 
 class FetchStage extends Module {
   val io = IO(new Bundle {
-    val pcSrc = Input(Bool())  // control signal from MEM
-    val ifIdPc = Input(Bool()) // control signal from EX
-    val pcWrite = Input(Bool())  // control signal from hazard dt EX
-    val ifFlush = Input(Bool())  // control signal from main ctl EX @TODO: Check width
-    val ifIdWrite = Input(Bool())  // control signal from main ctl EX
+    val pcSrc = Input(Bool())  // control signal from ID
+    val ifIdPc = Input(UInt(65.W)) // branch address from ID
+    val pcWrite = Input(Bool())  // branch signal from hazard dt ID
+    val ifFlush = Input(Bool())  // control signal from main ctl ID @TODO: Check width
+    val ifIdWrite = Input(Bool())  // control signal from main ctl ID
 
-    val ifOut = Output(UInt(38.W)) // pip. reg, width: ifFlush (1 bit), addr (5 bits), instruction (32 bits)
+    val ifOut = Output(UInt(97.W)) // pip. reg, width: ifFlush (1 bit), instruction (32 bits), addr (64 bits),
   })
 
-  val pcRg = RegInit(0.asUInt(5.W)) // PC
-  val inMem = new Memory() // instruction memory
+  val pcRg = RegInit(0.asUInt(64.W)) // PC
+  val inMem = Module(new InstructionMemory()) // 32-bit rom instruction mem.
+  val ifRg = RegInit(0.asUInt(97.W)) // pipeline register
 
-  io.ifOut := 0.U(32.W)  // default assignment
+  // pcWrite to branch
+  // either branch addr or increment
+  when (io.pcWrite) { pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U) }
+
+  inMem.io.rdAddr := pcRg
 
   // output controlled by hazard ctl, for stalls
-  when (!io.ifIdWrite) {
-    // Hazard ctl, for stalls
-    // mux with signal from MEM
-    pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U)
-    inMem.io.rdAddr := pcRg
-
-    // concatenating ifFlush, instruction and address
-    io.ifOut := Reg(Cat(io.ifFlush, inMem.io.rdData, pcRg))
+  when (io.ifIdWrite) {
+    // concatenating ifFlush, instruction and addr
+    ifRg := Cat(io.ifFlush, inMem.io.rdData, pcRg)
   }
+
+  io.ifOut := ifRg
 }
