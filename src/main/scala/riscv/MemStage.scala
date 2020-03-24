@@ -17,7 +17,7 @@ class MemStage extends Module {
     val exMemZr = Input(Bool())  // EX_MEM_Zero
 
     val exMemAddr = Input(UInt(32.W)) // EX_MEM_ADDRESS
-    val exMemWd = Input(UInt(32.W)) // EX_MEM_WRITE_DATA
+    val exMemWd = Input(UInt(64.W)) // EX_MEM_WRITE_DATA
     val exMemRd = Input(UInt(32.W)) // EX_MEM_Rd
 
     // outputs
@@ -25,6 +25,8 @@ class MemStage extends Module {
     val memWb = Output(Bool()) // EX_MEM_Wb pass-through
     val pcScr = Output(Bool()) // PC_Src pass-through
     val memAddr = Output(Bool()) // EX_MEM_Addr pass-through
+
+    val memStOut = Output(UInt(193.W)) // stage output
   })
 
   val pipeRg = RegInit(0.asUInt(128.W))
@@ -37,6 +39,7 @@ class MemStage extends Module {
   when(io.memWr) { dataMem.io.wrData := io.exMemWd }
 
   pipeRg := Cat(io.exMemRd, dataMem.io.rdData, io.exMemAddr, io.exMemWb)
+  io.memStOut := pipeRg
 
   // pass-through
   io.exMemRegWr := io.exMemWb
