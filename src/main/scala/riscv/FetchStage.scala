@@ -28,15 +28,16 @@ class FetchStage(data: Array[String] = Array()) extends Module {
   when (io.pcWrite) { pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U) }
 
   inMem.io.rdAddr := pcRg
+  printf(p"addr calculated $pcRg \n")
 
   // hazard ctl signal for stalls
   when (io.ifIdWrite) {
-    // concatenating ifFlush, instruction and addr
+    // concatenating instruction and addr
     when (!io.ifFlush) {
       //       Cat(MSB, LSB)
       ifRg := Cat(pcRg, inMem.io.rdData)
       val data = inMem.io.rdData
-      printf(p"data: $data, reg: $pcRg \n")
+      printf(p"data: $data, regaddr: $pcRg,  \n")
     } .otherwise {
       //       Cat(MSB, LSB)
       ifRg := Cat(pcRg, 0.asUInt(32.W))

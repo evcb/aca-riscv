@@ -14,26 +14,31 @@ class InstructionMemoryTester(r: InstructionMemory) extends PeekPokeTester(r) {
   var adr2: UInt = 8.U
   var adr3: UInt = 12.U
   var adr4: UInt = 16.U
+  var adr5: UInt = 20.U
 
   poke(r.io.rdAddr, adr0)
   step(1)
-  expect(r.io.rdData, "b101010110".U)
+  expect(r.io.rdData, 1.U)
 
   poke(r.io.rdAddr, adr1)
   step(3)
-  expect(r.io.rdData, "b1101010101".U)
+  expect(r.io.rdData, 4.U)
 
   poke(r.io.rdAddr, adr2)
   step(3)
-  expect(r.io.rdData, "b1101010111".U)
+  expect(r.io.rdData, 8.U)
 
   poke(r.io.rdAddr, adr3)
   step(3)
-  expect(r.io.rdData, "b1111010111".U)
+  expect(r.io.rdData, 16.U)
 
   poke(r.io.rdAddr, adr4)
   step(3)
-  expect(r.io.rdData, "b1001010111".U)
+  expect(r.io.rdData, 32.U)
+
+  poke(r.io.rdAddr, adr5)
+  step(3)
+  expect(r.io.rdData, 64.U)
 
 }
 
@@ -41,7 +46,14 @@ class InstructionMemoryTest extends FlatSpec with Matchers {
 
   "InstructionMemory" should "pass" in {
     iotesters.Driver.execute(InstructionMemoryTester.param,
-      () => new InstructionMemory(Array("b101010110", "b1101010101", "b1101010111", "b1111010111", "b1001010111"))) { c =>
+      () => new InstructionMemory(Array(
+        "b00000000000000000000000000000001",
+        "b00000000000000000000000000000100",
+        "b00000000000000000000000000001000",
+        "b00000000000000000000000000010000",
+        "b00000000000000000000000000100000",
+        "b00000000000000000000000001000000"
+      ))) { c =>
       new InstructionMemoryTester(c)
     } should be(true)
   }

@@ -14,11 +14,16 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
   // load instructions into the memory
   if (!data.isEmpty) { for (i <- data.indices) { rom(i) := data(i).U } }
 
-  // ignoring the lower 2 bits in the address to match the 2-d matrix struct
+  printf(p"addr data $io \n")
+
+  // addresses must be multiple of 4
+  // ignoring lower 2 bits in the address to match the 2-d matrix struct
   when (io.rdAddr > 0.U) {
     calcAddr := (io.rdAddr >> 2.U).asUInt()
   }
 
+  printf(p"address given $calcAddr \n")
+
   // read address
-  io.rdData := rom(calcAddr.asUInt())
+  io.rdData := rom(calcAddr)
 }

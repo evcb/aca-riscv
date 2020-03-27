@@ -60,7 +60,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
   poke(r.io.ifIdWrite, true.B)
   poke(r.io.ifFlush, false.B)
 
-  step(3)
+  step(2)
 
   expect(r.io.ifOut, 1.U)
 }
@@ -74,7 +74,7 @@ class FetchStageTest extends FlatSpec with Matchers {
         "b00000000000000000000000000000010",
         "b00000000000000000000000000000011",
         "b00000000000000000000000000000100",
-        "b00000000000000000000000000000101"
+        "b00000000000000000000000000000101"  // 16
       ))) { c =>
       new FetchStageTester(c)
     } should be(true)
