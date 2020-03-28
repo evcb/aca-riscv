@@ -37,6 +37,16 @@ class MemoryTester(r: Memory) extends PeekPokeTester(r) {
   step(1)
   expect(r.io.rdData, 54.U)
 
+  // read specifying data to be written
+  // write should be ignored
+  poke(r.io.rdAddr, adr1)
+
+  poke(r.io.wrAddr, adr1)
+  poke(r.io.wrData, adr1)
+  poke(r.io.wrEna, false.B) // ignore write data
+  step(1)
+  expect(r.io.rdData, 33.U)
+
 }
 
 class MemTest extends FlatSpec with Matchers {
