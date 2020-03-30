@@ -10,7 +10,7 @@ import chisel3.util._
 
 class MemStage extends Module {
   val io = IO(new Bundle {
-    val idExRg = Input(UInt(68.W))
+    val exMemRg = Input(UInt(68.W))  // register from EX/MEM stage
 
     val exMemRegWr = Output(Bool()) // EX_MEM_REGWRITE
     val exMemRd = Output(Bool()) // EX_MEM_Wb pass-through
