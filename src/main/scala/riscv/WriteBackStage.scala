@@ -11,23 +11,24 @@ class WriteBackStage extends Module {
   val io = IO(new Bundle {
     val memWbRg = Input(UInt(69.W))  // MemStage pipeline
 
-    val wbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite / EX_MEM_RegWrite
-    val memWbRd = Output(Bool())  // output
+    val exMemRegWrite = Output(Bool())  // pass-through EX_MEM_RegWrite
+    val memWbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite
+    val memWbRd = Output(Bool())  // pass-through MEM_WB_Rd
 
-    val wbOut = Output(UInt(32.W))
+    val wbOut = Output(UInt(32.W))  // MEM_WB_Wd
   })
 
-  val memWbRd = io.memWbRg(0)  // pass-through MEM_WB_Rd, 32 bits
+  val memWbRd = io.memWbRg(0)  // to MEM_TO_Reg, EX_MEM_RegWrite and MEM_WB_RegWrite, bool
   val memWbD = io.memWbRg(32, 1) // MEM_WB_D, 32 bits
   val memWbAddr = io.memWbRg(65, 33)  // MEM_WB_Addr, 32 bits
 
-  val exMemRegWrite = io.memWbRg(66) // MEM_TO_Reg, EX_MEM_Wb from MemStage, bool
-  val memToRg = exMemRegWrite // MEM_TO_Reg, EX_MEM_Wb from MemStage, bool
+  val memToRg = io.memWbRg(66)
 
   // if memToRg then memWbData
   io.wbOut := Mux(memToRg, memWbD, memWbAddr) // output
 
   // pass-through
   io.memWbRd := memWbRd
-  io.wbRegWrite := exMemRegWrite
+  io.exMemRegWrite := memToRg
+  io.memWbRegWrite := memToRg
 }
