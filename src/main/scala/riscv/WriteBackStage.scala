@@ -18,17 +18,17 @@ class WriteBackStage extends Module {
   })
 
   // @TODO: bit alignment incorrect, has to be checked
-  val memToRg = io.exMemRg(0) // MEM_TO_Reg, EX_MEM_Wb from MemStage, bool
-  val memWbD = io.exMemRg(35, 3) // MEM_WB_D, 32 bits
-  val memWbAddr = io.exMemRg(68, 36)  // MEM_WB_Addr, 32 bits
+  val memWbRd = io.exMemRg(0)  // pass-through MEM_WB_Rd, 32 bits
+  val memWbD = io.exMemRg(32, 1) // MEM_WB_D, 32 bits
+  val memWbAddr = io.exMemRg(68, 33)  // MEM_WB_Addr, 32 bits
 
+  val memToRg = io.exMemRg(0) // MEM_TO_Reg, EX_MEM_Wb from MemStage, bool
   val exMemRegWr = memToRg  // pass-through EX_MEM_RegWrite, 32 bits
-  val wbRd = io.exMemRg(0)  // pass-through MEM_WB_Rd, 32 bits
 
   // if memToRg then memWbData
   io.wbOut := Mux(memToRg, memWbD, memWbAddr) // output
 
   // pass-through
   io.memWbRegWr := exMemRegWr
-  io.memWbRd := wbRd
+  io.memWbRd := memWbRd
 }
