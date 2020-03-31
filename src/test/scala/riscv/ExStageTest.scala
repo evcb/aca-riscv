@@ -9,12 +9,12 @@ object ExStageTest {
 }
 
 class ExStageTest(dut: ExStage) extends PeekPokeTester(dut) {
-  val mockCTL = "b0101001".U
+  var mockCTL = "b0101001".U
   poke(dut.io.idCtlIn, mockCTL)
+
   step(1)
-  expect(dut.aluOp, "b10".U)
-  expect(dut.aluSrc, "b1".U)
-  expect(dut.io.idExMem, "b10".U)
+
+  expect(dut.io.idExMem, "b01".U)
 
 
 
