@@ -14,7 +14,6 @@ class Alu() extends Module {
     val a = Input(UInt(SZ_INPUT)) // Input A
     val b = Input(UInt(SZ_INPUT)) // Input B
     val result = Output(UInt(SZ_OUTPUT)) //Result of the ALU operation with A and B
-    val zeroFlag = Output(UInt(SZ_FLAG)) // Zero flag; true if result is 0
   })
 
   //Use shorter variable names
@@ -25,7 +24,6 @@ class Alu() extends Module {
 
   //Assign default values to outputs
   result := 0.U
-  zeroFlag := (result === 0.S)
 
   //The ALU selection
   switch(fn) {
@@ -49,12 +47,8 @@ class Alu() extends Module {
         result := 0.U
       }
     }
-    is (FN_NOR) {
-      result :=  ~ (a | b)
-    }
   }
 
   //Output
   io.result := result
-  io.zeroFlag := zeroFlag
 }

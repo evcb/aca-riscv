@@ -59,7 +59,6 @@ class ExStage extends Module {
   val forwardA = UInt(SZ_MUX_CTRL) //outputs from forwarder
   val forwardB = UInt(SZ_MUX_CTRL) //outputs from forwarder
   val aluResult = UInt(SZ_INPUT) // output from ALU
-  val aluZeroFlag = UInt(SZ_FLAG) // output from ALU
 
 
   val outputMux1 = UInt(SZ_INPUT) // internal muxes output; temp hack
@@ -113,7 +112,6 @@ class ExStage extends Module {
 
   //outputs from alu
   aluResult := alu.io.result
-  aluZeroFlag := alu.io.zeroFlag
 
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */
@@ -124,7 +122,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
-  exMemRg := Cat(idExWb, idExMem, aluZeroFlag, aluResult, alu.io.b, idExRd)
+  exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
 
   //write to output register
   io.exMemOut := exMemRg
