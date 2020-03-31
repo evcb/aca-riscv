@@ -12,7 +12,7 @@ class MemStageTester(r: MemStage) extends PeekPokeTester(r) {
   var adr1: UInt = 584.U
   var adr2: UInt = 83.U
 
-  poke(r.io.exMemRg, (2^99).U)
+  poke(r.io.exMemIn, (2^99).U)
   step(2)
   expect(r.io.memOut, 33.U)
 

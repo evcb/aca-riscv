@@ -10,7 +10,7 @@ import chisel3.util._
 
 class MemStage extends Module {
   val io = IO(new Bundle {
-    val exMemRg = Input(UInt(68.W))  // register from EX/MEM stage
+    val exMemIn = Input(UInt(68.W))  // register from EX/MEM stage
 
     val exMemRegWr = Output(Bool()) // EX_MEM_REGWRITE
     val exMemRd = Output(Bool()) // EX_MEM_Wb pass-through
@@ -20,12 +20,12 @@ class MemStage extends Module {
   })
 
   // Parsing input (expects bits from LSB -> MSB)
-  val exMemRd = io.exMemRg(0) // EX_MEM_Rd, 32.W
-  val exMemWd = io.exMemRg(32, 1) // EX_MEM_WRITE_DATA, 32.W
-  val exMemAddr = io.exMemRg(65, 33) // EX_MEM_ADDRESS, 32.W
-  val memRd = io.exMemRg(66)  // MemRead, bool
-  val memWr = io.exMemRg(67)  // MemWrite, bool
-  val exMemWb = io.exMemRg(68) // EX_MEM_Wb, bool
+  val exMemRd = io.exMemIn(0) // EX_MEM_Rd, 32.W
+  val exMemWd = io.exMemIn(32, 1) // EX_MEM_WRITE_DATA, 32.W
+  val exMemAddr = io.exMemIn(65, 33) // EX_MEM_ADDRESS, 32.W
+  val memRd = io.exMemIn(66)  // MemRead, bool
+  val memWr = io.exMemIn(67)  // MemWrite, bool
+  val exMemWb = io.exMemIn(68) // EX_MEM_Wb, bool
 
   val dataMem = Module(new Memory())
   val memRg = RegInit(0.U(69.W))  // pipeline register
