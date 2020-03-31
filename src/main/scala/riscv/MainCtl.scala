@@ -5,7 +5,7 @@ import chisel3.util._
 
 class MainCtl extends Module {
   val io = IO(new Bundle {
-    val Opc = Input(UInt(6.W))
+    val Opc = Input(UInt(7.W))
     val Ctl = Output(UInt(16.W))
     //val PCWrite = Output(UInt(1.W))
     //val PCWriteCond = Output(UInt(1.W))
@@ -30,6 +30,7 @@ class MainCtl extends Module {
   //val signal = VecInit(Cat(io.Opc, io.PCWrite, io.PCWriteCond, io.IorD, io.MemRead, io.MemWrite, io.IRWrite, io.MemtoReg, io.PCSource, io.ALUOp, io.ALUSrcB, io.ALUSrcA, io.RegWrite, io.RegDst).asBools)
   val signal = WireDefault(0.U(16.W))
 
+
   switch (stateReg){
     is(s0){
       signal := "b1001010000001000".U
@@ -37,11 +38,11 @@ class MainCtl extends Module {
     }
     is(s1){
       signal := "b0000000000011000".U
-      when(io.Opc === "b000000".U){
+      when(io.Opc === "b0000000".U){
         stateReg := s6
-      }.elsewhen(io.Opc === "b000100".U){
+      }.elsewhen(io.Opc === "b0000100".U){
         stateReg := s8
-      }.elsewhen(io.Opc === "b000010".U){
+      }.elsewhen(io.Opc === "b0000010".U){
         stateReg := s9
       } otherwise {
         stateReg := s2
@@ -49,9 +50,9 @@ class MainCtl extends Module {
     }
     is(s2) {
       signal := "b0000000000010100".U
-      when(io.Opc === "b100011".U) {
+      when(io.Opc === "b0100011".U) {
         stateReg := s3
-      }.elsewhen(io.Opc === "b101011".U) {
+      }.elsewhen(io.Opc === "b0101011".U) {
         stateReg := s6
       }
     }

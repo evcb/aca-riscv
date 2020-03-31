@@ -22,15 +22,15 @@ class DecodeStage extends Module {
     val CtlOut = Output(UInt(7.W)) //RegWrite(1), MemToReg(1), MemWrite(1), MemRead(1), ALU_OP(2), ALU_Src(1)
   })
 
-
+  //Stage Registers
   val IdExRg = RegInit(0.asUInt(153.W))
   val CtlRg = RegInit(0.asUInt(7.W))
 
+  // @TODO fix signed extension
+  // Immediate Generator
   val Imm64 = WireDefault(0.U(64.W)) //Output for Immediate Generator
   val ShLftImm = WireDefault(0.U(64.W)) //Output for Shift Left 1
 
- // @TODO fix signed extension
-  // Immediate Generator
   switch(io.ifIdIn(6,0)) { //Checks instruction type by optocodes
     //I-type
     is("b0000011".U) {
@@ -66,7 +66,7 @@ class DecodeStage extends Module {
   io.ifIdPc := io.ifIdIn(96, 33) + ShLftImm
 
   //Connecting Register file
-val RegFile = Module(new RegisterFile())
+  val RegFile = Module(new RegisterFile())
   //Inputs
   RegFile.io.wrEna := io.ExMemRegWrite
   RegFile.io.rdAddr1 := io.ifIdIn(24,20)
@@ -76,6 +76,17 @@ val RegFile = Module(new RegisterFile())
   //Outputs
   val rdOut1 = Wire(RegFile.io.rdOut1)
   val rdOut2 = Wire(RegFile.io.rdOut2)
+  // @TODO can we do this?
+  //Compare output of reg for bnq
+  val equality = Wire(rdOut1===rdOut2)
+
+  //Connecting Main control
+  val MnCtl = Module(new MainCtl())
+  //Inputs
+  MnCtl.io.Opc := io.ifIdIn(6,0)
+
+
+
 
 
 
