@@ -4,44 +4,7 @@ package riscv
 import chisel3._
 import chisel3.util._
 
-/**
- * Constants used in this stage.
- */
-object Constants
-{
-  /**
-   * Positions of bits in ID/EX register.
-   */
-  def CONTROL_WB = 255;
-  def CONTROL_MEM = 254;
-  def CONTROL_EX = 253;
 
-  /**
-   * Sizes of signals.
-   */
-  def SZ_RD = 5.W;
-  def SZ_ID_EX_REG = 256.W;
-  def SZ_EX_MEM_REG = 68.W;
-  def SZ_RS1 = 32.W
-  def SZ_RS2 = 32.W
-  def SZ_MUX_CTRL = 1.W
-  def SZ_ID_EX_F = 10.W
-
-  def SZ_ALU_OP = 2.W
-  def SZ_ALU_SRC = 1.W
-  def SZ_ALU_FN = 4.W // size of the ALU operation signal
-  def SZ_INPUT = 32.W // size of an input
-  def SZ_OUTPUT = 32.W// size of an output
-  def SZ_FLAG = 1.W
-
-  // Supported ALU functions
-  def FN_ADD  = 2.U
-  def FN_SUB  = 6.U
-  def FN_OR = 1.U
-  def FN_AND = 0.U
-  def FN_SLT  = 7.U
-  def FN_NOR = 1
-}
 
 import Constants._
 
@@ -70,11 +33,11 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   val idExWb = io.idExRg(CONTROL_WB)  //passthrough
   val idExMem = io.idExRg(CONTROL_MEM)  //passthrough
-  val idExImm =   //immediate signal
-  val idExF =  Input(UInt(SZ_ID_EX_F))   /* TODO: what is this signal? */
-  val idExRs1 =   // read data 1
-  val idExRs2 =   //read data 2
-  val idExRd =    //register destination (either an ALU instruction or a load)
+  val idExImm = UInt(SZ_INPUT)  //immediate signal
+  val idExF = UInt(SZ_ID_EX_F)   /* TODO: what is this signal? */
+  val idExRs1 = UInt(SZ_INPUT)  // read data 1
+  val idExRs2 = UInt(SZ_INPUT) //read data 2
+  val idExRd =  UInt(SZ_RD)  //register destination (either an ALU instruction or a load)
   val aluOp =  UInt(SZ_ALU_OP)   //opcode (TODO: parse out of EX)
   val aluSrc =  UInt(SZ_ALU_SRC)   //alu ctrl fn (TODO: parse out of EX)
   val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
@@ -141,7 +104,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
-
+  
 
 
   //write to output register
