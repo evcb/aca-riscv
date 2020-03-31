@@ -16,7 +16,7 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
   // addresses must be multiple of 4
   // ignoring lower 2 bits in the address to match the 2-d matrix struct
   when (io.rdAddr > 0.U) {
-    io.rdData := (io.rdAddr >> 2.U).asUInt()
+    io.rdData := rom((io.rdAddr >> 2.U).asUInt())
   } .otherwise {
     io.rdData := rom(io.rdAddr)
   }
