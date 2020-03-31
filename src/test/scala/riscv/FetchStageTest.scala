@@ -19,7 +19,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 1.U)
+  expect(r.io.ifIdOut, 1.U)
 
   poke(r.io.pcSrc, false.B)
   poke(r.io.ifIdPc, 0.U)
@@ -29,7 +29,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 17179869185L.U)
+  expect(r.io.ifIdOut, 17179869185L.U)
 
   // flushing
   poke(r.io.pcSrc, false.B)
@@ -40,7 +40,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 34359738368L.U)
+  expect(r.io.ifIdOut, 34359738368L.U)
 
   // incremental
   poke(r.io.pcSrc, false.B)
@@ -51,7 +51,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 51539607555L.U)
+  expect(r.io.ifIdOut, 51539607555L.U)
 
   // branching
   poke(r.io.pcSrc, true.B)
@@ -62,7 +62,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(2)
 
-  expect(r.io.ifOut, 1.U)
+  expect(r.io.ifIdOut, 1.U)
 }
 
 class FetchStageTest extends FlatSpec with Matchers {

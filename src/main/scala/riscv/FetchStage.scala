@@ -16,12 +16,12 @@ class FetchStage(data: Array[String] = Array()) extends Module {
     val ifFlush = Input(Bool())  // control signal from main ctl ID
     val ifIdWrite = Input(Bool())  // control signal from main ctl ID
 
-    val ifOut = Output(UInt(96.W)) // pip. reg, instruction (32 bits), addr (64 bits),
+    val ifIdOut = Output(UInt(96.W)) // pip. reg, instruction (32 bits), addr (64 bits),
   })
 
   val pcRg = RegInit(0.asUInt(64.W)) // PC
   val inMem = Module(new InstructionMemory(data)) // 32-bit rom instruction mem.
-  val ifRg = RegInit(0.asUInt(96.W)) // pipeline register
+  val ifIdRg = RegInit(0.asUInt(96.W)) // pipeline register
 
   // pcWrite to branch
   // branch addr or increment addr
@@ -35,14 +35,14 @@ class FetchStage(data: Array[String] = Array()) extends Module {
     // concatenating instruction and addr
     when (!io.ifFlush) {
       //       Cat(MSB, LSB)
-      ifRg := Cat(pcRg, inMem.io.rdData)
+      ifIdRg := Cat(pcRg, inMem.io.rdData)
       val data = inMem.io.rdData
       printf(p"data: $data, regaddr: $pcRg,  \n")
     } .otherwise {
       //       Cat(MSB, LSB)
-      ifRg := Cat(pcRg, 0.asUInt(32.W))
+      ifIdRg := Cat(pcRg, 0.asUInt(32.W))
       printf(p"FLUSHING data: 000s, reg: $pcRg \n")
     }
   }
-  io.ifOut := ifRg
+  io.ifIdOut := ifIdRg
 }
