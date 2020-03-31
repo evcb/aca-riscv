@@ -37,12 +37,15 @@ object Constants
   /**
    * Sizes of signals.
    */
-  def SZ_ID_EX_REG = 118.W;
+  def SZ_ID_EX_REG = 121.W;
   def SZ_CTL_REG = 7.W;
   def SZ_EX_MEM_REG = 68.W;
 
   def SZ_RD = 5.W;
-
+  def SZ_RS1 = 5.W
+  def SZ_RS2 = 5.W
+  def SZ_ALU_OP = 2.W
+  def SZ_ALU_SRC = 1.W
   def SZ_MUX_CTRL = 1.W
   def SZ_ALU_FN = 4.W // size of the ALU operation signal
   def SZ_INPUT = 32.W // size of an input

@@ -44,21 +44,21 @@ class ExStage extends Module {
   val aluSrc = io.idCtlIn(ALU_SRC, 0).asBool() // 1 bit
   
   //Parse idExIn
-  val idExD1 = io.idCtlIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
-  val idExD2 = io.idCtlIn(ID_EX_D2, ID_EX_IMM + 1) //read data 2
-  val idExImm = io.idCtlIn(ID_EX_IMM, ID_EX_F + 1)  //immediate 
-  val idExF = io.idCtlIn(ID_EX_F, ID_EX_RS2 + 1) //func3 + func7
-  val idExRs2 = io.idCtlIn(ID_EX_RS2, ID_EX_RS1 + 1)  // input to forwarder 1
-  val idExRs1 = io.idCtlIn(ID_EX_RS1, ID_EX_RD + 1) //input to forwarder 2
-  val idExRd =  io.idCtlIn(ID_EX_RD, 0)  //register destination (either an ALU instruction or a load)
+  val idExD1 = io.idExIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
+  val idExD2 = io.idExIn(ID_EX_D2, ID_EX_IMM + 1) //read data 2
+  val idExImm = io.idExIn(ID_EX_IMM, ID_EX_F + 1)  //immediate
+  val idExF = io.idExIn(ID_EX_F, ID_EX_RS2 + 1) //func3 + func7
+  val idExRs2 = io.idExIn(ID_EX_RS2, ID_EX_RS1 + 1)  // input to forwarder 1
+  val idExRs1 = io.idExIn(ID_EX_RS1, ID_EX_RD + 1) //input to forwarder 2
+  val idExRd =  io.idExIn(ID_EX_RD, 0)  //register destination (either an ALU instruction or a load)
 
 
   /*********************************************************************************************************/
   /* Internal signals                                                                                      */
   /*********************************************************************************************************/
-  val forwardA = UInt(SZ_MUX_CTRL) //outputs from forwarder
-  val forwardB = UInt(SZ_MUX_CTRL) //outputs from forwarder
-  val aluResult = UInt(SZ_INPUT) // output from ALU
+  //val forwardA = Wire(UInt()) //outputs from forwarder
+  //val forwardB = Wire(UInt()) //outputs from forwarder
+  val aluResult = Wire(UInt()) // output from ALU
 
 
   val outputMux1 = UInt(SZ_INPUT) // internal muxes output; temp hack
@@ -79,21 +79,21 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   val alu = Module(new Alu())
   val aluCtrl = Module(new AluCtl())
-  val forwarder = Module(new Forwarder())
+  //val forwarder = Module(new Forwarder())
 
 
   /*********************************************************************************************************/
   /* Hook up components                                                                                    */
   /*********************************************************************************************************/
   //inputs to forwarder
-  io.exMemRd <> forwarder.io.exMemRd
-  io.exMemWb <> forwarder.io.exMemWb
-  io.memWbRd <> forwarder.io.memWbRd
-  io.memWbWb <> forwarder.io.memWbWb
+  //io.exMemRd <> forwarder.io.exMemRd
+  //io.exMemWb <> forwarder.io.exMemWb
+  //io.memWbRd <> forwarder.io.memWbRd
+  //io.memWbWb <> forwarder.io.memWbWb
 
   //outputs from forwarder
-  forwardA := forwarder.io.forwardA
-  forwardB := forwarder.io.forwardB
+  //forwardA := forwarder.io.forwardA
+  //forwardB := forwarder.io.forwardB
 
   //inputs to aluCtrl
   aluCtrl.io.funct7 := idExF(9,3) //TODO: test is this correct
