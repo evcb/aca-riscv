@@ -22,7 +22,6 @@ class Alu() extends Module {
   val a = io.a
   val b = io.b
   val result = Wire(UInt(SZ_OUTPUT))
-  val zeroFlag = Wire(UInt(SZ_FLAG))
 
   //Assign default values to outputs
   result := 0.U

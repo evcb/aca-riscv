@@ -129,5 +129,3 @@ class ExStage extends Module {
   //write to output register
   io.exMemOut := exMemRg
 }
-missing zero flag branching
-size of rd signal

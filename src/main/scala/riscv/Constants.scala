@@ -28,14 +28,11 @@ object Constants
   /**
    * End positions of bits in EX/MEM register.
    */
-  def ID_EX_D1 = 118;
-  def ID_EX_D2 = 87;
-  def ID_EX_IMM = 56;
-  def ID_EX_F = 24;
-  def ID_EX_RS2 = 14;
-  def ID_EX_RS1 = 9; 
-  def ID_EX_RD = 4;
-
+  def EX_MEM_WB = 76;
+  def EX_MEM_MEM = 74;
+  def EX_MEM_ADDR = 70;
+  def EX_MEM_WD = 37;
+  def EX_MEM_RD = 5;
 
   /**
    * Sizes of signals.
@@ -62,6 +59,8 @@ object Constants
   def FN_SUB  = 6.U
   def FN_OR = 1.U
   def FN_AND = 0.U
+
+  
   def FN_SLT  = 7.U
-  def FN_NOR = 1
+  //def FN_NOR = 1
 }
