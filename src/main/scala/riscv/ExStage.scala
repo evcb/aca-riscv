@@ -41,7 +41,7 @@ class ExStage extends Module {
   val idExWb = io.idCtlIn(END_WB, END_MEM + 1)  //2 bits
   val idExMem = io.idCtlIn(END_MEM, ALU_OP + 1)  //2 bits
   val aluOp = io.idCtlIn(ALU_OP, ALU_SRC + 1) //2 bits
-  val aluSrc = io.idCtlIn(ALU_SRC, 0) // 1 bit
+  val aluSrc = io.idCtlIn(ALU_SRC, 0).asBool() // 1 bit
   
   //Parse idExIn
   val idExD1 = io.idCtlIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
