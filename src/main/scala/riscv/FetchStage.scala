@@ -16,12 +16,13 @@ class FetchStage(data: Array[String] = Array()) extends Module {
     val ifFlush = Input(Bool())  // control signal from main ctl ID
     val ifIdWrite = Input(Bool())  // control signal from main ctl ID
 
-    val ifOut = Output(UInt(63.W)) // pip. reg, instruction (32 bits), addr (32 bits),
+    val ifOut = Output(UInt(64.W)) // pip. reg, instruction (32 bits), addr (32 bits),
   })
 
+  val inMem = Module(new InstructionMemory(data)) // 32-bit rom instruction mem
+
   val pcRg = RegInit(0.asUInt(32.W)) // PC
-  val inMem = Module(new InstructionMemory(data)) // 32-bit rom instruction mem.
-  val ifRg = RegInit(0.asUInt(63.W)) // pipeline register
+  val ifRg = RegInit(0.asUInt(64.W)) // pipeline register
 
   // pcWrite to branch
   // branch addr or increment addr

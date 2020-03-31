@@ -29,7 +29,9 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 17179869185L.U)
+
+  // 10000000000000000000000000000000001
+  expect(r.io.ifOut, 17179869186L.U)
 
   // flushing
   poke(r.io.pcSrc, false.B)
@@ -40,6 +42,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
+  // 100000000000000000000000000000000000
   expect(r.io.ifOut, 34359738368L.U)
 
   // incremental
@@ -51,7 +54,8 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(1)
 
-  expect(r.io.ifOut, 51539607555L.U)
+  // 110000000000000000000000000000000011
+  expect(r.io.ifOut, "b110000000000000000000000000000000011".U)
 
   // branching
   poke(r.io.pcSrc, true.B)
@@ -62,6 +66,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   step(2)
 
+  // 000000000000000000000000000000000001
   expect(r.io.ifOut, 1.U)
 }
 
