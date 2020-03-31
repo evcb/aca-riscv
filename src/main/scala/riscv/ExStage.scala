@@ -35,12 +35,12 @@ object Constants
   def SZ_FLAG = 1.W
 
   // Supported ALU functions
-  def FN_ADD  = 0.U
-  def FN_SUB  = 1.U
-  def FN_OR = 2.U
-  def FN_AND = 3.U
-  def FN_SLT  = 4.U
-  def FN_NOR = 5.U
+  def FN_ADD  = 2.U
+  def FN_SUB  = 6.U
+  def FN_OR = 1.U
+  def FN_AND = 0.U
+  def FN_SLT  = 7.U
+  def FN_NOR = 1
 }
 
 import Constants._

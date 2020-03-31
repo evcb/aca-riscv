@@ -2,8 +2,8 @@ package riscv
 
 import chisel3.{Wire, _}
 import chisel3.util._
-
 import Constants._
+
 /**
  * Class represent the ALU for the RISCV project.
  * Controlled by AluCtl.
@@ -26,7 +26,7 @@ class Alu() extends Module {
 
   //Assign default values to outputs
   result := 0.U
-  zeroFlag := (result === 0.U)
+  zeroFlag := (result === 0.S)
 
   //The ALU selection
   switch(fn) {
