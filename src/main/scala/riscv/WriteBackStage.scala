@@ -9,26 +9,28 @@ import chisel3._
 
 class WriteBackStage extends Module {
   val io = IO(new Bundle {
-    val exMemRg = Input(UInt(99.W))
+    val memWbIn = Input(UInt(71.W))  // MemStage pipeline
 
-    val memWbRegWr = Output(UInt(64.W))  // pass-through MEM_WB_RegWrite
-    val memWbRd = Output(UInt(64.W))  // pass-through MEM_WB_Rd
+    val exMemRegWrite = Output(Bool())  // pass-through EX_MEM_RegWrite <-|
+    val memWbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite <-|
+    val memWbRd = Output(UInt(5.W))  // pass-through MEM_WB_Rd
 
-    val wbOut = Output(UInt(32.W))
+    val wbOut = Output(UInt(32.W))  // MEM_WB_Wd
   })
 
-  // @TODO: bit alignment incorrect, has to be checked
-  val memToRg = io.exMemRg(0) // MEM_TO_Reg, EX_MEM_Wb from MemStage, bool
-  val memWbD = io.exMemRg(35, 3) // MEM_WB_D, 32 bits
-  val memWbAddr = io.exMemRg(68, 36)  // MEM_WB_Addr, 32 bits
-
-  val exMemRegWr = memToRg  // pass-through EX_MEM_RegWrite, 32 bits
-  val wbRd = io.exMemRg(0)  // pass-through MEM_WB_Rd, 32 bits
+  val memToRg = io.memWbIn(0)
+  val exMemRegWrite = io.memWbIn(1) // EX_MEM_RegWrite
+  val memWbRegWrite = io.memWbIn(1) // MEM_WB_RegWrite
+  val memWbD = io.memWbIn(33, 2) // MEM_WB_D, 32 bits
+  val memWbAddr = io.memWbIn(65, 34)  // MEM_WB_Addr, 32 bits
+  val memWbRd = io.memWbIn(70, 66)  // MEM_WB_Rd, 5 bits
 
   // if memToRg then memWbData
-  io.wbOut := Mux(memToRg, memWbD, memWbAddr) // output
+  io.wbOut := Mux(memToRg, memWbAddr, memWbD) // output
 
   // pass-through
-  io.memWbRegWr := exMemRegWr
-  io.memWbRd := wbRd
+  io.memWbRd := memWbRd
+  io.exMemRegWrite := exMemRegWrite
+  io.memWbRegWrite := memWbRegWrite
+
 }

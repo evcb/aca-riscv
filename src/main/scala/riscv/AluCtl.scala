@@ -13,19 +13,20 @@ class AluCtl extends Module {
 
   val result = WireDefault(8.U)
 
+  //TODO: separate tests for I-type, R-type
   switch(io.ALUOP) {
-    is("b00".U) { result := "b0010".U }
-  }
-  switch(io.ALUOP(0, 0)) {
-    is ("b1".U) { result := "b0110".U }
-  }
-  switch(io.ALUOP(1, 1)) {
-    is ("b1".U) {
+    is ("b10".U) { //R-type instructions
       switch(Cat(io.funct7, io.funct3)) {
-        is ("b0000000000".U) { result := "b0010".U }
-        is ("b0100000000".U) { result := "b0110".U }
-        is ("b0000000111".U) { result := "b0000".U }
-        is ("b0000000110".U) { result := "b0001".U }
+        is ("b0000000000".U) { result := "b0010".U } //ADD
+        is ("b0100000000".U) { result := "b0110".U } //SUB
+        is ("b0000000111".U) { result := "b0000".U } //AND
+        is ("b0000000110".U) { result := "b0001".U } //OR
+        is ("b0000000010".U) { result := "b0111".U } //SLT         
+      }
+    } 
+    is ("b01".U) { //I-type instructions
+      switch(Cat(io.funct3)) {
+        is ("b000".U) { result := "b0010".U } //ADDI
       }
     }
   }
