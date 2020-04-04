@@ -19,13 +19,13 @@ class MemStage extends Module {
     val memOut = Output(UInt(71.W)) // stage output
   })
 
-  // Parsing input (expects bits from LSB -> MSB)
-  val exMemWb = io.exMemIn(72, 71) // EX_MEM_Wb, 2-bit
-  val memWr = io.exMemIn(70)  // MemWrite, bool
-  val memRd = io.exMemIn(69)  // MemRead, bool
-  val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
-  val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
+  // Parsing input (expects LSB -> MSB)
   val exMemRd = io.exMemIn(4, 0) // EX_MEM_Rd, 5.W
+  val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
+  val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
+  val memRd = io.exMemIn(69)  // MemRead, bool
+  val memWr = io.exMemIn(70)  // MemWrite, bool
+  val exMemWb = io.exMemIn(72, 71) // EX_MEM_Wb, 2-bit
 
   val dataMem = Module(new Memory())
   val memRg = RegInit(0.U(71.W))  // pipeline register
