@@ -16,8 +16,8 @@ class Riscv() extends Module {
   io.txd := 1.U
 
   val fetchStage = Module(new FetchStage(
-    Array("b1010101010101101001101110111011")
-  ))  // initial instruction
+    Array("b10101101010101101001101110111011") // initial instruction
+  ))
   val decodeStage = Module(new DecodeStage())
   val executionStage = Module(new ExStage())
   val memStage = Module(new MemStage())
