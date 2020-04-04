@@ -5,7 +5,7 @@ import chisel3.util._
 
 class DecodeStage extends Module {
   val io = IO(new Bundle {
-    val ifIdIn = Input(UInt(96.W)) //Previous stage register PC(64), Instruction(32) look at RISC-V ISA
+    val ifIdIn = Input(UInt(64.W)) //Previous stage register PC(32), Instruction(32) look at RISC-V ISA
     val IdExRd = Input(UInt(5.W)) //Hazard Detection from Execute stage
     val MemWbRd = Input(UInt(5.W)) //Hazard Detection from Memory stage
     val IdExMemRead = Input(Bool()) //Hazard Detection from Execute stage
@@ -16,7 +16,7 @@ class DecodeStage extends Module {
     val pcWrite = Output(Bool())
     val ifFlush = Output(Bool())
     val ifIdWrite = Output(Bool())
-    val ifIdPc = Output(UInt(64.W))
+    val ifIdPc = Output(UInt(32.W))
 
     val IdExOut = Output(UInt(121.W)) //Read Dta 1 & 2 (32 & 32), Extended Imm(32), Funct 7 & 3(10), Rs 1 & 2(5 & 5), Rd(5)
     val CtlOut = Output(UInt(7.W)) //RegWrite(1), MemToReg(1), MemWrite(1), MemRead(1), ALU_OP(2), ALU_Src(1)
@@ -33,7 +33,7 @@ class DecodeStage extends Module {
   val ShLftImm = Wire(UInt())
   ShLftImm := Imm32.io.ImmOut << 1
   //Add PC with shifted Imm for Branch Adress
-  io.ifIdPc := io.ifIdIn(96, 33) + ShLftImm
+  io.ifIdPc := io.ifIdIn(64, 33) + ShLftImm
 
 
   //Connecting Register file
