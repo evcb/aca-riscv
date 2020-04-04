@@ -9,13 +9,16 @@ object MemStageTester {
 }
 
 class MemStageTester(r: MemStage) extends PeekPokeTester(r) {
-  var adr1: UInt = 584.U
-  var adr2: UInt = 83.U
 
-  poke(r.io.exMemIn, "b1000000000000000000000".U)
+  poke(r.io.exMemIn, "b1010101101010101101111110111010000111111100111111101010100111110111110011".U)
+
   step(2)
-  expect(r.io.memOut, 33.U)
 
+  expect(r.io.exMemRegWr, "b10".U)
+  expect(r.io.exMemRd, "b10011".U)
+  expect(r.io.memAddr, "b100111111110111111111000001010101".U)
+
+  expect(r.io.memOut, 33.U)
 }
 
 class MemStageTest extends FlatSpec with Matchers {
