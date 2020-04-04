@@ -11,15 +11,15 @@ object FetchStageTester {
 class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
 
   // incremental addressing
-  poke(r.io.pcSrc, false.B) // does not pick up branch
-  poke(r.io.ifIdPc, 0.U) // irrelevant
+  poke(r.io.pcSrc, false.B) // branch
+  poke(r.io.ifIdPc, 0.U)
   poke(r.io.pcWrite, true.B)
   poke(r.io.ifIdWrite, true.B)
   poke(r.io.ifFlush, false.B)
 
   step(1)
 
-  expect(r.io.ifOut, 1.U)
+  expect(r.io.ifOut, 8.U)
 
   poke(r.io.pcSrc, false.B)
   poke(r.io.ifIdPc, 0.U)
@@ -28,7 +28,6 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
   poke(r.io.ifFlush, false.B)
 
   step(1)
-
 
   // 10000000000000000000000000000000001
   expect(r.io.ifOut, 17179869186L.U)
@@ -55,7 +54,7 @@ class FetchStageTester(r: FetchStage) extends PeekPokeTester(r) {
   step(1)
 
   // 110000000000000000000000000000000011
-  expect(r.io.ifOut, "b110000000000000000000000000000000011".U)
+  expect(r.io.ifOut, "b110000000000000000000000000000000100".U)
 
   // branching
   poke(r.io.pcSrc, true.B)
