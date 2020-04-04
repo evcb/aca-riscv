@@ -23,6 +23,8 @@ riscv:
 
 
 # Generate the C++ simulation and run the tests
+ex-test:
+    $(SBT) "test:run riscv.ExStageTest"
 
 alu-test:
     $(SBT) "test:run riscv.AluTestSpec"

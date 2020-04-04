@@ -35,10 +35,6 @@ class AluTest(dut: Alu) extends PeekPokeTester(dut) {
         println(s"  expected = $resMask")
 
         expect(dut.io.result, resMask)
-        if (result == 0)
-          expect (dut.io.zeroFlag, 1)
-        else
-          expect (dut.io.zeroFlag, 0)
 
         println()
       }
