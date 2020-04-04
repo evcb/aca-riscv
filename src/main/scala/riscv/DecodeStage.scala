@@ -29,8 +29,8 @@ class DecodeStage extends Module {
   // Immediate Generator
   val Imm32 = Module(new ImmGen())
   Imm32.io.InsIn := io.ifIdIn(31,0)
-  val ShLftImm = Wire(UInt()) //Output for Shift Left 1
   //Shift Left by 1
+  val ShLftImm = Wire(UInt())
   ShLftImm := Imm32.io.ImmOut << 1
   //Add PC with shifted Imm for Branch Adress
   io.ifIdPc := io.ifIdIn(96, 33) + ShLftImm
@@ -59,16 +59,29 @@ class DecodeStage extends Module {
   //Inputs
   MnCtl.io.Opc := io.ifIdIn(6,0)
 
+  val MnCtlw = Wire(UInt())
+
   //Flush
   io.ifFlush := MnCtl.io.Ctl(8).asBool()
 
+  //Hazard Detection Unit
+  val Hazard = Module(new HazardDetectionUnit())
+  //Input
+  Hazard.io.IdExMemRead := io.IdExMemRead
+  Hazard.io.IdExRd := io.IdExRd
+  Hazard.io.IfIdRs1 := io.ifIdIn(24,20)
+  Hazard.io.IfIdRs2 := io.ifIdIn(19,15)
+  //Output
+  io.pcWrite := Hazard.io.PCWrite
+  io.ifIdWrite := Hazard.io.IfIdWrite
+  //Mux for inserting bubble
+  MnCtlw := Mux(Hazard.io.NOP, 0.U, MnCtl.io.Ctl(7,0))
+
   //Branch
-  io.pcSrc := MnCtl.io.Ctl(0) & zero
+  io.pcSrc := MnCtlw(0) & zero
 
   //Set input for Control Reg ID/EX
-  // @TODO ADD HAZARD CTL SIGNAL
-  //CtlRg := Mux(Hazard, 0.U, MnCtl.io.Ctl(7,1))
-  io.CtlOut := CtlRg
+  io.CtlOut := MnCtlw(7,1)
 
   //Set input Stage Reg ID/EX
   IdExRg := Cat(rdOut1,rdOut2,Imm32.io.ImmOut, Cat(io.ifIdIn(31,25), io.ifIdIn(14, 12)), io.ifIdIn(19, 15), io.ifIdIn(24, 20), io.ifIdIn(11, 7))
