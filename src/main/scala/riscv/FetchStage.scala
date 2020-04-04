@@ -36,8 +36,6 @@ class FetchStage(data: Array[String] = Array()) extends Module {
     when (!io.ifFlush) {
       //       Cat(MSB, LSB)
       ifRg := Cat(pcRg, inMem.io.rdData)
-      val data = inMem.io.rdData
-      printf(p"instruction: $data \n")
     } .otherwise {
       //       Cat(MSB, LSB)
       ifRg := Cat(pcRg, 0.asUInt(32.W))

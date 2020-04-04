@@ -14,8 +14,6 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
   if (!data.isEmpty) { for (i <- data.indices) { rom(i) := data(i).U } }
   var c = (io.rdAddr >> 2.U).asUInt()
   var a = io.rdAddr
-  printf(p"original addr $a \n")
-  printf(p"calc addr $c \n")
   // matching the sequential indexing in Array()
   io.rdData := rom((io.rdAddr >> 2.U).asUInt())
 }
