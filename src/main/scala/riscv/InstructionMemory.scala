@@ -12,8 +12,7 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
 
   // load instructions into the memory
   if (!data.isEmpty) { for (i <- data.indices) { rom(i) := data(i).U } }
-  var c = (io.rdAddr >> 2.U).asUInt()
-  var a = io.rdAddr
+
   // matching the sequential indexing in Array()
   io.rdData := rom((io.rdAddr >> 2.U).asUInt())
 }
