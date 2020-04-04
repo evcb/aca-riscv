@@ -10,114 +10,55 @@ object MainCtlTester {
 
 
 class MainCtlTester(dut: riscv.MainCtl) extends PeekPokeTester(dut) {
-  //s0
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
-
-  //s1
-  poke(dut.io.Opc, "b100011".U)
+  //R-type
+  poke(dut.io.Opc,"b0110011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000011000".U)
+  expect(dut.io.Ctl,"b010001000".U)
 
-  //s2
+  //I-type1
+  poke(dut.io.Opc,"b0000011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000010100".U)
+  expect(dut.io.Ctl,"b011010010".U)
 
-  //s3
+  //I-type2
+  poke(dut.io.Opc,"b0010011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0011000000000000".U)
+  expect(dut.io.Ctl,"b010000110".U)
 
-  //s4
+  //I-type3
+  poke(dut.io.Opc,"b1100111".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000001000000010".U)
+  expect(dut.io.Ctl,"b000000001".U)
 
-  //s0
+  //S-type
+  poke(dut.io.Opc,"b0100011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
+  expect(dut.io.Ctl,"b000100010".U)
 
-  //s1
-  poke(dut.io.Opc, "b000000".U)
+  //SB-type
+  poke(dut.io.Opc,"b1100011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000011000".U)
+  expect(dut.io.Ctl,"b000000001".U)
 
-  //s6
+  //U-type
+  poke(dut.io.Opc,"b0110111".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000001000100".U)
+  expect(dut.io.Ctl,"b000000000".U)
 
-  //s7
+  //UJ-type
+  poke(dut.io.Opc,"b1101111".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000000011".U)
+  expect(dut.io.Ctl,"b000000000".U)
 
-  //s0
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
 
-  //s1
-  poke(dut.io.Opc, "b000100".U)
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000011000".U)
-
-  //s8
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0100000010100100".U)
-
-  //s0
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
-
-  //s1
-  poke(dut.io.Opc, "b000010".U)
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000011000".U)
-
-  //s9
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1000000100000000".U)
-
-  //s0
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
-
-  //s1
-  poke(dut.io.Opc, "b101011".U)
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000011000".U)
-
-  //s2
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000010100".U)
-
-  //s6
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000001000100".U)
-
-  //s7
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b0000000000000011".U)
-
-  //s0
-  step(1)
-  println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b1001010000001000".U)
 }
 
 class MainCtlTest extends FlatSpec with Matchers {
