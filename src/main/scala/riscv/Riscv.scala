@@ -55,11 +55,10 @@ class Riscv() extends Module {
   // EX OUT
   executionStage.io.idExMem
   executionStage.io.idExRd
-  executionStage.io.exMemOut
 
   // MEM IN
 
-  memStage.io.exMemIn
+  memStage.io.exMemIn := executionStage.io.exMemOut
 
   // MEM OUT
 
