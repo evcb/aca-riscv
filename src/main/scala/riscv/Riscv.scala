@@ -35,9 +35,9 @@ class Riscv() extends Module {
   // ID IN
   decodeStage.io.ifIdIn := fetchStage.io.ifOut
   decodeStage.io.IdExRd := executionStage.io.idExRd
-  decodeStage.io.MemWbRd
+  decodeStage.io.MemWbRd := writeBackStage.io.memWbRd
   decodeStage.io.IdExMemRead
-  decodeStage.io.ExMemRegWrite
+  decodeStage.io.ExMemRegWrite := writeBackStage.io.memWbRegWrite
   decodeStage.io.MemWbWd := writeBackStage.io.wbOut
 
   // ID OUT
@@ -49,32 +49,23 @@ class Riscv() extends Module {
   executionStage.io.idCtlIn
   executionStage.io.exMemRd := memStage.io.exMemRd
   executionStage.io.exMemWb
-  executionStage.io.memWbRd
-  // executionStage.io.exMemAddr := memStage.io.exMemAddr // @TODO: Missing input name
-  executionStage.io.memWbWb := writeBackStage.io.wbOut // @TODO: Input name memWbWb?
+  executionStage.io.memWbRd := writeBackStage.io.memWbRd
+  // executionStage.io.exMemAddr := memStage.io.exMemAddr // @TODO: Missing input name exMemAddr
+  // executionStage.io.exMemRegWr := memStage.io.exMemRegWr // @TODO: missing input exMemRegWr
+  // executionStage.io.memWbRegWrite := memStage.io.memWbRegWrite // @TODO: missing input memWbRegWrite
+  executionStage.io.memWbWb := writeBackStage.io.wbOut // @TODO: Input name memWbWb
 
   // EX OUT
   executionStage.io.idExMem
 
 
-  // MEM IN
+  // MEM
 
   memStage.io.exMemIn := executionStage.io.exMemOut
 
-  // MEM OUT
-
-  memStage.io.exMemRegWr
-
-
-  memStage.io.memOut
-
   // WRITE BACK IN
-  writeBackStage.io.memWbIn
+  writeBackStage.io.memWbIn := memStage.io.memOut
 
-  //WRITE BACK OUT
-  writeBackStage.io.exMemRegWrite
-  writeBackStage.io.memWbRegWrite
-  writeBackStage.io.memWbRd
 
 }
 
