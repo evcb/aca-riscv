@@ -10,12 +10,12 @@ object DecodeStageTester {
 
 class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
 
-  poke(r.io.ifIdIn, false.B)
-  poke(r.io.IdExRd, 0.U)
-  poke(r.io.MemWbRd, true.B)
+  poke(r.io.ifIdIn, "b00000000000000000000000000000010 00000000000000000000000000000110".U)
+  poke(r.io.IdExRd, "b1111".U)
+  poke(r.io.MemWbRd, "b1011".U)
   poke(r.io.IdExMemRead, true.B)
   poke(r.io.ExMemRegWrite, false.B)
-  poke(r.io.MemWbWd, false.B)
+  poke(r.io.MemWbWd, "b10111001010101001011101010101111".U)
 
   step(1)
 
