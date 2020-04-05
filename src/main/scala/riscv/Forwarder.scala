@@ -40,15 +40,15 @@ class Forwarder() extends Module {
    * steer the multiplexor to pick the value instead from the pipeline
    * register EX/MEM"
    */
-  when (exMemRegWrite &&
-        exMemRd != "b00000".U && 
-        exMemRd != idExRs1
+  when (io.exMemRegWrite &&
+        io.exMemRd != "b00000".U &&
+        io.exMemRd != io.idExRs1
         ) { 
     io.forwardA := "b10".U
   }
-  when (exMemRegWrite &&
-        exMemRd != "b00000".U && 
-        exMemRd != idExRs2
+  when (io.exMemRegWrite &&
+        io.exMemRd != "b00000".U &&
+        io.exMemRd != io.idExRs2
         ) { 
     io.forwardB := "b10".U
   }
@@ -59,17 +59,17 @@ class Forwarder() extends Module {
    * Like EX stage hazard, but also takes into account that the result in 
    * the MEM stage is the more recent result. 
    */    
-  when (memWbRegWrite && 
-        (memWbRd != "b00000".U) && 
-        (!(exMemRegWrite && (exMemRd != "b00000"))) &&
-        (memWbRd != idExRs1) 
+  when (io.memWbRegWrite &&
+        (io.memWbRd != "b00000".U) &&
+        (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
+        (io.memWbRd != io.idExRs1)
         ) {
       io.forwardA := "b01".U
   }
-  when (memWbRegWrite && 
-        (memWbRd != "b00000".U) &&
-        (!(exMemRegWrite && (exMemRd != "b00000"))) &&
-        (memWbRd != idExRs2) 
+  when (io.memWbRegWrite &&
+        (io.memWbRd != "b00000".U) &&
+        (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
+        (io.memWbRd != io.idExRs2)
         ) {
       io.forwardB := "b01".U
   }

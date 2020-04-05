@@ -111,13 +111,13 @@ class ExStage extends Module {
   /* Mux logic                                                                                             */
   /*********************************************************************************************************/
   outputMux1 := MuxLookup(forwardA, idExD1,
-                          Array("b00".U -> io.idExD1,
+                          Array("b00".U -> idExD1,
                                 "b01".U -> io.exMemAddr,
                                 "b10".U -> io.memWbWd
                                 ))
   
   outputMux2 := MuxLookup(forwardB, idExD2,
-                          Array("b00".U -> io.idExD2,
+                          Array("b00".U -> idExD2,
                                 "b01".U -> io.exMemAddr,
                                 "b10".U -> io.memWbWd
                                 ))
