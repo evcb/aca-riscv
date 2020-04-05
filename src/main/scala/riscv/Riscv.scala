@@ -17,7 +17,7 @@ class Riscv() extends Module {
 
   val fetchStage = Module(new FetchStage(
     Array( // initial instructions
-      "b10101101010101101001101110111011",
+      "b10101101010101101001101110111011"
     )
   ))
   val decodeStage = Module(new DecodeStage())
