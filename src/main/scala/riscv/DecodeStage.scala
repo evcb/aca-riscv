@@ -33,7 +33,7 @@ class DecodeStage extends Module {
   val ShLftImm = Wire(UInt())
   ShLftImm := Imm32.io.ImmOut << 1
   //Add PC with shifted Imm for Branch Adress
-  io.ifIdPc := io.ifIdIn(64, 33) + ShLftImm
+  io.ifIdPc := io.ifIdIn(63, 33) + ShLftImm
 
 
   //Connecting Register file
