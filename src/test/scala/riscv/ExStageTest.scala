@@ -10,11 +10,11 @@ object ExStageTest {
 
 class ExStageTest(dut: ExStage) extends PeekPokeTester(dut) {
   var mockCTL = "b0101001".U
-  poke(dut.io.idCtlIn, mockCTL)
+  poke(dut.io.idExCtlIn, mockCTL)
 
   step(1)
 
-  expect(dut.io.idExMem, "b01".U)
+  expect(dut.io.idExMemRead, "b01".U)
 
 
 
