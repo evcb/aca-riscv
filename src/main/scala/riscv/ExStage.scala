@@ -28,15 +28,12 @@ class ExStage extends Module {
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(SZ_RD)) // register destination - passthrough to Hazard Detection Unit
     val exMemOut = Output(UInt(SZ_EX_MEM_REG)) // stage output reigster EX/MEM
-    //val ctlOut = Output(UInt(SZ_CTL_REG)) // stage output control reigster EX/MEM
-
   })
 
   /*********************************************************************************************************/
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
   val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
-  //val ctlOut = RegInit(0.U(SZ_CTL_REG)) //holds data for output register
 
 
   /*********************************************************************************************************/
@@ -129,10 +126,8 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* MSB -> LSB */
   exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
-  //ctlOut := Cat(idExWb, idExMem)
   printf(p"EX/MEM register from EX stage : $exMemRg")
 
   //write to output register
   io.exMemOut := exMemRg
-  //io.ctlOur := ctlOut
 }
