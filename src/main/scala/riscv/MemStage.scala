@@ -14,7 +14,7 @@ class MemStage extends Module {
 
     val exMemRegWr = Output(UInt(2.W)) // EX_MEM_REGWRITE pass-through
     val exMemRd = Output(UInt(5.W)) // EX_MEM_Wb pass-through
-    val memAddr = Output(UInt(32.W)) // EX_MEM_Addr pass-through
+    val exMemAddr = Output(UInt(32.W)) // EX_MEM_Addr pass-through
 
     val memOut = Output(UInt(71.W)) // stage output
   })
@@ -42,5 +42,5 @@ class MemStage extends Module {
   // pass-through
   io.exMemRd := exMemRd
   io.exMemRegWr := exMemWb
-  io.memAddr := exMemAddr
+  io.exMemAddr := exMemAddr
 }
