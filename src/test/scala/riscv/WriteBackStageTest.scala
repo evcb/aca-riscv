@@ -15,7 +15,6 @@ class WriteBackStageTester(r: WriteBackStage) extends PeekPokeTester(r) {
 
   step(2)
 
-  expect(r.io.exMemRegWrite, 0.U)
   expect(r.io.memWbRegWrite, 0.U)
   expect(r.io.memWbRd, "b10101".U)
 
@@ -26,7 +25,6 @@ class WriteBackStageTester(r: WriteBackStage) extends PeekPokeTester(r) {
 
   step(2)
 
-  expect(r.io.exMemRegWrite, 1.U)
   expect(r.io.memWbRegWrite, 1.U)
   expect(r.io.memWbRd, "b11011".U)
 

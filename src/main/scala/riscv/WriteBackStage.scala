@@ -11,8 +11,7 @@ class WriteBackStage extends Module {
   val io = IO(new Bundle {
     val memWbIn = Input(UInt(71.W))  // MemStage pipeline
 
-    val exMemRegWrite = Output(Bool())  // pass-through EX_MEM_RegWrite <-|
-    val memWbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite <-|
+    val memWbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite
     val memWbRd = Output(UInt(5.W))  // pass-through MEM_WB_Rd
 
     val wbOut = Output(UInt(32.W))  // MEM_WB_Wd
@@ -30,7 +29,5 @@ class WriteBackStage extends Module {
 
   // pass-through
   io.memWbRd := memWbRd
-  io.exMemRegWrite := exMemRegWrite
   io.memWbRegWrite := memWbRegWrite
-
 }
