@@ -28,15 +28,12 @@ class ExStage extends Module {
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(SZ_RD)) // register destination - passthrough to Hazard Detection Unit
     val exMemOut = Output(UInt(SZ_EX_MEM_REG)) // stage output reigster EX/MEM
-    //val ctlOut = Output(UInt(SZ_CTL_REG)) // stage output control reigster EX/MEM
-
   })
 
   /*********************************************************************************************************/
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
   val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
-  //val ctlOut = RegInit(0.U(SZ_CTL_REG)) //holds data for output register
 
 
   /*********************************************************************************************************/
@@ -53,22 +50,22 @@ class ExStage extends Module {
   val idExD2 = io.idExIn(ID_EX_D2, ID_EX_IMM + 1) //read data 2
   val idExImm = io.idExIn(ID_EX_IMM, ID_EX_F + 1)  //immediate
   val idExF = io.idExIn(ID_EX_F, ID_EX_RS2 + 1) //func3 + func7
-  val idExRs2 = io.idExIn(ID_EX_RS2, ID_EX_RS1 + 1)  // input to forwarder 1
-  val idExRs1 = io.idExIn(ID_EX_RS1, ID_EX_RD + 1) //input to forwarder 2
+  val idExRs2 = io.idExIn(ID_EX_RS2, ID_EX_RS1 + 1)  // input to forwarder
+  val idExRs1 = io.idExIn(ID_EX_RS1, ID_EX_RD + 1) //input to forwarder
   val idExRd =  io.idExIn(ID_EX_RD, 0)  //register destination (either an ALU instruction or a load)
 
 
   /*********************************************************************************************************/
   /* Internal signals                                                                                      */
   /*********************************************************************************************************/
-  //val forwardA = Wire(UInt()) //outputs from forwarder
-  //val forwardB = Wire(UInt()) //outputs from forwarder
-  val aluResult = Wire(UInt()) // output from ALU
+  val forwardA = Wire(UInt()) //output from forwarder
+  val forwardB = Wire(UInt()) //output from forwarder
+  val aluResult = Wire(UInt()) //output from ALU
 
 
-  val outputMux1 = UInt(SZ_INPUT) // internal muxes output; temp hack
-  val outputMux2 = UInt(SZ_INPUT) // internal muxes output; temp hack
-  val outputMux3 = UInt(SZ_INPUT) // internal muxes output; temp hack
+  val outputMux1 = UInt(SZ_INPUT) // internal mux1 output
+  val outputMux2 = UInt(SZ_INPUT) // internal mux2 output
+  val outputMux3 = UInt(SZ_INPUT) // internal mux3 output
 
 
   /*********************************************************************************************************/
@@ -84,21 +81,23 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   val alu = Module(new Alu())
   val aluCtrl = Module(new AluCtl())
-  //val forwarder = Module(new Forwarder())
+  val forwarder = Module(new Forwarder())
 
 
   /*********************************************************************************************************/
   /* Hook up components                                                                                    */
   /*********************************************************************************************************/
   //inputs to forwarder
-  //io.exMemRd <> forwarder.io.exMemRd
-  //io.exMemWb <> forwarder.io.exMemWb
-  //io.memWbRd <> forwarder.io.memWbRd
-  //io.memWbWb <> forwarder.io.memWbWb
+  io.exMemRd <> forwarder.io.exMemRd
+  io.exMemRegWrite <> forwarder.io.exMemRegWrite
+  io.memWbRd <> forwarder.io.memWbRd
+  io.memWbRegWrite <> forwarder.io.memWbRegWrite
+  forwarder.io.idExRs1 := idExRs1
+  forwarder.io.idExRs2 := idExRs2
 
   //outputs from forwarder
-  //forwardA := forwarder.io.forwardA
-  //forwardB := forwarder.io.forwardB
+  forwardA := forwarder.io.forwardA
+  forwardB := forwarder.io.forwardB
 
   //inputs to aluCtrl
   aluCtrl.io.funct7 := idExF(9,3) //TODO: test is this correct
@@ -107,32 +106,37 @@ class ExStage extends Module {
 
   //outputs from aluCtrl
   aluCtrl.io.alu_ctl <> alu.io.fn
-
-  //inputs to alu
-  //alu.io.a := outputMux1 //TODO: implement forwarder mux logic
-  //alu.io.b := outputMux3 //TODO: implement forwarder mux logic
-  alu.io.a := idExD1
-  alu.io.b := Mux(aluSrc, idExImm, idExD2)
-  
-
-  //outputs from alu
-  aluResult := alu.io.result
-
+ 
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */
   /*********************************************************************************************************/
-  //TODO: implement forwarder mux logic
+  outputMux1 := MuxLookup(forwardA, idExD1,
+                          Array("b00".U -> idExD1,
+                                "b01".U -> io.exMemAddr,
+                                "b10".U -> io.memWbWd
+                                ))
+  
+  outputMux2 := MuxLookup(forwardB, idExD2,
+                          Array("b00".U -> idExD2,
+                                "b01".U -> io.exMemAddr,
+                                "b10".U -> io.memWbWd
+                                ))
+  outputMux3 := Mux(aluSrc, idExImm, outputMux2)
 
+  //inputs to alu
+  alu.io.a := outputMux1 
+  alu.io.b := outputMux3    
+
+  //outputs from alu
+  aluResult := alu.io.result
 
   /*********************************************************************************************************/
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
   /* MSB -> LSB */
   exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
-  //ctlOut := Cat(idExWb, idExMem)
   printf(p"EX/MEM register from EX stage : $exMemRg")
 
   //write to output register
   io.exMemOut := exMemRg
-  //io.ctlOur := ctlOut
 }
