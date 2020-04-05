@@ -28,7 +28,7 @@ class ExStage extends Module {
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(SZ_RD)) // register destination - passthrough to Hazard Detection Unit
     val exMemOut = Output(UInt(SZ_EX_MEM_REG)) // stage output reigster EX/MEM
-    val ctlOut = Output(UInt(SZ_CTL_REG)) // stage output control reigster EX/MEM
+    //val ctlOut = Output(UInt(SZ_CTL_REG)) // stage output control reigster EX/MEM
 
   })
 
@@ -36,17 +36,17 @@ class ExStage extends Module {
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
   val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
-  val ctlOut = RegInit(0.U(SZ_CTL_REG)) //holds data for output register
+  //val ctlOut = RegInit(0.U(SZ_CTL_REG)) //holds data for output register
 
 
   /*********************************************************************************************************/
   /* Parse input registers into signals                                                                    */
   /*********************************************************************************************************/
-  //Parse idCtlIn
-  val idExWb = io.ctlOut(END_WB, END_MEM + 1)  //2 bits
-  val idExMem = io.ctlOut(END_MEM, ALU_OP + 1)  //2 bits
-  val aluOp = io.ctlOut(ALU_OP, ALU_SRC + 1) //2 bits
-  val aluSrc = io.ctlOut(ALU_SRC, 0).asBool() // 1 bit
+  //Parse idExCtlIn
+  val idExWb = io.idExCtlIn(END_WB, END_MEM + 1)  //2 bits
+  val idExMem = io.idExCtlIn(END_MEM, ALU_OP + 1)  //2 bits
+  val aluOp = io.idExCtlIn(ALU_OP, ALU_SRC + 1) //2 bits
+  val aluSrc = io.idExCtlIn(ALU_SRC, 0).asBool() // 1 bit
   
   //Parse idExIn
   val idExD1 = io.idExIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
@@ -128,10 +128,11 @@ class ExStage extends Module {
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
   /* MSB -> LSB */
-  exMemRg := Cat(aluResult, alu.io.b, idExRd)
-  ctlOut := Cat(idExWb, idExMem)
+  exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
+  //ctlOut := Cat(idExWb, idExMem)
   printf(p"EX/MEM register from EX stage : $exMemRg")
 
   //write to output register
   io.exMemOut := exMemRg
+  //io.ctlOur := ctlOut
 }
