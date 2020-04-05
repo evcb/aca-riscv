@@ -12,6 +12,15 @@ class RegisterFileTester(r: RegisterFile) extends PeekPokeTester(r) {
   var adr1: UInt = 8.U
   var adr2: UInt = 11.U
 
+  // write data, but 0 is always zero
+  poke(r.io.wrEna, true.B)
+  poke(r.io.wrAddr, 0.U)
+  poke(r.io.wrData, 5.U)
+
+  step(1)
+
+  expect(r.io.rdOut1, 0.U)
+
   // write data to reg1
   poke(r.io.wrEna, true.B)
   poke(r.io.wrAddr, adr1)
