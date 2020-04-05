@@ -16,32 +16,37 @@ import Constants._
 class ExStage extends Module {
   val io = IO(new Bundle {
     val idExIn = Input(UInt(SZ_ID_EX_REG))  // stage input register ID/EX
-    val idCtlIn = Input(UInt(SZ_CTL_REG))  // stage input control register 
+    val idExCtlIn = Input(UInt(SZ_CTL_REG))  // stage input control register
 
+    val exMemAddr = Input(UInt(SZ_INPUT)) // memory address from EX/MEM register
+    val memWbWd = Input(UInt(SZ_INPUT)) // output from Mux in Writeback stage
+    val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
+    val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
     val exMemRd = Input(UInt(SZ_RD)) // register destination from EX/MEM register (used in Forwarder)
-    val exMemWb = Input(Bool()) // control signal WB from EX/MEM register (used in Forwarder)
     val memWbRd = Input(UInt(SZ_RD)) // control signal WB from MEM/WB register (used in Forwarder)
-    val memWbWb = Input(Bool()) // control signal WB from MEM/WB register (used in Forwarder)
 
-    val idExMem = Output(Bool()) // memory control signal - passthrough to EX/MEM and Hazard Detection Unit
+    val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(SZ_RD)) // register destination - passthrough to Hazard Detection Unit
     val exMemOut = Output(UInt(SZ_EX_MEM_REG)) // stage output reigster EX/MEM
+    val ctlOut = Output(UInt(SZ_CTL_REG)) // stage output control reigster EX/MEM
+
   })
 
   /*********************************************************************************************************/
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
   val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
+  val ctlOut = RegInit(0.U(SZ_CTL_REG)) //holds data for output register
 
 
   /*********************************************************************************************************/
   /* Parse input registers into signals                                                                    */
   /*********************************************************************************************************/
   //Parse idCtlIn
-  val idExWb = io.idCtlIn(END_WB, END_MEM + 1)  //2 bits
-  val idExMem = io.idCtlIn(END_MEM, ALU_OP + 1)  //2 bits
-  val aluOp = io.idCtlIn(ALU_OP, ALU_SRC + 1) //2 bits
-  val aluSrc = io.idCtlIn(ALU_SRC, 0).asBool() // 1 bit
+  val idExWb = io.ctlOut(END_WB, END_MEM + 1)  //2 bits
+  val idExMem = io.ctlOut(END_MEM, ALU_OP + 1)  //2 bits
+  val aluOp = io.ctlOut(ALU_OP, ALU_SRC + 1) //2 bits
+  val aluSrc = io.ctlOut(ALU_SRC, 0).asBool() // 1 bit
   
   //Parse idExIn
   val idExD1 = io.idExIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
@@ -70,7 +75,7 @@ class ExStage extends Module {
   /* Default assignments                                                                                   */
   /*********************************************************************************************************/
   //passthrough signals
-  io.idExMem := idExMem
+  io.idExMemRead := idExMem
   io.idExRd := idExRd
 
 
@@ -123,7 +128,8 @@ class ExStage extends Module {
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
   /* MSB -> LSB */
-  exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
+  exMemRg := Cat(aluResult, alu.io.b, idExRd)
+  ctlOut := Cat(idExWb, idExMem)
   printf(p"EX/MEM register from EX stage : $exMemRg")
 
   //write to output register
