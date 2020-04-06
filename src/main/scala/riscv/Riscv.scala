@@ -40,7 +40,7 @@ class Riscv() extends Module {
   decodeStage.io.MemWbRd := writeBackStage.io.memWbRd
   decodeStage.io.IdExMemRead := executionStage.io.idExMemRead
   decodeStage.io.ExMemRegWrite := writeBackStage.io.memWbRegWrite
-  decodeStage.io.MemWbWd := writeBackStage.io.wbOut
+  decodeStage.io.MemWbWd := writeBackStage.io.memWbWd
 
   // EX
   executionStage.io.idExIn := decodeStage.io.IdExOut
@@ -51,7 +51,7 @@ class Riscv() extends Module {
   executionStage.io.exMemAddr := memStage.io.exMemAddr
   executionStage.io.exMemRegWrite := memStage.io.exMemRegWr
   executionStage.io.memWbRegWrite := writeBackStage.io.memWbRegWrite
-  executionStage.io.memWbWd := writeBackStage.io.wbOut
+  executionStage.io.memWbWd := writeBackStage.io.memWbWd
 
   // MEM
   memStage.io.exMemIn := executionStage.io.exMemOut
