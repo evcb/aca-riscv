@@ -28,7 +28,8 @@ class Forwarder() extends Module {
     val forwardB = Output(UInt(SZ_MUX_CTRL))
   })
 
-  
+  io.forwardA := "b00".U
+  io.forwardB := "b00".U
   
   /**
    * EX stage hazard.
@@ -39,38 +40,38 @@ class Forwarder() extends Module {
    * number of ALU inputs A or B, provided it is not register 0, then
    * steer the multiplexor to pick the value instead from the pipeline
    * register EX/MEM"
+   *
+   * MEM stage hazard.
+   *
+   * Like EX stage hazard, but also takes into account that the result in
+   * the MEM stage is the more recent result.
    */
-  when (io.exMemRegWrite &&
+  when (io.exMemRegWrite && //detect EX stage hazards in Data1
         io.exMemRd != "b00000".U &&
         io.exMemRd != io.idExRs1
         ) { 
     io.forwardA := "b10".U
+  }.elsewhen(io.memWbRegWrite && //detect MEM stage hazards in Data1
+             (io.memWbRd != "b00000".U) &&
+             (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
+             (io.memWbRd != io.idExRs1)
+            ) {
+    io.forwardA := "b01".U
+  }.otherwise {
+    io.forwardA := "b00".U
   }
-  when (io.exMemRegWrite &&
+  when (io.exMemRegWrite && //detect EX stage hazards in Data2
         io.exMemRd != "b00000".U &&
         io.exMemRd != io.idExRs2
-        ) { 
+        ) {
     io.forwardB := "b10".U
-  }
-
-  /**
-   * MEM stage hazard.
-   * 
-   * Like EX stage hazard, but also takes into account that the result in 
-   * the MEM stage is the more recent result. 
-   */    
-  when (io.memWbRegWrite &&
-        (io.memWbRd != "b00000".U) &&
-        (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
-        (io.memWbRd != io.idExRs1)
-        ) {
-      io.forwardA := "b01".U
-  }
-  when (io.memWbRegWrite &&
-        (io.memWbRd != "b00000".U) &&
-        (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
-        (io.memWbRd != io.idExRs2)
-        ) {
-      io.forwardB := "b01".U
+  }.elsewhen(io.memWbRegWrite && //detect MEM stage hazards in Data2
+            (io.memWbRd != "b00000".U) &&
+            (!(io.exMemRegWrite && (io.exMemRd != "b00000".U))) &&
+            (io.memWbRd != io.idExRs2)
+            ){
+    io.forwardB := "b01".U
+  }.otherwise {
+    io.forwardB := "b00".U
   }
 }
