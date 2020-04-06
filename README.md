@@ -4,7 +4,7 @@ This repository is the final project for the Spring/2020 Advanced Computer Archi
 
 # Project
 
-This project is a temptive implementation of a 32-bit pipeline RISC-V processor designed for low-power Spacial applications.
+This project is a implementation of a 32-bit pipeline RISC-V processor designed for low-power Spacial applications.
 
 # Requirements
 
