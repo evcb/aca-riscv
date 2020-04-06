@@ -16,6 +16,6 @@ This project is a implementation of a 32-bit pipeline RISC-V processor designed 
 
 make riscv
 	Generates the Verilog files for the small ALU.
-	Synthesize it for the DE0 board with Quartus and the alu project file.
+	Synthesize it for the altde2-115 board.
 
 See the Makefile for further examples, or simply run `sbt run` to see all objects with a main.
