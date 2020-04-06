@@ -1,6 +1,6 @@
 # Description
 
-This repository is the final project for the Spring/2020 Advanced Computer Architecture course of the Technical University of Denmark, lectured by Prof. Martin Schoeberl.
+This repository is the final project for the Spring/2020, 02211 - Advanced Computer Architecture course at the Technical University of Denmark, lectured by Prof. Martin Schoeberl.
 
 # Project
 
