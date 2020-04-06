@@ -11,15 +11,11 @@ object AluCtlTester {
 
 class AluCtlTester(dut: riscv.AluCtl) extends PeekPokeTester(dut) {
 
-  poke(dut.io.ALUOP, 0.U)
-  step(1)
-  println (" 1-Result is: " + peek(dut.io.alu_ctl). toString )
-  expect(dut.io.alu_ctl, 2)
-
   poke(dut.io.ALUOP, 1.U)
+  poke(dut.io.funct3, 0.U)
   step(1)
   println (" 2-Result is: " + peek(dut.io.alu_ctl). toString )
-  expect(dut.io.alu_ctl, 6)
+  expect(dut.io.alu_ctl, 2)
 
   poke(dut.io.ALUOP, 2.U)
   poke(dut.io.funct7, 0.U)
@@ -48,6 +44,13 @@ class AluCtlTester(dut: riscv.AluCtl) extends PeekPokeTester(dut) {
   step(1)
   println (" 6-Result is: " + peek(dut.io.alu_ctl). toString )
   expect(dut.io.alu_ctl, 1)
+
+  poke(dut.io.ALUOP, 2.U)
+  poke(dut.io.funct7, 0.U)
+  poke(dut.io.funct3, 2.U)
+  step(1)
+  println (" 6-Result is: " + peek(dut.io.alu_ctl). toString )
+  expect(dut.io.alu_ctl, 7)
 }
 
 class AluCtlTest extends FlatSpec with Matchers {

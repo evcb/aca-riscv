@@ -63,9 +63,9 @@ class ExStage extends Module {
   val aluResult = Wire(UInt()) //output from ALU
 
 
-  val outputMux1 = UInt(SZ_INPUT) // internal mux1 output
-  val outputMux2 = UInt(SZ_INPUT) // internal mux2 output
-  val outputMux3 = UInt(SZ_INPUT) // internal mux3 output
+  val outputMux1 = Wire(UInt(SZ_INPUT)) // internal mux1 output
+  val outputMux2 = Wire(UInt(SZ_INPUT)) // internal mux2 output
+  val outputMux3 = Wire(UInt(SZ_INPUT)) // internal mux3 output
 
 
   /*********************************************************************************************************/
