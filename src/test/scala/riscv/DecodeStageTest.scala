@@ -9,25 +9,58 @@ object DecodeStageTester {
 }
 
 class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
+<<<<<<< Updated upstream
 
-  poke(r.io.ifIdIn, "b00000000000000000000000000000010 00000000000000000000000000000110".U)
+  poke(r.io.ifIdIn, "b0000000000000000000000000000001000000000000000000000000000000110".U)
   poke(r.io.IdExRd, "b1111".U)
   poke(r.io.MemWbRd, "b1011".U)
   poke(r.io.IdExMemRead, true.B)
+=======
+  //Lw stage one
+  poke(r.io.ifIdIn, "b0000000000000000000000000000000000000000000000000010000010000011".U)
+  poke(r.io.IdExRd, "b00000".U)
+  poke(r.io.MemWbRd, "b00000".U)
+  poke(r.io.IdExMemRead, false.B)
+>>>>>>> Stashed changes
   poke(r.io.ExMemRegWrite, false.B)
-  poke(r.io.MemWbWd, "b10111001010101001011101010101111".U)
-
+  poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
   step(1)
 
+  //expect(r.rdOut1,0.U)
+ // expect(r.rdOut2,0.U)
+  //expect(r.zero, true.B)
+  //expect(r.MnCtlw,"b11010010".U)
+
   expect(r.io.pcSrc, false.B)
-  expect(r.io.pcWrite, false.B)
+  expect(r.io.pcWrite, true.B)
   expect(r.io.ifFlush, false.B)
-  expect(r.io.ifIdWrite, false.B)
+  expect(r.io.ifIdWrite, true.B)
   expect(r.io.ifIdPc, false.B)
+  expect(r.io.IdExOut, "b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001".U)
+  expect(r.io.CtlOut, "b1101001".U)
 
-  expect(r.io.IdExOut, false.B)
-  expect(r.io.CtlOut, false.B)
+  //Lw stage two
+  poke(r.io.ifIdIn, "b0000000000000000000000000000000000000000000000001010000100000011".U)
+  poke(r.io.IdExRd, "b00001".U)
+  poke(r.io.MemWbRd, "b00000".U)
+  poke(r.io.IdExMemRead, true.B)
+  poke(r.io.ExMemRegWrite, false.B)
+  poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
+  step(1)
 
+  //expect(r.rdOut1,0.U)
+  // expect(r.rdOut2,0.U)
+  //expect(r.zero, true.B)
+  //expect(r.MnCtlw,"b11010010".U)
+  expect(r.Hazard.io.NOP, false.B)
+
+  expect(r.io.pcSrc, false.B)
+  expect(r.io.pcWrite, true.B)
+  expect(r.io.ifFlush, false.B)
+  expect(r.io.ifIdWrite, true.B)
+  expect(r.io.ifIdPc, false.B)
+  expect(r.io.IdExOut, "b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000010000000010".U)
+  expect(r.io.CtlOut, "b1101001".U)
 }
 
 class DecodeStageTest extends FlatSpec with Matchers {
