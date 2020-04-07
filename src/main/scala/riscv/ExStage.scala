@@ -18,8 +18,8 @@ class ExStage extends Module {
     val idExIn = Input(UInt(SZ_ID_EX_REG))  // stage input register ID/EX
     val idExCtlIn = Input(UInt(SZ_CTL_REG))  // stage input control register
 
-    val exMemAddr = Input(UInt(SZ_INPUT)) // memory address from EX/MEM register
-    val memWbWd = Input(UInt(SZ_INPUT)) // output from Mux in Writeback stage
+    val exMemAddr = Input(UInt(SZ_32_BIT)) // memory address from EX/MEM register
+    val memWbWd = Input(UInt(SZ_32_BIT)) // output from Mux in Writeback stage
     val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
     val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
     val exMemRd = Input(UInt(SZ_RD)) // register destination from EX/MEM register (used in Forwarder)
@@ -63,9 +63,9 @@ class ExStage extends Module {
   val aluResult = Wire(UInt()) //output from ALU
 
 
-  val outputMux1 = Wire(UInt(SZ_INPUT)) // internal mux1 output
-  val outputMux2 = Wire(UInt(SZ_INPUT)) // internal mux2 output
-  val outputMux3 = Wire(UInt(SZ_INPUT)) // internal mux3 output
+  val outputMux1 = Wire(UInt(SZ_32_BIT)) // internal mux1 output
+  val outputMux2 = Wire(UInt(SZ_32_BIT)) // internal mux2 output
+  val outputMux3 = Wire(UInt(SZ_32_BIT)) // internal mux3 output
 
 
   /*********************************************************************************************************/

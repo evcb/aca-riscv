@@ -48,9 +48,9 @@ object Constants
   def SZ_ALU_SRC = 1.W
   def SZ_MUX_CTRL = 2.W
   def SZ_ALU_FN = 4.W // size of the ALU operation signal
-  def SZ_INPUT = 32.W // size of an input
-  def SZ_OUTPUT = 32.W// size of an output
-  def SZ_IMMEDIATE = 32.W // size of an immediate
+  def SZ_32_BIT = 32.W // size of an input
+  //def SZ_OUTPUT = 32.W// size of an output
+  //def SZ_IMMEDIATE = 32.W // size of an immediate
 
 
   // Supported ALU functions
