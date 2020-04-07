@@ -24,18 +24,24 @@ class AluTester(dut: Alu) extends PeekPokeTester(dut) {
             case 0 => a & b
             case 7 => if (a < b) 1 else 0
           }
-        val resMask = result & 0xff
+        var resMask = 0
+        if (b > a && op == 6) {
+          val b_inv = ~b
+          resMask = a + b_inv + 1
+        } else {
+          resMask = result & 0xFF
+        }
+        
 
         poke(dut.io.fn, op)
         poke(dut.io.a, a)
         poke(dut.io.b, b)
         step(1)
         println(s"  a = $a; b = $b; op = $op")
-        println(s"  expected = $resMask")
+        println(s"  expected number = $resMask")
 
         expect(dut.io.result, resMask)
 
-        println()
       }
     }
   }
