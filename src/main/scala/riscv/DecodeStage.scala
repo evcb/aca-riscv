@@ -75,6 +75,7 @@ class DecodeStage extends Module {
   io.pcWrite := Hazard.io.PCWrite
   io.ifIdWrite := Hazard.io.IfIdWrite
   //Mux for inserting bubble
+  printf("%s".format(Hazard))
   MnCtlw := Mux(Hazard.io.NOP, 0.U, MnCtl.io.Ctl(7,0))
 
   //Branch

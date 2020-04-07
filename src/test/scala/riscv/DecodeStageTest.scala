@@ -23,6 +23,7 @@ class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
   //expect(r.zero, true.B)
   //expect(r.MnCtlw,"b11010010".U)
 
+  println("Lw Stage One")
   expect(r.io.pcSrc, false.B)
   expect(r.io.pcWrite, true.B)
   expect(r.io.ifFlush, false.B)
@@ -44,13 +45,15 @@ class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
   // expect(r.rdOut2,0.U)
   //expect(r.zero, true.B)
   //expect(r.MnCtlw,"b11010010".U)
-  expect(r.Hazard.io.NOP, false.B)
+ // expect(r.Hazard.io.NOP, false.B)
 
+  println("Lw Stage TWO")
   expect(r.io.pcSrc, false.B)
   expect(r.io.pcWrite, true.B)
   expect(r.io.ifFlush, false.B)
   expect(r.io.ifIdWrite, true.B)
   expect(r.io.ifIdPc, false.B)
+
   expect(r.io.IdExOut, "b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000010000000010".U)
   expect(r.io.CtlOut, "b1101001".U)
 }
