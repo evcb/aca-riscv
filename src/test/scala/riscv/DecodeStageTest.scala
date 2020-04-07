@@ -9,19 +9,11 @@ object DecodeStageTester {
 }
 
 class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
-<<<<<<< Updated upstream
-
-  poke(r.io.ifIdIn, "b0000000000000000000000000000001000000000000000000000000000000110".U)
-  poke(r.io.IdExRd, "b1111".U)
-  poke(r.io.MemWbRd, "b1011".U)
-  poke(r.io.IdExMemRead, true.B)
-=======
   //Lw stage one
   poke(r.io.ifIdIn, "b0000000000000000000000000000000000000000000000000010000010000011".U)
   poke(r.io.IdExRd, "b00000".U)
   poke(r.io.MemWbRd, "b00000".U)
   poke(r.io.IdExMemRead, false.B)
->>>>>>> Stashed changes
   poke(r.io.ExMemRegWrite, false.B)
   poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
   step(1)
