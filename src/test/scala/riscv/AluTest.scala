@@ -4,11 +4,11 @@ import chisel3.iotesters
 import chisel3.iotesters.PeekPokeTester
 import org.scalatest._
 
-object AluTest {
+object AluTester {
   val param = Array("--target-dir", "generated", "--generate-vcd-output", "on")
 }
 
-class AluTest(dut: Alu) extends PeekPokeTester(dut) {
+class AluTester(dut: Alu) extends PeekPokeTester(dut) {
   var opcodes = Array(0, 1, 2, 6, 7)
   var loopCounter = 0;
   for (a <- 8 to 15) {
@@ -41,12 +41,12 @@ class AluTest(dut: Alu) extends PeekPokeTester(dut) {
   }
 }
 
-class AluTestTest extends FlatSpec with Matchers {
+class AluTest extends FlatSpec with Matchers {
 
   "Alu" should "pass" in {
-    iotesters.Driver.execute(AluTest.param,
+    iotesters.Driver.execute(AluTester.param,
       () => new Alu()) { c =>
-      new AluTest(c)
+      new AluTester(c)
     } should be(true)
   }
 

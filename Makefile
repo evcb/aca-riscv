@@ -24,10 +24,13 @@ riscv:
 
 # Generate the C++ simulation and run the tests
 ex-test:
-    $(SBT) "test:run riscv.ExStageTest"
+	$(SBT) "testOnly riscv.ExStageTest"
 
 alu-test:
-    $(SBT) "test:run riscv.AluTestSpec"
+	$(SBT) "testOnly riscv.AluTest"
+
+aluCtl-test:
+	$(SBT) "testOnly riscv.AluCtlTest"
 
 counter-test:
 	$(SBT) "test:runMain simple.CounterTester"
