@@ -11,8 +11,8 @@ object AluTester {
 class AluTester(dut: Alu) extends PeekPokeTester(dut) {
   var opcodes = Array(0, 1, 2, 6, 7)
   var loopCounter = 0;
-  for (a <- 8 to 15) {
-    for (b <- 0 to 7) {
+  for (a <- 0 to 31) {
+    for (b <- 0 to 31) {
       for (op <- opcodes) {
         loopCounter = loopCounter + 1
         println(s"Loop $loopCounter")
@@ -24,7 +24,7 @@ class AluTester(dut: Alu) extends PeekPokeTester(dut) {
             case 0 => a & b
             case 7 => if (a < b) 1 else 0
           }
-        val resMask = result & 0x1f
+        val resMask = result & 0xff
 
         poke(dut.io.fn, op)
         poke(dut.io.a, a)

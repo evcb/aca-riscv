@@ -41,10 +41,10 @@ class Alu() extends Module {
     }
     is(FN_SLT) {
       when (a < b) {
-        result := 1.U
+        result := 1.S
       }
       .otherwise {
-        result := 0.U
+        result := 0.S
       }
     }
   }
