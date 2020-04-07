@@ -38,23 +38,20 @@ class Riscv() extends Module {
   decodeStage.io.ifIdIn := fetchStage.io.ifOut
   decodeStage.io.IdExRd := executionStage.io.idExRd
   decodeStage.io.MemWbRd := writeBackStage.io.memWbRd
-  decodeStage.io.IdExMemRead // @TODO: connect
+  decodeStage.io.IdExMemRead := executionStage.io.idExMemRead
   decodeStage.io.ExMemRegWrite := writeBackStage.io.memWbRegWrite
-  decodeStage.io.MemWbWd := writeBackStage.io.wbOut
+  decodeStage.io.MemWbWd := writeBackStage.io.memWbWd
 
-  // Ex IN
+  // EX
   executionStage.io.idExIn := decodeStage.io.IdExOut
-  executionStage.io.idCtlIn := decodeStage.io.CtlOut
+  executionStage.io.idExCtlIn := decodeStage.io.CtlOut
   executionStage.io.exMemRd := memStage.io.exMemRd
-  executionStage.io.exMemWb // @TODO: What input is this?
+  executionStage.io.exMemAddr := memStage.io.exMemAddr
   executionStage.io.memWbRd := writeBackStage.io.memWbRd
-  // executionStage.io.exMemAddr := memStage.io.exMemAddr // @TODO: Missing input name exMemAddr
-  // executionStage.io.exMemRegWr := memStage.io.exMemRegWr // @TODO: missing input exMemRegWr
-  // executionStage.io.memWbRegWrite := memStage.io.memWbRegWrite // @TODO: missing input memWbRegWrite
-  executionStage.io.memWbWb := writeBackStage.io.wbOut // @TODO: Input name memWbWb
-
-  // EX OUT
-  executionStage.io.idExMem // @TODO: Output should be renamed to IdExMemRead and sizing is bool
+  executionStage.io.exMemAddr := memStage.io.exMemAddr
+  executionStage.io.exMemRegWrite := memStage.io.exMemRegWr
+  executionStage.io.memWbRegWrite := writeBackStage.io.memWbRegWrite
+  executionStage.io.memWbWd := writeBackStage.io.memWbWd
 
   // MEM
   memStage.io.exMemIn := executionStage.io.exMemOut
