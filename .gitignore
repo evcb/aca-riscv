@@ -6,3 +6,6 @@ incremental_db/*
 generated/*
 db/*
 test_run_dir/*
+.metals/*
+build.sbt
+.bloop/*

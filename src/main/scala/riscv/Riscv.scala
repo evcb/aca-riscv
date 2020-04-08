@@ -3,7 +3,7 @@ package riscv
 import chisel3._
 
 
-class Riscv() extends Module {
+class Riscv(data: Array[String] = Array()) extends Module {
   val io = IO(new Bundle {
     val rxd = Input(UInt(1.W))
     val led = Output(UInt(1.W))
@@ -15,11 +15,7 @@ class Riscv() extends Module {
   io.led := 1.U
   io.txd := 1.U
 
-  val fetchStage = Module(new FetchStage(
-    Array( // initial instructions
-      "b10101101010101101001101110111011"
-    )
-  ))
+  val fetchStage = Module(new FetchStage(data))
   val decodeStage = Module(new DecodeStage())
   val executionStage = Module(new ExStage())
   val memStage = Module(new MemStage())
@@ -58,8 +54,9 @@ class Riscv() extends Module {
 
   // WRITE BACK
   writeBackStage.io.memWbIn := memStage.io.memOut
+
 }
 
 object RiscvMain extends App {
-  chisel3.Driver.execute(Array("--target-dir", "generated"), () => new Riscv())
+  chisel3.Driver.execute(Array("--target-dir", "generated", "--no-check-comb-loops"), () => new Riscv())
 }

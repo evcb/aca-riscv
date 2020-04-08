@@ -15,4 +15,8 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
 
   // matching the sequential indexing in Array()
   io.rdData := rom((io.rdAddr >> 2.U).asUInt())
+
+  val dt = io.rdData
+
+  printf(p"$dt")
 }

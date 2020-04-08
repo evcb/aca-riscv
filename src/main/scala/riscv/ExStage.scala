@@ -15,19 +15,19 @@ import Constants._
  */
 class ExStage extends Module {
   val io = IO(new Bundle {
-    val idExIn = Input(UInt(SZ_ID_EX_REG))  // stage input register ID/EX
-    val idExCtlIn = Input(UInt(SZ_CTL_REG))  // stage input control register
+    val idExIn = Input(UInt(121.W))  // stage input register ID/EX
+    val idExCtlIn = Input(UInt(7.W))  // stage input control register
 
-    val exMemAddr = Input(UInt(SZ_INPUT)) // memory address from EX/MEM register
-    val memWbWd = Input(UInt(SZ_INPUT)) // output from Mux in Writeback stage
+    val exMemAddr = Input(UInt(32.W)) // memory address from EX/MEM register
+    val memWbWd = Input(UInt(32.W)) // output from Mux in Writeback stage
     val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
     val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
-    val exMemRd = Input(UInt(SZ_RD)) // register destination from EX/MEM register (used in Forwarder)
-    val memWbRd = Input(UInt(SZ_RD)) // control signal WB from MEM/WB register (used in Forwarder)
+    val exMemRd = Input(UInt(5.W)) // register destination from EX/MEM register (used in Forwarder)
+    val memWbRd = Input(UInt(5.W)) // control signal WB from MEM/WB register (used in Forwarder)
 
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
-    val idExRd = Output(UInt(SZ_RD)) // register destination - passthrough to Hazard Detection Unit
-    val exMemOut = Output(UInt(SZ_EX_MEM_REG)) // stage output reigster EX/MEM
+    val idExRd = Output(UInt(5.W)) // register destination - passthrough to Hazard Detection Unit
+    val exMemOut = Output(UInt(68.W)) // stage output reigster EX/MEM
   })
 
   /*********************************************************************************************************/
@@ -40,19 +40,31 @@ class ExStage extends Module {
   /* Parse input registers into signals                                                                    */
   /*********************************************************************************************************/
   //Parse idExCtlIn
-  val idExWb = io.idExCtlIn(END_WB, END_MEM + 1)  //2 bits
-  val idExMem = io.idExCtlIn(END_MEM, ALU_OP + 1)  //2 bits
-  val aluOp = io.idExCtlIn(ALU_OP, ALU_SRC + 1) //2 bits
-  val aluSrc = io.idExCtlIn(ALU_SRC, 0).asBool() // 1 bit
+  val idExWb = Wire(UInt())
+  idExWb := io.idExCtlIn(6, 5)  //2 bits
+  val idExMem = Wire(UInt())
+  idExMem := io.idExCtlIn(4, 3) //2 bits
+
+  val aluOp = Wire(UInt())
+  aluOp := io.idExCtlIn(2, 1)
+  val aluSrc = Wire(Bool())
+  aluSrc := io.idExCtlIn(0).asBool()
   
   //Parse idExIn
-  val idExD1 = io.idExIn(ID_EX_D1, ID_EX_D2 + 1)// read data 1
-  val idExD2 = io.idExIn(ID_EX_D2, ID_EX_IMM + 1) //read data 2
-  val idExImm = io.idExIn(ID_EX_IMM, ID_EX_F + 1)  //immediate
-  val idExF = io.idExIn(ID_EX_F, ID_EX_RS2 + 1) //func3 + func7
-  val idExRs2 = io.idExIn(ID_EX_RS2, ID_EX_RS1 + 1)  // input to forwarder
-  val idExRs1 = io.idExIn(ID_EX_RS1, ID_EX_RD + 1) //input to forwarder
-  val idExRd =  io.idExIn(ID_EX_RD, 0)  //register destination (either an ALU instruction or a load)
+  val idExD1 = Wire(SInt())
+  idExD1 := io.idExIn(120, 89).asSInt// read data 1
+  val idExD2 = Wire(SInt())
+  idExD2 := io.idExIn(88, 57).asSInt //read data 2
+  val idExImm  = Wire(SInt())
+  idExImm := io.idExIn(56, 25).asSInt  //immediate
+  val idExF  = Wire(UInt())
+  idExF := io.idExIn(24, 15) //func3 + func7
+  val idExRs2  = Wire(UInt())
+  idExRs2 := io.idExIn(14, 10)  // input to forwarder
+  val idExRs1  = Wire(UInt())
+  idExRs1 := io.idExIn(9, 5) //input to forwarder
+  val idExRd  = Wire(UInt())
+  idExRd := io.idExIn(4, 0)  //register destination (either an ALU instruction or a load)
 
 
   /*********************************************************************************************************/
@@ -60,19 +72,19 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   val forwardA = Wire(UInt()) //output from forwarder
   val forwardB = Wire(UInt()) //output from forwarder
-  val aluResult = Wire(UInt()) //output from ALU
+  val aluResult = Wire(SInt()) //output from ALU
 
 
-  val outputMux1 = Wire(UInt(SZ_INPUT)) // internal mux1 output
-  val outputMux2 = Wire(UInt(SZ_INPUT)) // internal mux2 output
-  val outputMux3 = Wire(UInt(SZ_INPUT)) // internal mux3 output
+  val outputMux1 = Wire(SInt(32.W)) // internal mux1 output
+  val outputMux2 = Wire(SInt(32.W)) // internal mux2 output
+  val outputMux3 = Wire(SInt(32.W)) // internal mux3 output
 
 
   /*********************************************************************************************************/
   /* Default assignments                                                                                   */
   /*********************************************************************************************************/
   //passthrough signals
-  io.idExMemRead := idExMem
+  io.idExMemRead := idExMem(1).asBool()
   io.idExRd := idExRd
 
 
@@ -88,10 +100,10 @@ class ExStage extends Module {
   /* Hook up components                                                                                    */
   /*********************************************************************************************************/
   //inputs to forwarder
-  io.exMemRd <> forwarder.io.exMemRd
-  io.exMemRegWrite <> forwarder.io.exMemRegWrite
-  io.memWbRd <> forwarder.io.memWbRd
-  io.memWbRegWrite <> forwarder.io.memWbRegWrite
+  forwarder.io.exMemRd := io.exMemRd
+  forwarder.io.exMemRegWrite := io.exMemRegWrite
+  forwarder.io.memWbRd := io.memWbRd
+  forwarder.io.memWbRegWrite := io.memWbRegWrite
   forwarder.io.idExRs1 := idExRs1
   forwarder.io.idExRs2 := idExRs2
 
@@ -105,21 +117,21 @@ class ExStage extends Module {
   aluCtrl.io.ALUOP :=  aluOp
 
   //outputs from aluCtrl
-  aluCtrl.io.alu_ctl <> alu.io.fn
+  alu.io.alu_ctl := aluCtrl.io.alu_ctl
  
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */
   /*********************************************************************************************************/
   outputMux1 := MuxLookup(forwardA, idExD1,
                           Array("b00".U -> idExD1,
-                                "b01".U -> io.exMemAddr,
-                                "b10".U -> io.memWbWd
+                                "b01".U -> io.exMemAddr.asSInt(),
+                                "b10".U -> io.memWbWd.asSInt()
                                 ))
   
   outputMux2 := MuxLookup(forwardB, idExD2,
                           Array("b00".U -> idExD2,
-                                "b01".U -> io.exMemAddr,
-                                "b10".U -> io.memWbWd
+                                "b01".U -> io.exMemAddr.asSInt(),
+                                "b10".U -> io.memWbWd.asSInt()
                                 ))
   outputMux3 := Mux(aluSrc, idExImm, outputMux2)
 
