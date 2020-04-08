@@ -40,8 +40,8 @@ class DecodeStage extends Module {
   val RegFile = Module(new RegisterFile())
   //Inputs
   RegFile.io.wrEna := io.ExMemRegWrite
-  RegFile.io.rdAddr1 := io.ifIdIn(24,20)
-  RegFile.io.rdAddr2 := io.ifIdIn(19,15)
+  RegFile.io.rdAddr1 := io.ifIdIn(19,15)
+  RegFile.io.rdAddr2 := io.ifIdIn(24,20)
   RegFile.io.wrAddr := io.MemWbRd
   RegFile.io.wrData := io.MemWbWd
   //Outputs
@@ -49,6 +49,8 @@ class DecodeStage extends Module {
   val rdOut2 = Wire(UInt())
   rdOut1 := RegFile.io.rdOut1
   rdOut2 := RegFile.io.rdOut2
+  printf(p"Reg1 data is: $rdOut1 \n")
+  printf(p"Reg2 data is: $rdOut2 \n")
 
   //Compare output of reg for bnq
   val zero = Wire(Bool())
@@ -69,12 +71,14 @@ class DecodeStage extends Module {
   //Input
   Hazard.io.IdExMemRead := io.IdExMemRead
   Hazard.io.IdExRd := io.IdExRd
-  Hazard.io.IfIdRs1 := io.ifIdIn(24,20)
-  Hazard.io.IfIdRs2 := io.ifIdIn(19,15)
+  Hazard.io.IfIdRs1 := io.ifIdIn(19,15)
+  Hazard.io.IfIdRs2 := io.ifIdIn(24,20)
   //Output
   io.pcWrite := Hazard.io.PCWrite
   io.ifIdWrite := Hazard.io.IfIdWrite
   //Mux for inserting bubble
+  val NOP = Hazard.io.NOP
+  printf(p"NOP = $NOP \n")
   MnCtlw := Mux(Hazard.io.NOP, 0.U, MnCtl.io.Ctl(7,0))
 
   //Branch
