@@ -9,42 +9,14 @@ SBT = sbt
 
 # Generate Verilog code
 
-alu:
-	$(SBT) "runMain simple.AluMain"
-
-knight:
-	$(SBT) "runMain simple.KnightMain"
-
-uart:
-	$(SBT) "runMain uart.UartMain"
-
 riscv:
 	$(SBT) "runMain riscv.RiscvMain"
 
 
 # Generate the C++ simulation and run the tests
-ex-test:
-	$(SBT) "testOnly riscv.ExStageTest"
 
-alu-test:
-	$(SBT) "testOnly riscv.AluTest"
-
-aluCtl-test:
-	$(SBT) "testOnly riscv.AluCtlTest"
-
-counter-test:
-	$(SBT) "test:runMain simple.CounterTester"
-
-knight-test:
-	$(SBT) "test:runMain simple.KnightTester"
-
-fifo-test:
-	$(SBT) "test:runMain simple.FifoTester"
-
-fifo-view:
-	gtkwave generated/simple.FifoTester823761309/BubbleFifo.vcd --save=bubble.gtkw
-
-fifo: fifo-test fifo-view
+riscv-test:
+	$(SBT) "test riscv"
 
 # clean everything (including IntelliJ project settings)
 
