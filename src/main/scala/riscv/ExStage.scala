@@ -18,8 +18,8 @@ class ExStage extends Module {
     val idExIn = Input(UInt(SZ_ID_EX_REG))  // stage input register ID/EX
     val idExCtlIn = Input(UInt(SZ_CTL_REG))  // stage input control register
 
-    val exMemAddr = Input(SInt(SZ_32_BIT)) // memory address from EX/MEM register
-    val memWbWd = Input(SInt(SZ_32_BIT)) // output from Mux in Writeback stage
+    val exMemAddr = Input(UInt(SZ_32_BIT)) // memory address from EX/MEM register
+    val memWbWd = Input(UInt(SZ_32_BIT)) // output from Mux in Writeback stage
     val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
     val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
     val exMemRd = Input(UInt(SZ_RD)) // register destination from EX/MEM register (used in Forwarder)
@@ -112,14 +112,14 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   outputMux1 := MuxLookup(forwardA, idExD1,
                           Array("b00".U -> idExD1,
-                                "b01".U -> io.exMemAddr,
-                                "b10".U -> io.memWbWd
+                                "b01".U -> io.exMemAddr.asSInt(),
+                                "b10".U -> io.memWbWd.asSInt()
                                 ))
   
   outputMux2 := MuxLookup(forwardB, idExD2,
                           Array("b00".U -> idExD2,
-                                "b01".U -> io.exMemAddr,
-                                "b10".U -> io.memWbWd
+                                "b01".U -> io.exMemAddr.asSInt(),
+                                "b10".U -> io.memWbWd.asSInt()
                                 ))
   outputMux3 := Mux(aluSrc, idExImm, outputMux2)
 
