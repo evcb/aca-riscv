@@ -9,6 +9,13 @@ object DecodeStageTester {
 }
 
 class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
+
+  /*
+  f31
+f32 = "1001"
+"b10000000000%s".format(f31, f32)
+   */
+
   //Lw stage one
   println("Lw Stage One")
   poke(r.io.ifIdIn, "b0000000000000000000000000000000000000000000000000010000010000011".U)
@@ -93,17 +100,6 @@ class DecodeStageTester(r: DecodeStage) extends PeekPokeTester(r) {
   step(1)
   expect(r.io.IdExOut, "b0000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000010000010000000100".U)
 
-
-
-
-  /*//Read value in reg
-  poke(r.io.ifIdIn, "b0000000000000000000000000000000000000000000000001000000000000000".U)
-  poke(r.io.IdExMemRead, false.B)
-  poke(r.io.ExMemRegWrite, false.B)
-  step(1)
-  println("Register out")
-  expect(r.io.IdExOut, "b0000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000010000000000".U)
-  */
 }
 
 class DecodeStageTest extends FlatSpec with Matchers {
