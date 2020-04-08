@@ -31,9 +31,8 @@ class AluTester(dut: Alu) extends PeekPokeTester(dut) {
         } else {
           resMask = result & 0xFF
         }
-        
 
-        poke(dut.io.fn, op)
+        poke(dut.io.alu_ctl, op)
         poke(dut.io.a, a)
         poke(dut.io.b, b)
         step(1)
