@@ -85,7 +85,8 @@ class DecodeStage extends Module {
   io.pcSrc := MnCtlw(0) & zero
 
   //Set input for Control Reg ID/EX
-  io.CtlOut := MnCtlw(7,1)
+  CtlRg := MnCtlw(7,1)
+  io.CtlOut := CtlRg
 
   //Set input Stage Reg ID/EX
   IdExRg := Cat(rdOut1,rdOut2,Imm32.io.ImmOut, Cat(io.ifIdIn(31,25), io.ifIdIn(14, 12)), io.ifIdIn(19, 15), io.ifIdIn(24, 20), io.ifIdIn(11, 7))
