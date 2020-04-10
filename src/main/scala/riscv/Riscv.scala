@@ -58,5 +58,5 @@ class Riscv(data: Array[String] = Array()) extends Module {
 }
 
 object RiscvMain extends App {
-  chisel3.Driver.execute(Array("--target-dir", "generated", "--no-check-comb-loops"), () => new Riscv())
+  chisel3.Driver.execute(Array("--target-dir", "generated"), () => new Riscv())
 }

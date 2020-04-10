@@ -5,7 +5,7 @@ import chisel3.iotesters.PeekPokeTester
 import org.scalatest._
 
 object RiscvTester {
-  val param = Array("--target-dir", "generated", "--no-check-comb-loops")
+  val param = Array("--target-dir", "generated")
 }
 
 class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
