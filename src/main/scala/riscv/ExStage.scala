@@ -147,7 +147,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* MSB -> LSB */
   exMemRg := Cat(idExWb, idExMem, aluResult, alu.io.b, idExRd)
-  printf(p"EX/MEM register from EX stage : $exMemRg")
+  printf(p"EX/MEM register from EX stage : $exMemRg\n")
 
   //write to output register
   io.exMemOut := exMemRg
