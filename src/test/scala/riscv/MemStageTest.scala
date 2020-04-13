@@ -18,7 +18,7 @@ class MemStageTester(r: MemStage) extends PeekPokeTester(r) {
   expect(r.io.exMemRd, "b10011".U)
   expect(r.io.exMemAddr, "b10110101010110111111011101000011".U)
 
-  expect(r.io.memOut, "b10011101101010101101111110111010000111111100111111101010100111110111110".U)
+  expect(r.io.memOut, "b10111110011111110101010011111011111011010101011011111101110100001110011".U)
 }
 
 class MemStageTest extends FlatSpec with Matchers {
