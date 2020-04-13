@@ -20,5 +20,5 @@ class InstructionMemory(data: Array[String] = Array()) extends Module {
 
   val dt = io.rdData
 
-  printf(p"$dt\n")
+  //printf(p"$dt\n")
 }

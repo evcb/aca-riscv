@@ -38,7 +38,7 @@ class FetchStage(data: Array[String] = Array()) extends Module {
       ifRg := Cat(pcRg, inMem.io.rdData)
 
       val mem = inMem.io.rdData
-      printf(p"Instruction Mem: $mem\n")
+      //printf(p"Instruction Mem: $mem\n")
     } .otherwise {
       //       Cat(MSB, LSB)
       ifRg := Cat(pcRg, 0.asUInt(32.W))

@@ -53,20 +53,20 @@ class ExStage extends Module {
   //Parse idExIn
   val idExD1 = Wire(SInt())
   idExD1 := io.idExIn(120, 89).asSInt// read data 1
-  printf(p"00 for of Mux1 is: $idExD1 \n")
+  //printf(p"00 for of Mux1 is: $idExD1 \n")
   val idExD2 = Wire(SInt())
   idExD2 := io.idExIn(88, 57).asSInt //read data 2
-  printf(p"00 for of Mux2 is: $idExD2 \n")
+ //printf(p"00 for of Mux2 is: $idExD2 \n")
   val idExImm  = Wire(SInt())
   idExImm := io.idExIn(56, 25).asSInt  //immediate
   val idExF  = Wire(UInt())
   idExF := io.idExIn(24, 15) //func3 + func7
   val idExRs1  = Wire(UInt())
   idExRs1 := io.idExIn(14, 10) //input to forwarder
-  printf(p"Rs1 is: $idExRs1 \n")
+  //printf(p"Rs1 is: $idExRs1 \n")
   val idExRs2  = Wire(UInt())
   idExRs2 := io.idExIn(9, 5)  // input to forwarder
-  printf(p"Rs2 is: $idExRs2 \n")
+  //printf(p"Rs2 is: $idExRs2 \n")
   val idExRd  = Wire(UInt())
   idExRd := io.idExIn(4, 0)  //register destination (either an ALU instruction or a load)
 
@@ -112,15 +112,15 @@ class ExStage extends Module {
   forwarder.io.idExRs2 := idExRs2
 
   val exMemRd = io.exMemRd
-  printf(p"Rd Ex/Mem is: $exMemRd \n")
+  //printf(p"Rd Ex/Mem is: $exMemRd \n")
   val MemWbRd = io.memWbRd
-  printf(p"Rd Mem/Wb is: $MemWbRd \n")
+  //printf(p"Rd Mem/Wb is: $MemWbRd \n")
 
   //outputs from forwarder
   forwardA := forwarder.io.forwardA
-  printf(p"Forward Data A: $forwardA \n")
+  //printf(p"Forward Data A: $forwardA \n")
   forwardB := forwarder.io.forwardB
-  printf(p"Forward Data B: $forwardB \n")
+  //printf(p"Forward Data B: $forwardB \n")
 
   //inputs to aluCtrl
   aluCtrl.io.funct7 := idExF(9,3) //TODO: test is this correct
@@ -149,15 +149,15 @@ class ExStage extends Module {
 
   //inputs to alu
   alu.io.a := outputMux1
-  printf(p"A for Alu is: $outputMux1 \n")
+  //printf(p"A for Alu is: $outputMux1 \n")
   alu.io.b := outputMux3
-  printf(p"Out of Mux2 is: $outputMux2 \n")
-  printf(p"B for Alu is: $outputMux3 \n")
+  //printf(p"Out of Mux2 is: $outputMux2 \n")
+  //printf(p"B for Alu is: $outputMux3 \n")
 
   //outputs from alu
   aluResult := alu.io.result
-  printf(p"Result from Alu is: $aluResult \n")
-  printf("--------------------------------\n")
+  //printf(p"Result from Alu is: $aluResult \n")
+  //printf("--------------------------------\n")
 
   /*********************************************************************************************************/
   /* Populate output register                                                                              */

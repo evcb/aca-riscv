@@ -49,8 +49,8 @@ class DecodeStage extends Module {
   val rdOut2 = Wire(UInt())
   rdOut1 := RegFile.io.rdOut1
   rdOut2 := RegFile.io.rdOut2
-  printf(p"Reg1 data is: $rdOut1 \n")
-  printf(p"Reg2 data is: $rdOut2 \n")
+  //printf(p"Reg1 data is: $rdOut1 \n")
+  //printf(p"Reg2 data is: $rdOut2 \n")
 
   //Compare output of reg for bnq
   val zero = Wire(Bool())
@@ -78,7 +78,7 @@ class DecodeStage extends Module {
   io.ifIdWrite := Hazard.io.IfIdWrite
   //Mux for inserting bubble
   val NOP = Hazard.io.NOP
-  printf(p"NOP = $NOP \n")
+  //printf(p"NOP = $NOP \n")
   MnCtlw := Mux(Hazard.io.NOP, 0.U, MnCtl.io.Ctl(7,0))
 
   //Branch
