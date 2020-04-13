@@ -36,7 +36,7 @@ class MemStage extends Module {
   dataMem.io.wrData := exMemWd // data
 
   // CAT(MSB, LSB)
-  memRg := Cat(exMemRd, exMemAddr, dataMem.io.rdData, exMemWb)
+  memRg := Cat(exMemWb, dataMem.io.rdData, exMemAddr, exMemRd)
   io.memOut := memRg
 
   // pass-through

@@ -39,7 +39,7 @@ object Constants
    */
   def SZ_ID_EX_REG = 121.W;
   def SZ_CTL_REG = 7.W;
-  def SZ_EX_MEM_REG = 68.W;
+  def SZ_EX_MEM_REG = 73.W;
 
   def SZ_RD = 5.W;
   def SZ_RS1 = 5.W

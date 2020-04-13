@@ -17,15 +17,15 @@ class WriteBackStage extends Module {
     val memWbWd = Output(UInt(32.W))  // MEM_WB_Wd
   })
 
-  val memToRg = io.memWbIn(0)
-  val exMemRegWrite = io.memWbIn(1) // EX_MEM_RegWrite
-  val memWbRegWrite = io.memWbIn(1) // MEM_WB_RegWrite
-  val memWbD = io.memWbIn(33, 2) // MEM_WB_D, 32 bits
-  val memWbAddr = io.memWbIn(65, 34)  // MEM_WB_Addr, 32 bits
-  val memWbRd = io.memWbIn(70, 66)  // MEM_WB_Rd, 5 bits
+
+  val memWbRegWrite = io.memWbIn(70) // MEM_WB_RegWrite
+  val memToRg = io.memWbIn(69)
+  val memWbD = io.memWbIn(68, 37) // MEM_WB_D, 32 bits
+  val memWbAddr = io.memWbIn(36, 5)  // MEM_WB_Addr, 32 bits
+  val memWbRd = io.memWbIn(4, 0)  // MEM_WB_Rd, 5 bits
 
   // if memToRg then memWbData
-  io.memWbWd := Mux(memToRg, memWbAddr, memWbD) // output
+  io.memWbWd := Mux(memToRg, memWbD, memWbAddr) // output
 
   // pass-through
   io.memWbRd := memWbRd
