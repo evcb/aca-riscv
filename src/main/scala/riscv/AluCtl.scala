@@ -24,9 +24,10 @@ class AluCtl extends Module {
         is ("b0000000010".U) { result := "b0111".U } //SLT         
       }
     } 
-    is ("b01".U) { //I-type instructions
+    is ("b01".U) { //I-type and S-type instructions
       switch(Cat(io.funct3)) {
         is ("b000".U) { result := "b0010".U } //ADDI
+        is ("b010".U) { result := "b0010".U } //SW
       }
     }
   }

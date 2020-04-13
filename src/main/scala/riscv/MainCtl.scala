@@ -18,7 +18,7 @@ class MainCtl extends Module {
       signal := "b010001000".U
     }
     is("b0000011".U){ //I-type 1
-      signal := "b011010010".U
+      signal := "b011010110".U
     }
     is("b0010011".U) { //I-type 2
       signal := "b010000110".U
@@ -27,7 +27,7 @@ class MainCtl extends Module {
       signal := "b000000001".U
     }
     is("b0100011".U){ //S-type
-      signal := "b000100010".U
+      signal := "b000100110".U
     }
     is("b1100011".U){ //SB-type
       signal := "b000000001".U

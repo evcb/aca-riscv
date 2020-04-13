@@ -63,8 +63,10 @@ class ExStage extends Module {
   idExF := io.idExIn(24, 15) //func3 + func7
   val idExRs1  = Wire(UInt())
   idExRs1 := io.idExIn(14, 10) //input to forwarder
+  printf(p"Rs1 is: $idExRs1 \n")
   val idExRs2  = Wire(UInt())
   idExRs2 := io.idExIn(9, 5)  // input to forwarder
+  printf(p"Rs2 is: $idExRs2 \n")
   val idExRd  = Wire(UInt())
   idExRd := io.idExIn(4, 0)  //register destination (either an ALU instruction or a load)
 
@@ -86,7 +88,7 @@ class ExStage extends Module {
   /* Default assignments                                                                                   */
   /*********************************************************************************************************/
   //passthrough signals
-  io.idExMemRead := idExMem(1).asBool()
+  io.idExMemRead := idExMem(0).asBool()
   io.idExRd := idExRd
 
 
@@ -109,6 +111,11 @@ class ExStage extends Module {
   forwarder.io.idExRs1 := idExRs1
   forwarder.io.idExRs2 := idExRs2
 
+  val exMemRd = io.exMemRd
+  printf(p"Rd Ex/Mem is: $exMemRd \n")
+  val MemWbRd = io.memWbRd
+  printf(p"Rd Mem/Wb is: $MemWbRd \n")
+
   //outputs from forwarder
   forwardA := forwarder.io.forwardA
   printf(p"Forward Data A: $forwardA \n")
@@ -128,14 +135,14 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   outputMux1 := MuxLookup(forwardA, idExD1,
                           Array("b00".U -> idExD1,
-                                "b01".U -> io.exMemAddr.asSInt(),
-                                "b10".U -> io.memWbWd.asSInt()
+                                "b10".U -> io.exMemAddr.asSInt(),
+                                "b01".U -> io.memWbWd.asSInt()
                                 ))
   
   outputMux2 := MuxLookup(forwardB, idExD2,
                           Array("b00".U -> idExD2,
-                                "b01".U -> io.exMemAddr.asSInt(),
-                                "b10".U -> io.memWbWd.asSInt()
+                                "b10".U -> io.exMemAddr.asSInt(),
+                                "b01".U -> io.memWbWd.asSInt()
                                 ))
 
   outputMux3 := Mux(aluSrc, idExImm, outputMux2)
