@@ -20,7 +20,7 @@ class MainCtlTester(dut: riscv.MainCtl) extends PeekPokeTester(dut) {
   poke(dut.io.Opc,"b0000011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b011010010".U)
+  expect(dut.io.Ctl,"b011010110".U)
 
   //I-type2
   poke(dut.io.Opc,"b0010011".U)
@@ -38,7 +38,7 @@ class MainCtlTester(dut: riscv.MainCtl) extends PeekPokeTester(dut) {
   poke(dut.io.Opc,"b0100011".U)
   step(1)
   println (" Ctl is: " + peek(dut.io.Ctl). toString )
-  expect(dut.io.Ctl,"b000100010".U)
+  expect(dut.io.Ctl,"b000100110".U)
 
   //SB-type
   poke(dut.io.Opc,"b1100011".U)
