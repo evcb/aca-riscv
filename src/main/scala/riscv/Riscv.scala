@@ -8,11 +8,13 @@ class Riscv(data: Array[String] = Array()) extends Module {
     val rxd = Input(UInt(1.W))
     val led = Output(UInt(1.W))
     val txd = Output(UInt(1.W))
-  })
 
-  //ADDI x1, x2, 3 00000000001100010000000010010011
-  //ADD x3 x1, x2  00000000001000001000000110110011
-  //SUB x3 x1, x2 01000000001000001000000110110011
+    val feOut = Output(UInt(64.W))
+    val deOut = Output(UInt(121.W))
+    val exOut = Output(UInt(73.W))
+    val memOut = Output(UInt(71.W))
+    val wbOut = Output(UInt(32.W))
+  })
 
   val reg = Reg(UInt(1.W))
   reg := io.rxd
@@ -58,6 +60,12 @@ class Riscv(data: Array[String] = Array()) extends Module {
 
   // WRITE BACK
   writeBackStage.io.memWbIn := memStage.io.memOut
+
+  io.feOut := fetchStage.io.ifOut
+  io.deOut := decodeStage.io.IdExOut
+  io.exOut := executionStage.io.exMemOut
+  io.memOut := memStage.io.memOut
+  io.wbOut := writeBackStage.io.memWbWd
 
 }
 
