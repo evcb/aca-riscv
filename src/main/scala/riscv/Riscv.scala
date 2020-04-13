@@ -10,6 +10,10 @@ class Riscv(data: Array[String] = Array()) extends Module {
     val txd = Output(UInt(1.W))
   })
 
+  //ADDI x1, x2, 3 00000000001100010000000010010011
+  //ADD x3 x1, x2  00000000001000001000000110110011
+  //SUB x3 x1, x2 01000000001000001000000110110011
+
   val reg = Reg(UInt(1.W))
   reg := io.rxd
   io.led := 1.U
