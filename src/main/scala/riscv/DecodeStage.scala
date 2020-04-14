@@ -9,7 +9,7 @@ class DecodeStage extends Module {
     val IdExRd = Input(UInt(5.W)) //Hazard Detection from Execute stage
     val MemWbRd = Input(UInt(5.W)) //Hazard Detection from Memory stage
     val IdExMemRead = Input(Bool()) //Hazard Detection from Execute stage
-    val ExMemRegWrite = Input(Bool()) //Register read from Write Back stage
+    val MemWbRegWrite = Input(Bool()) //Register read from Write Back stage
     val MemWbWd = Input(UInt(32.W)) //Data from Write Back stage
 
     val pcSrc = Output(Bool())
@@ -39,7 +39,7 @@ class DecodeStage extends Module {
   //Connecting Register file
   val RegFile = Module(new RegisterFile())
   //Inputs
-  RegFile.io.wrEna := io.ExMemRegWrite
+  RegFile.io.wrEna := io.MemWbRegWrite
   RegFile.io.rdAddr1 := io.ifIdIn(19,15)
   RegFile.io.rdAddr2 := io.ifIdIn(24,20)
   RegFile.io.wrAddr := io.MemWbRd

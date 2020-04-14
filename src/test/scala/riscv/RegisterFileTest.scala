@@ -31,19 +31,21 @@ class RegisterFileTester(r: RegisterFile) extends PeekPokeTester(r) {
   expect(r.io.rdOut1, 0.U)
 
   // Write up to 32 bits
-  for (addr <- 1 until 4294967296L by 1) {
-    val wrData = addr.asUInt()
+  for (addr <- 1 until 32 by 1) {
+    val wrData = addr
+    val addrP = (addr - 1).U
+    val wrDataP = wrData - 1
 
     poke(r.io.wrEna, true.B)
-    poke(r.io.rdAddr1, addr)
-    poke(r.io.rdAddr2, addr.U - 1.U) // reading previous value
-    poke(r.io.wrAddr, addr)
-    poke(r.io.wrData, wrData)
+    poke(r.io.rdAddr1, addr.U)
+    poke(r.io.rdAddr2, addrP) // reading previous value
+    poke(r.io.wrAddr, addr.U)
+    poke(r.io.wrData, wrData.U)
 
     step(1)
 
-    expect(r.io.rdAddr1, wrData)
-    expect(r.io.rdAddr2, wrData - 1.U) // reading previous value
+    expect(r.io.rdOut1, wrData.U)
+    expect(r.io.rdOut2, wrDataP.U)
   }
 
 }

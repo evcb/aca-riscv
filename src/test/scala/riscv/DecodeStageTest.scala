@@ -22,7 +22,7 @@ f32 = "1001"
   poke(r.io.IdExRd, "b00000".U)
   poke(r.io.MemWbRd, "b00000".U)
   poke(r.io.IdExMemRead, false.B)
-  poke(r.io.ExMemRegWrite, false.B)
+  poke(r.io.MemWbRegWrite, false.B)
   poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
   step(1)
 
@@ -42,7 +42,7 @@ f32 = "1001"
   poke(r.io.IdExRd, "b00001".U)
   poke(r.io.MemWbRd, "b00000".U)
   poke(r.io.IdExMemRead, true.B)
-  poke(r.io.ExMemRegWrite, false.B)
+  poke(r.io.MemWbRegWrite, false.B)
   poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
   step(1)
 
@@ -62,7 +62,7 @@ f32 = "1001"
   poke(r.io.IdExRd, "b00010".U)
   poke(r.io.MemWbRd, "b00000".U)
   poke(r.io.IdExMemRead, false.B)
-  poke(r.io.ExMemRegWrite, false.B)
+  poke(r.io.MemWbRegWrite, false.B)
   poke(r.io.MemWbWd, "b00000000000000000000000000000000".U)
   step(1)
 
@@ -82,7 +82,7 @@ f32 = "1001"
   poke(r.io.IdExRd, "b00011".U)
   poke(r.io.MemWbRd, "b00001".U)
   poke(r.io.IdExMemRead, true.B)
-  poke(r.io.ExMemRegWrite, true.B)
+  poke(r.io.MemWbRegWrite, true.B)
   poke(r.io.MemWbWd, "b00000000000000000000000000000001".U)
   step(1)
 
