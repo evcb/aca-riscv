@@ -17,6 +17,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
     val wbOut = Output(UInt(32.W))
   })
 
+  // @TODO: legacy, remove at some point
   val reg = Reg(UInt(1.W))
   reg := io.rxd
   io.led := 1.U
@@ -29,8 +30,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   val writeBackStage = Module(new WriteBackStage())
 
   // Wiring
-  printf("Start of the cycle\n")
-  printf("------------------------------\n")
+
   // IF
   fetchStage.io.pcSrc := decodeStage.io.pcSrc
   fetchStage.io.ifIdPc := decodeStage.io.ifIdPc
@@ -38,11 +38,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   fetchStage.io.ifFlush := decodeStage.io.ifFlush
   fetchStage.io.ifIdWrite := decodeStage.io.ifIdWrite
 
-  val IfId = Wire(UInt())
   io.feOut := fetchStage.io.ifOut
-  IfId := io.feOut
-  printf(p"IF/ID: $IfId \n")
-  printf("------------------------------\n")
 
   // ID
   decodeStage.io.ifIdIn := fetchStage.io.ifOut
@@ -52,15 +48,8 @@ class Riscv(data: Array[String] = Array()) extends Module {
   decodeStage.io.ExMemRegWrite := writeBackStage.io.memWbRegWrite
   decodeStage.io.MemWbWd := writeBackStage.io.memWbWd
 
-  val IdEx = Wire(UInt())
   io.deOut := decodeStage.io.IdExOut
-  IdEx := io.deOut
-  printf(p"ID/EX: $IdEx \n")
-  val IdExCtl = Wire(UInt())
   io.deCtlOut := decodeStage.io.CtlOut
-  IdExCtl := io.deCtlOut
-  printf(p"ID/EX Ctl: $IdExCtl \n")
-  printf("------------------------------\n")
 
   // EX
   executionStage.io.idExIn := decodeStage.io.IdExOut
@@ -73,28 +62,49 @@ class Riscv(data: Array[String] = Array()) extends Module {
   executionStage.io.memWbRegWrite := writeBackStage.io.memWbRegWrite
   executionStage.io.memWbWd := writeBackStage.io.memWbWd
 
-  val ExMem = Wire(UInt())
   io.exOut := executionStage.io.exMemOut
-  ExMem := io.exOut
-  printf(p"EX/MEM: $ExMem \n")
-  printf("------------------------------\n")
 
   // MEM
   memStage.io.exMemIn := executionStage.io.exMemOut
-
-  val MemWb = Wire(UInt())
   io.memOut := memStage.io.memOut
-  MemWb := io.memOut
-  printf(p"MEM/WB: $MemWb \n")
-  printf("------------------------------\n")
 
   // WRITE BACK
   writeBackStage.io.memWbIn := memStage.io.memOut
-
-  val WbWd =Wire(UInt())
   io.wbOut := writeBackStage.io.memWbWd
+
+  // DEBUGGING
+  val pc = Wire(SInt())
+  val IfId = Wire(UInt())
+  val IdEx = Wire(UInt())
+  val IdExCtl = Wire(UInt())
+  val ExMem = Wire(UInt())
+  val MemWb = Wire(UInt())
+  val WbWd = Wire(UInt())
+
+  pc := fetchStage.io.ifOut(63, 32).asSInt()
+  IdEx := io.deOut
+  IfId := io.feOut
+  IdExCtl := io.deCtlOut
+  ExMem := io.exOut
+  MemWb := io.memOut
   WbWd := io.wbOut
-  printf(p"WB WD: $WbWd \n")
+
+  printf("- Start of cycle %d: \n", (pc / 4.S))
+  printf("------------------------------\n")
+  printf(p"IF/ID: ${Binary(IfId)} ")
+  printf("-- Instruction: %d \n", (pc / 4.S))
+  printf("------------------------------\n")
+  printf(p"ID/EX: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
+  printf("-- Instruction: %d \n", ((pc - 4.S) / 4.S))
+  printf("------------------------------\n")
+  printf(p"EX/MEM: ${Binary(ExMem)}")
+  printf("-- Instruction: %d \n", ((pc - 8.S) / 4.S))
+  printf("------------------------------\n")
+  printf(p"MEM/WB: ${Binary(MemWb)}")
+  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
+  printf("------------------------------\n")
+  printf(p"WB WD: $WbWd")
+  printf("-- Instruction: %d \n", ((pc - 16.S) / 4.S))
   printf("------------------------------\n")
 
 }

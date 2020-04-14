@@ -19,7 +19,7 @@ class RegisterFile() extends Module {
 
   rgFile(0) := 0.U
 
-  when(io.wrEna && io.wrAddr > 0.U) { rgFile(io.wrAddr.asUInt) := io.wrData }
+  when(io.wrEna && io.wrAddr > 0.U) { rgFile(io.wrAddr.asUInt()) := io.wrData }
 
   io.rdOut1 := rgFile(io.rdAddr1.asUInt())
   io.rdOut2 := rgFile(io.rdAddr2.asUInt())
