@@ -16,7 +16,7 @@ class RegisterFileTester(r: RegisterFile) extends PeekPokeTester(r) {
   poke(r.io.wrAddr, 0.U)
   poke(r.io.wrData, 5.U)
 
-  step(3)
+  step(1)
 
   expect(r.io.rdOut1, 0.U)
 
