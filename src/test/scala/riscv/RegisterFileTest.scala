@@ -9,37 +9,42 @@ object RegisterFileTester {
 }
 
 class RegisterFileTester(r: RegisterFile) extends PeekPokeTester(r) {
-  var adr1: UInt = 8.U
-  var adr2: UInt = 11.U
 
-  // write data, but 0 is always zero
+  // 0 is always zero
   poke(r.io.wrEna, true.B)
+  poke(r.io.rdAddr1, 0.U)
   poke(r.io.wrAddr, 0.U)
+  poke(r.io.wrData, 5.U)
+
+  step(3)
+
+  expect(r.io.rdOut1, 0.U)
+
+  // write not enabled, should not write
+  poke(r.io.wrEna, false.B)
+  poke(r.io.rdAddr1, 1.U)
+  poke(r.io.wrAddr, 1.U)
   poke(r.io.wrData, 5.U)
 
   step(1)
 
   expect(r.io.rdOut1, 0.U)
 
-  // write data to reg1
-  poke(r.io.wrEna, true.B)
-  poke(r.io.wrAddr, adr1)
-  poke(r.io.wrData, 5.U)
+  // Write up to 32 bits
+  for (addr <- 1 until 4294967296L by 1) {
+    val wrData = addr.asUInt()
 
-  // advance clock cycle
-  step(1)
+    poke(r.io.wrEna, true.B)
+    poke(r.io.rdAddr1, addr)
+    poke(r.io.rdAddr2, addr.U - 1.U) // reading previous value
+    poke(r.io.wrAddr, addr)
+    poke(r.io.wrData, wrData)
 
-  // write data to reg2
-  poke(r.io.wrEna, true.B)
-  poke(r.io.wrAddr, adr2)
-  poke(r.io.wrData, 10.U)
+    step(1)
 
-  step(1)
-  // read registers
-  poke(r.io.rdAddr1, adr1)
-  poke(r.io.rdAddr2, adr2)
-  expect(r.io.rdOut1, 5.U)
-  expect(r.io.rdOut2, 10.U)
+    expect(r.io.rdAddr1, wrData)
+    expect(r.io.rdAddr2, wrData - 1.U) // reading previous value
+  }
 
 }
 
