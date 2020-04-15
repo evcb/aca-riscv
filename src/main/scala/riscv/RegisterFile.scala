@@ -15,7 +15,9 @@ class RegisterFile() extends Module {
     val rdOut2 = Output(UInt(32.W))  // output for reg2
   })
 
-  val rgFile = Reg(Vec(1024, UInt(32.W)))
+  val rgFile = Reg(Vec(32, UInt(32.W)))
+  val wrAddr = Wire(UInt())
+  wrAddr := io.wrAddr
 
   rgFile(0) := 0.U
 
@@ -25,4 +27,5 @@ class RegisterFile() extends Module {
   io.rdOut2 := rgFile(io.rdAddr2.asUInt())
 
   printf(p"Register File: $rgFile \n")
+  printf(p"Register File Address: $wrAddr \n")
 }

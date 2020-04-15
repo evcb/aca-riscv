@@ -1,6 +1,6 @@
 package riscv
 
-import chisel3._
+import chisel3.{Vec, _}
 
 
 class Riscv(data: Array[String] = Array()) extends Module {
@@ -78,6 +78,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   val IdEx = Wire(UInt())
   val rgWr = Wire(UInt())
   val memWbData = Wire(UInt())
+  val memWbRd = Wire(UInt())
   val IdExCtl = Wire(UInt())
   val ExMem = Wire(UInt())
   val MemWb = Wire(UInt())
@@ -92,6 +93,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   MemWb := io.memOut
   WbWd := io.wbOut
   memWbData := decodeStage.io.MemWbWd
+  memWbRd := decodeStage.io.MemWbRd
 
   printf("- Start of cycle %d: \n", (pc / 4.S))
   printf("------------------------------\n")
@@ -101,6 +103,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   printf(p"ID/EX: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
   printf("-- Instruction: %d \n", ((pc - 4.S) / 4.S))
   printf("-- MemWbRegWrite: %d \n", rgWr)
+  printf("-- MemWbAddress: %d \n", memWbRd)
   printf("-- MemWbData: %d \n", memWbData)
   printf("------------------------------\n")
   printf(p"EX/MEM: ${Binary(ExMem)} ")
@@ -110,9 +113,10 @@ class Riscv(data: Array[String] = Array()) extends Module {
   printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
   printf(p"WB WD: $WbWd ")
-  printf("-- Instruction: %d \n", ((pc - 16.S) / 4.S))
+  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
-
+  printf("-****************************-\n")
+  printf("------------------------------\n")
 }
 
 object RiscvMain extends App {
