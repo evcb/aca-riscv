@@ -26,6 +26,6 @@ class RegisterFile() extends Module {
   io.rdOut1 := rgFile(io.rdAddr1.asUInt())
   io.rdOut2 := rgFile(io.rdAddr2.asUInt())
 
-  printf(p"Register File: $rgFile \n")
-  printf(p"Register File Address: $wrAddr \n")
+  //printf(p"Register File: $rgFile \n")
+  //printf(p"Register File Address: $wrAddr \n")
 }
