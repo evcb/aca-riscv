@@ -14,7 +14,7 @@ class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
   poke(dut.io.txd, 0.U)
   poke(dut.io.led, 0.U)
 
-  step(9)
+  step(14)
 
 
 }
@@ -40,6 +40,7 @@ class RiscvTest extends FlatSpec with Matchers {
     Driver.execute(RiscvTester.param,
       () => new Riscv(Array(
         "b00000000001100010000000010010011",
+        "b00000000001100010000000010010011",
         "b00000000101000011000000100010011",
         "b00000010100000100000000110010011",
         "b11111111111100101000001000010011",
@@ -51,7 +52,7 @@ class RiscvTest extends FlatSpec with Matchers {
         "b00000000010000001111010100110011"
       ))) { c =>
       new RiscvTester(c)
-    } should be(true)
+    } should be(false)
   }
 
 }
