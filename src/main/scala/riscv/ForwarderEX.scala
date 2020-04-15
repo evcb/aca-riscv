@@ -15,7 +15,7 @@ import Constants._
   * 3) Checks if register we want to read is register that is about to be written 
   * 4) If above are true, sets mux so that the output value is fed as an input value 
   */
-class Forwarder() extends Module {
+class ForwarderEX() extends Module {
   val io = IO(new Bundle {
     val idExRs1 = Input(UInt(SZ_RS1))  // read data 1
     val idExRs2 = Input(UInt(SZ_RS2))  // read data 1
