@@ -16,8 +16,6 @@ class RegisterFile() extends Module {
   })
 
   val rgFile = Reg(Vec(32, UInt(32.W)))
-  val wrAddr = Wire(UInt())
-  wrAddr := io.wrAddr
 
   rgFile(0) := 0.U
 

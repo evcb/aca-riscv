@@ -95,8 +95,8 @@ class Riscv(data: Array[String] = Array()) extends Module {
   memWbData := decodeStage.io.MemWbWd
   memWbRd := decodeStage.io.MemWbRd
 
-  printf("- Start of cycle %d: \n", (pc / 4.S))
   printf("------------------------------\n")
+  printf("- Start of cycle %d: \n", (pc / 4.S))
   printf(p"IF/ID: ${Binary(IfId)} ")
   printf("-- Instruction: %d \n", (pc / 4.S))
   printf("------------------------------\n")
