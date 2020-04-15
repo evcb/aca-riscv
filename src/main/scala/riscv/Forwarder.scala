@@ -50,13 +50,7 @@ class Forwarder() extends Module {
     when(io.exMemRd =/= "b00000".U) {
       when(io.exMemRd === io.idExRs1){
         io.forwardA := "b10".U
-      }
-    }
-  }
-
-  when (io.exMemRegWrite ){         //detect EX stage hazards in DataB
-    when(io.exMemRd =/= "b00000".U) {
-      when(io.exMemRd === io.idExRs2){
+      }.elsewhen(io.exMemRd === io.idExRs2){
         io.forwardB := "b10".U
       }
     }
@@ -66,13 +60,7 @@ class Forwarder() extends Module {
     when(io.memWbRd =/= "b00000".U){
       when(io.memWbRd === io.idExRs1){
         io.forwardA := "b01".U
-      }
-    }
-  }
-
-  when(io.memWbRegWrite){            //detect MEM stage hazards in DataB
-    when(io.memWbRd =/= "b00000".U){
-      when(io.memWbRd === io.idExRs2){
+      }.elsewhen(io.memWbRd === io.idExRs2){
         io.forwardB := "b01".U
       }
     }

@@ -23,7 +23,8 @@ class FetchStage(data: Array[String] = Array()) extends Module {
 
   val pcRg = RegInit(0.asUInt(32.W)) // PC
   val ifRg = RegInit(0.asUInt(64.W)) // pipeline register
-
+  val instruction = Wire(UInt())
+  instruction := inMem.io.rdData
   // pcWrite to branch
   // branch addr or increment addr
   when (io.pcWrite) { pcRg := Mux(io.pcSrc, io.ifIdPc, pcRg + 4.U) }
@@ -35,7 +36,7 @@ class FetchStage(data: Array[String] = Array()) extends Module {
     // concatenating instruction and addr
     when (!io.ifFlush) {
       //       Cat(MSB, LSB)
-      ifRg := Cat(pcRg, inMem.io.rdData)
+      ifRg := Cat(pcRg, instruction)
 
       val mem = inMem.io.rdData
       //printf(p"Instruction Mem: $mem\n")
