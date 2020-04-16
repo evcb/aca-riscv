@@ -97,7 +97,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   val alu = Module(new Alu())
   val aluCtrl = Module(new AluCtl())
-  val forwarder = Module(new Forwarder())
+  val forwarder = Module(new ForwarderEX())
 
 
   /*********************************************************************************************************/
