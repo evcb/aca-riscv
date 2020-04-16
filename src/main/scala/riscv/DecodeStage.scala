@@ -35,6 +35,18 @@ class DecodeStage extends Module {
   //Add PC with shifted Imm for Branch Adress
   io.ifIdPc := io.ifIdIn(63, 32) + ShLftImm
 
+  //Connecting Forwarder
+  val Forwarder = Module(new ForwarderID())
+  //Inputs
+  Forwarder.io.wrEna := io.MemWbRegWrite
+  Forwarder.io.memWbRd := io.MemWbRd
+  Forwarder.io.rdAddr1 := io.ifIdIn(19,15)
+  Forwarder.io.rdAddr2 := io.ifIdIn(24,20)
+  //Outputs
+  val forwardRd1 = Wire(Bool())
+  forwardRd1 := Forwarder.io.forwardRd1
+  val forwardRd2 = Wire(Bool())
+  forwardRd2 := Forwarder.io.forwardRd2
 
   //Connecting Register file
   val RegFile = Module(new RegisterFile())
@@ -46,9 +58,9 @@ class DecodeStage extends Module {
   RegFile.io.wrData := io.MemWbWd
   //Outputs
   val rdOut1 = Wire(UInt())
+  rdOut1 := Mux(forwardRd1, io.MemWbWd, RegFile.io.rdOut1)
   val rdOut2 = Wire(UInt())
-  rdOut1 := RegFile.io.rdOut1
-  rdOut2 := RegFile.io.rdOut2
+  rdOut2 := Mux(forwardRd2, io.MemWbWd, RegFile.io.rdOut2)
   //printf(p"Reg1 data is: $rdOut1 \n")
   //printf(p"Reg2 data is: $rdOut2 \n")
 
