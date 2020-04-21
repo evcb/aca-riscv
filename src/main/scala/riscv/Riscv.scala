@@ -65,11 +65,13 @@ class Riscv(data: Array[String] = Array()) extends Module {
   io.exOut := executionStage.io.exMemOut
 
   // MEM
+  memStage.io.exMemCtlIn := executionStage.io.exMemCtlOut
   memStage.io.exMemIn := executionStage.io.exMemOut
-  io.memOut := memStage.io.memOut
+  io.memOut := memStage.io.memWbOut
 
   // WRITE BACK
-  writeBackStage.io.memWbIn := memStage.io.memOut
+  writeBackStage.io.memWbIn := memStage.io.memWbOut
+  writeBackStage.io.memWbCtlIn := memStage.io.memWbCtlOut
   io.wbOut := writeBackStage.io.memWbWd
 
   // DEBUGGING
