@@ -22,7 +22,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00001".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001000000000000000000000000000000000000001".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001000000000000000000000000000000000000001".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing for ADD x3 x1, x2
   //00000000001000001000000110110011
@@ -37,7 +38,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000000100000000000000000000000000000000100011".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000000100000000000000000000000000000000100011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing for SUB x3 x1, x2
   //01000000001000001000000110110011
@@ -52,7 +54,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000111111111111111111111111111111110000000000000000000000000000001000011".U)
+  expect(dut.io.exMemOut,"b111111111111111111111111111111110000000000000000000000000000001000011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward dataA from mem in ADD x3 x1, x2
   poke(dut.io.idExCtlIn, "b1000100".U)
@@ -65,7 +68,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001000000000000000000000000000000000100011".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001000000000000000000000000000000000100011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward dataB from mem in ADD x3 x1, x2
   poke(dut.io.idExCtlIn, "b1000100".U)
@@ -78,7 +82,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001000000000000000000000000000000001100011".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001000000000000000000000000000000001100011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward dataA from WB in ADD x3 x1, x2
   poke(dut.io.idExCtlIn, "b1000100".U)
@@ -92,7 +97,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001000000000000000000000000000000000100011".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001000000000000000000000000000000000100011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward dataB from mem in ADD x3 x1, x2
   poke(dut.io.idExCtlIn, "b1000100".U)
@@ -106,7 +112,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001000000000000000000000000000000001100011".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001000000000000000000000000000000001100011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward data A from Ex for ADDI x1, x2, 3
   poke(dut.io.idExCtlIn, "b1000011".U)
@@ -120,7 +127,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00001".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001100000000000000000000000000000000000001".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001100000000000000000000000000000000000001".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing forward data A from Mem for ADDI x1, x2, 3
   poke(dut.io.idExCtlIn, "b1000011".U)
@@ -134,7 +142,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00001".U)
-  expect(dut.io.exMemOut,"b1000000000000000000000000000000001100000000000000000000000000000000000001".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000000001100000000000000000000000000000000000001".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing froward data A for SUB x3 x1, x2
   poke(dut.io.idExCtlIn, "b1000100".U)
@@ -148,7 +157,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b00011".U)
-  expect(dut.io.exMemOut,"b1000111111111111111111111111111111100000000000000000000000000000001000011".U)
+  expect(dut.io.exMemOut,"b111111111111111111111111111111100000000000000000000000000000001000011".U)
+  expect(dut.io.exMemCtlOut,"b1000".U)
 
   //Testing for store word sw x1, 40(x2)
   //00000010001000001010010000100011
@@ -163,7 +173,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, false.B)
   expect(dut.io.idExRd,"b01000".U)
-  expect(dut.io.exMemOut,"b0010000000000000000000000000001010010000000000000000000000000000000001000".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000001010010000000000000000000000000000000001000".U)
+  expect(dut.io.exMemCtlOut,"b0010".U)
 
   //Testing for store word lw x1, 40(x2)
   //00000010100000010010000010000011
@@ -178,7 +189,8 @@ class ExStageTester(dut: ExStage) extends PeekPokeTester(dut) {
   step(1)
   expect(dut.io.idExMemRead, true.B)
   expect(dut.io.idExRd,"b00001".U)
-  expect(dut.io.exMemOut,"b1101000000000000000000000000001010010000000000000000000000000000000000001".U)
+  expect(dut.io.exMemOut,"b000000000000000000000000001010010000000000000000000000000000000000001".U)
+  expect(dut.io.exMemCtlOut,"b1101".U)
 
 }
 
