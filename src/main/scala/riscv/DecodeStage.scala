@@ -21,6 +21,9 @@ class DecodeStage extends Module {
     val IdExOut = Output(UInt(121.W)) //Read Dta 1 & 2 (32 & 32), Extended Imm(32), Funct 7 & 3(10), Rs 1 & 2(5 & 5), Rd(5)
     val CtlOut = Output(UInt(7.W)) //RegWrite(1), MemToReg(1), MemWrite(1), MemRead(1), ALU_OP(2), ALU_Src(1)
   })
+  //Test vals
+  val Rs1 = io.ifIdIn(19,15)
+  val Rs2 = io.ifIdIn(24,20)
 
   //Stage Registers
   val IdExRg = RegInit(0.asUInt(121.W))
@@ -78,7 +81,7 @@ class DecodeStage extends Module {
   //Flush
   io.ifFlush := MnCtl.io.Ctl(8).asBool()
 
-  //Hazard Detection Unit
+  //Connecting Hazard Detection Unit
   val Hazard = Module(new HazardDetectionUnit())
   //Input
   Hazard.io.IdExMemRead := io.IdExMemRead

@@ -26,6 +26,7 @@ class MemStage extends Module {
   val memRd = io.exMemIn(69)  // MemRead, bool
   val memWr = io.exMemIn(70)  // MemWrite, bool
   val exMemWb = io.exMemIn(72, 71) // EX_MEM_Wb, 2-bit
+  val ExMemRegWrite = io.exMemIn(72)
 
   val dataMem = Module(new Memory())
   val memRg = RegInit(0.U(71.W))  // pipeline register
@@ -41,6 +42,6 @@ class MemStage extends Module {
 
   // pass-through
   io.exMemRd := exMemRd
-  io.exMemRegWr := exMemWb
+  io.exMemRegWr := ExMemRegWrite
   io.exMemAddr := exMemAddr
 }
