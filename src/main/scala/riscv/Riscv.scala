@@ -49,11 +49,11 @@ class Riscv(data: Array[String] = Array()) extends Module {
   decodeStage.io.MemWbWd := writeBackStage.io.memWbWd
 
   io.deOut := decodeStage.io.IdExOut
-  io.deCtlOut := decodeStage.io.CtlOut
+  io.deCtlOut := decodeStage.io.IdExCtlOut
 
   // EX
   executionStage.io.idExIn := decodeStage.io.IdExOut
-  executionStage.io.idExCtlIn := decodeStage.io.CtlOut
+  executionStage.io.idExCtlIn := decodeStage.io.IdExCtlOut
   executionStage.io.exMemRd := memStage.io.exMemRd
   executionStage.io.exMemAddr := memStage.io.exMemAddr
   executionStage.io.memWbRd := writeBackStage.io.memWbRd

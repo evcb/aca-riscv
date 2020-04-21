@@ -19,7 +19,7 @@ class DecodeStage extends Module {
     val ifIdPc = Output(UInt(32.W))
 
     val IdExOut = Output(UInt(121.W)) //Read Dta 1 & 2 (32 & 32), Extended Imm(32), Funct 7 & 3(10), Rs 1 & 2(5 & 5), Rd(5)
-    val CtlOut = Output(UInt(7.W)) //RegWrite(1), MemToReg(1), MemWrite(1), MemRead(1), ALU_OP(2), ALU_Src(1)
+    val IdExCtlOut = Output(UInt(7.W)) //RegWrite(1), MemToReg(1), MemWrite(1), MemRead(1), ALU_OP(2), ALU_Src(1)
   })
   //Test vals
   val Rs1 = io.ifIdIn(19,15)
@@ -36,7 +36,7 @@ class DecodeStage extends Module {
   val ShLftImm = Wire(UInt())
   ShLftImm := Imm32.io.ImmOut << 1
   //Add PC with shifted Imm for Branch Adress
-  io.ifIdPc := io.ifIdIn(63, 32) + ShLftImm
+  io.ifIdPc := (Cat(0.U,io.ifIdIn(63, 32)).asSInt() + ShLftImm.asSInt()).asUInt()
 
   //Connecting Forwarder
   val Forwarder = Module(new ForwarderID())
@@ -68,7 +68,7 @@ class DecodeStage extends Module {
   //printf(p"Reg2 data is: $rdOut2 \n")
 
   //Compare output of reg for bnq
-  val zero = Wire(Bool())
+  val zero: Bool = Wire(Bool())
   zero := rdOut1 === rdOut2
 
   //Connecting Main control
@@ -91,17 +91,19 @@ class DecodeStage extends Module {
   //Output
   io.pcWrite := Hazard.io.PCWrite
   io.ifIdWrite := Hazard.io.IfIdWrite
+
   //Mux for inserting bubble
-  val NOP = Hazard.io.NOP
+  val NOP: Bool = Hazard.io.NOP
   //printf(p"NOP = $NOP \n")
-  MnCtlw := Mux(Hazard.io.NOP, 0.U, MnCtl.io.Ctl(7,0))
+  MnCtlw := Mux(NOP, 0.U, MnCtl.io.Ctl(7,0))
 
   //Branch
-  io.pcSrc := MnCtlw(0) & zero
+  val Branch: Bool = MnCtlw(0)
+  io.pcSrc := Branch & zero
 
   //Set input for Control Reg ID/EX
   CtlRg := MnCtlw(7,1)
-  io.CtlOut := CtlRg
+  io.IdExCtlOut := CtlRg
 
   //Set input Stage Reg ID/EX
   IdExRg := Cat(rdOut1,rdOut2,Imm32.io.ImmOut, Cat(io.ifIdIn(31,25), io.ifIdIn(14, 12)), io.ifIdIn(19, 15), io.ifIdIn(24, 20), io.ifIdIn(11, 7))
