@@ -1,6 +1,6 @@
 package riscv
 
-import chisel3.{Vec, _}
+import chisel3._
 
 
 class Riscv(data: Array[String] = Array()) extends Module {
@@ -116,7 +116,6 @@ class Riscv(data: Array[String] = Array()) extends Module {
   printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
   printf("-****************************-\n")
-  printf("------------------------------\n")
 }
 
 object RiscvMain extends App {
