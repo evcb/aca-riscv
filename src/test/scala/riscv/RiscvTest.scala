@@ -16,7 +16,6 @@ class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
 
   step(72)
 
-
 }
 
 class RiscvTest extends FlatSpec with Matchers {
