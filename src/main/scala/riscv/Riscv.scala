@@ -49,11 +49,11 @@ class Riscv(data: Array[String] = Array()) extends Module {
   decodeStage.io.MemWbWd := writeBackStage.io.memWbWd
 
   io.deOut := decodeStage.io.IdExOut
-  io.deCtlOut := decodeStage.io.CtlOut
+  io.deCtlOut := decodeStage.io.IdExCtlOut
 
   // EX
   executionStage.io.idExIn := decodeStage.io.IdExOut
-  executionStage.io.idExCtlIn := decodeStage.io.CtlOut
+  executionStage.io.idExCtlIn := decodeStage.io.IdExCtlOut
   executionStage.io.exMemRd := memStage.io.exMemRd
   executionStage.io.exMemAddr := memStage.io.exMemAddr
   executionStage.io.memWbRd := writeBackStage.io.memWbRd
@@ -97,8 +97,8 @@ class Riscv(data: Array[String] = Array()) extends Module {
   memWbData := decodeStage.io.MemWbWd
   memWbRd := decodeStage.io.MemWbRd
 
-  printf("------------------------------\n")
   printf("- Start of cycle %d: \n", (pc / 4.S))
+  printf("------------------------------\n")
   printf(p"IF/ID: ${Binary(IfId)} ")
   printf("-- Instruction: %d \n", (pc / 4.S))
   printf("------------------------------\n")

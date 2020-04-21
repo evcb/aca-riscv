@@ -27,7 +27,7 @@ class ImmGen extends Module {
     }
     //SB-type
     is("b1100011".U) {
-      ImmW := Cat(Fill(20, io.InsIn(31)), io.InsIn(31),io.InsIn(7), io.InsIn(30,25),io.InsIn(11, 6))
+      ImmW := Cat(Fill(20, io.InsIn(31)), io.InsIn(31),io.InsIn(7), io.InsIn(30,25),io.InsIn(11, 8))
     }
     //U-type
     is("b0110011".U) {

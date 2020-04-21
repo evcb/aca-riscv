@@ -23,8 +23,13 @@ class HazardDetectionUnit extends Module {
   when (io.IdExMemRead){
   when(io.IdExRd === io.IfIdRs1) {
     io.NOP := true.B
+    io.IfIdWrite := false.B
+    io.PCWrite :=  false.B
   } .elsewhen(io.IdExRd === io.IfIdRs2) {
     io.NOP := true.B
+    io.IfIdWrite := false.B
+    io.PCWrite :=  false.B
+
   } .otherwise{io.NOP := false.B}
   }
 }
