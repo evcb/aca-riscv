@@ -129,6 +129,10 @@ class ExStage extends Module {
 
   //outputs from aluCtrl
   alu.io.alu_ctl := aluCtrl.io.alu_ctl
+  val HW,B,Unsigned = Wire(Bool())
+  HW := aluCtrl.io.HW
+  B := aluCtrl.io.B
+  Unsigned := aluCtrl.io.Unsigned
  
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */

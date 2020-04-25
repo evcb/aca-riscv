@@ -6,6 +6,7 @@ import chisel3.util._
 class ImmGen extends Module {
   val io = IO(new Bundle {
     val InsIn = Input(UInt(32.W))
+    val PC = Input(UInt(32.W))
 
     val ImmOut = Output(UInt(32.W))
   })
@@ -29,9 +30,13 @@ class ImmGen extends Module {
     is("b1100011".U) {
       ImmW := Cat(Fill(20, io.InsIn(31)), io.InsIn(31),io.InsIn(7), io.InsIn(30,25),io.InsIn(11, 8))
     }
-    //U-type
-    is("b0110011".U) {
-      ImmW := Cat(Fill(12, io.InsIn(31)), io.InsIn(31, 12))
+    //U-type (LUI)
+    is("b0110111".U) {
+      ImmW := Cat(io.InsIn(31, 12),"b000000000000".U)
+    }
+    //U-type (AUIPC)
+    is("b0010111".U) {
+      ImmW := Cat(io.InsIn(31, 12),"b000000000000".U) + io.PC
     }
     //UJ-type
     is("b1101111".U) {
