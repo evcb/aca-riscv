@@ -49,7 +49,7 @@ class Alu() extends Module {
       result := (a.asUInt() >> b(4,0).asUInt()).asSInt()
     }
     is(FN_SRA) {
-      result := Cat(a(31),a.asUInt() >> b(4,0).asUInt()).asSInt()
+      result := a >> b(4,0)
     }
     is(FN_OR) {
       result := a | b

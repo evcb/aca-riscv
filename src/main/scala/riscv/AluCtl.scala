@@ -14,25 +14,27 @@ class AluCtl extends Module {
     val Unsigned = Output(Bool())
   })
 
-  val result = WireDefault(0.U)
+  val result = WireDefault(10.U)
   val MemCtl = WireDefault(0.U(3.W))
 
   switch(io.ALUOP) {
     is ("b01".U) { //R-type instructions
-      switch(Cat(io.funct7, io.funct3)) {
+      switch(io.funct3) {
         is (0.U) { result := 0.U } //ADD or Addi
-        is ("b0100000000".U) { result := 1.U } //SUB
         is (1.U) { result := 2.U } //SLL or SLLI
         is (2.U) { result := 3.U } //SLT or SLTI
         is (3.U) { result := 4.U } //SLTU or SLTUI
         is (4.U) { result := 5.U } //XOR or XORI
         is (5.U) { result := 6.U } //SRL or SRLI
-        is ("b0100000101".U) { result := 7.U } //SRA or SRAI
         is (6.U) { result := 8.U } //OR or ORI
         is (7.U) { result := 9.U } //AND or ANDI
       }
-    } 
-    is ("b10".U) { //I-type and S-type instructions
+      switch(Cat(io.funct7,io.funct3)) {
+      is ("b0100000101".U) { result := 7.U } //SRA or SRAI
+      is ("b0100000000".U) { result := 1.U } //SUB
+      }
+    }
+    is ("b10".U) { // S-type instructions
         result := 0.U
       switch(Cat(io.funct3)) {
         is (0.U) { MemCtl := "b010".U } //LB or SB
