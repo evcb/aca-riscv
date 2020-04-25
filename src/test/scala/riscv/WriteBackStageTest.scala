@@ -10,8 +10,8 @@ object WriteBackStageTester {
 
 class WriteBackStageTester(r: WriteBackStage) extends PeekPokeTester(r) {
 
-  // (71, 0)
-  poke(r.io.memWbIn, "b10101011010101101111110111010000111111100111111101010100111110111110001".U)
+  poke(r.io.memWbCtlIn, "b10".U)
+  poke(r.io.memWbIn, "b101011010101101111110111010000111111100111111101010100111110111110001".U)
 
   step(2)
 
@@ -20,8 +20,8 @@ class WriteBackStageTester(r: WriteBackStage) extends PeekPokeTester(r) {
 
   expect(r.io.memWbWd, "b11111001111111010101001111101111".U)
 
-  // (71, 0)
-  poke(r.io.memWbIn, "b11011011010101101111110111010000111111100111111101010100111111111110010".U)
+  poke(r.io.memWbCtlIn, "b11".U)
+  poke(r.io.memWbIn, "b011011010101101111110111010000111111100111111101010100111111111110010".U)
 
   step(2)
 

@@ -27,14 +27,16 @@ class ExStage extends Module {
 
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(5.W)) // register destination - passthrough to Hazard Detection Unit
-    val exMemOut = Output(UInt(73.W)) // stage output reigster EX/MEM
+    val exMemOut = Output(UInt(69.W)) // stage output reigster EX/MEM
+    val exMemCtlOut = Output(UInt(4.W)) // stage output control register 
+
   })
 
   /*********************************************************************************************************/
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
-  val exMemRg = RegInit(0.U(SZ_EX_MEM_REG)) //holds data for output register
-
+  val exMemRg = RegInit(0.U(69.W)) //holds data for output register
+  val ctlRg = RegInit(0.asUInt(4.W))
 
   /*********************************************************************************************************/
   /* Parse input registers into signals                                                                    */
@@ -69,7 +71,8 @@ class ExStage extends Module {
   //printf(p"Rs2 is: $idExRs2 \n")
   val idExRd  = Wire(UInt())
   idExRd := io.idExIn(4, 0)  //register destination (either an ALU instruction or a load)
-
+  val idExMemRead = Wire(Bool())
+  idExMemRead := idExMem(0).asBool() //passthrough control for memory to read (goes to Hazard detection unit)
 
   /*********************************************************************************************************/
   /* Internal signals                                                                                      */
@@ -87,8 +90,8 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Default assignments                                                                                   */
   /*********************************************************************************************************/
-  //passthrough signals
-  io.idExMemRead := idExMem(0).asBool()
+  //passthrough signals   
+  io.idExMemRead := idExMemRead
   io.idExRd := idExRd
 
 
@@ -123,8 +126,8 @@ class ExStage extends Module {
   //printf(p"Forward Data B: $forwardB \n")
 
   //inputs to aluCtrl
-  aluCtrl.io.funct7 := idExF(9,3) //TODO: test is this correct
-  aluCtrl.io.funct3 := idExF(2,0) //TODO: test is this correct
+  aluCtrl.io.funct7 := idExF(9,3)
+  aluCtrl.io.funct3 := idExF(2,0)
   aluCtrl.io.ALUOP :=  aluOp
 
   //outputs from aluCtrl
@@ -153,23 +156,20 @@ class ExStage extends Module {
 
   //inputs to alu
   alu.io.a := outputMux1
-  //printf(p"A for Alu is: $outputMux1 \n")
   alu.io.b := outputMux3
-  //printf(p"Out of Mux2 is: $outputMux2 \n")
-  //printf(p"B for Alu is: $outputMux3 \n")
 
   //outputs from alu
   aluResult := alu.io.result
-  //printf(p"Result from Alu is: $aluResult \n")
-  //printf("--------------------------------\n")
 
   /*********************************************************************************************************/
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
-  /* MSB -> LSB */
-  exMemRg := Cat(idExWb, idExMem, aluResult, outputMux2, idExRd)
-  //printf(p"EX/MEM register from EX stage : $exMemRg\n")
+  //write to Control Register EX/MEM  
+  ctlRg := Cat(idExWb, idExMem)
+  io.exMemCtlOut := ctlRg
 
-  //write to output register
+  //write to Output Register EX/MEM
+  exMemRg := Cat(idExWb, idExMem, aluResult, outputMux2, idExRd)
   io.exMemOut := exMemRg
+
 }

@@ -1,6 +1,6 @@
 package riscv
 
-import chisel3.{Vec, _}
+import chisel3._
 
 
 class Riscv(data: Array[String] = Array()) extends Module {
@@ -65,11 +65,13 @@ class Riscv(data: Array[String] = Array()) extends Module {
   io.exOut := executionStage.io.exMemOut
 
   // MEM
+  memStage.io.exMemCtlIn := executionStage.io.exMemCtlOut
   memStage.io.exMemIn := executionStage.io.exMemOut
-  io.memOut := memStage.io.memOut
+  io.memOut := memStage.io.memWbOut
 
   // WRITE BACK
-  writeBackStage.io.memWbIn := memStage.io.memOut
+  writeBackStage.io.memWbIn := memStage.io.memWbOut
+  writeBackStage.io.memWbCtlIn := memStage.io.memWbCtlOut
   io.wbOut := writeBackStage.io.memWbWd
 
   // DEBUGGING
@@ -97,26 +99,25 @@ class Riscv(data: Array[String] = Array()) extends Module {
 
   printf("- Start of cycle %d: \n", (pc / 4.S))
   printf("------------------------------\n")
-  printf(p"IF/ID: ${Binary(IfId)} ")
+  printf(p"IfId: ${Binary(IfId)} ")
   printf("-- Instruction: %d \n", (pc / 4.S))
   printf("------------------------------\n")
-  printf(p"ID/EX: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
+  printf(p"IdExCtl: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
   printf("-- Instruction: %d \n", ((pc - 4.S) / 4.S))
   printf("-- MemWbRegWrite: %d \n", rgWr)
   printf("-- MemWbAddress: %d \n", memWbRd)
   printf("-- MemWbData: %d \n", memWbData)
   printf("------------------------------\n")
-  printf(p"EX/MEM: ${Binary(ExMem)} ")
+  printf(p"ExMem: ${Binary(ExMem)} ")
   printf("-- Instruction: %d \n", ((pc - 8.S) / 4.S))
   printf("------------------------------\n")
-  printf(p"MEM/WB: ${Binary(MemWb)} ")
+  printf(p"MemWb: ${Binary(MemWb)} ")
   printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
-  printf(p"WB WD: $WbWd ")
+  printf(p"WbWd: $WbWd ")
   printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
   printf("-****************************-\n")
-  printf("------------------------------\n")
 }
 
 object RiscvMain extends App {
