@@ -31,7 +31,7 @@ class MemStage extends Module {
   val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
   val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
 
-  val memRd = io.exMemCtlIn(0)  // MemRead, bool
+  val memRd = io.exMemCtlIn(0)  // MemRead, bool @TODO: remove
   val memWr = io.exMemCtlIn(1)  // MemWrite, bool
   val exMemWb = io.exMemCtlIn(3, 2) // EX_MEM_Wb/EX_MEM_RegWrite, 2-bit
   ctlReg := exMemWb
@@ -44,7 +44,7 @@ class MemStage extends Module {
   dataMem.io.wrData := exMemWd // data
 
   // CAT(MSB, LSB)
-  memRg := Cat(memWdData, exMemAddr, exMemRd)
+  memRg := Cat(Cat(memWdData(3), memWdData(2), memWdData(1), memWdData(0)), exMemAddr, exMemRd)
 
   io.memWbCtlOut := ctlReg
   io.memWbOut := memRg

@@ -10,27 +10,46 @@ object MemoryTester {
 
 class MemoryTester(r: Memory) extends PeekPokeTester(r) {
 
-  // write should be ignored
   poke(r.io.rdAddr, 584.U)
   poke(r.io.wrAddr, 584.U)
-  poke(r.io.wrData, 584.U)
-  poke(r.io.wrEna, false.B) // ignore write data
+  poke(r.io.wrData, "b11111110111111101111111011111110".U)
+  poke(r.io.mask, "b1111".U)
+  poke(r.io.wrEna, false.B)
   step(1)
-  expect(r.io.rdData, 0.U)
+  expect(r.io.rdData, "b0".U)
 
-  // Write up to 32 bits
-  for (addr <- 4 until 4294967296L by 4) {
-    val wrData = addr.asUInt() + 33.asUInt()
+  poke(r.io.rdAddr, 584.U)
+  poke(r.io.wrAddr, 584.U)
+  poke(r.io.wrData, "b11111110111111101111111011111110".U)
+  poke(r.io.mask, "b0001".U)
+  poke(r.io.wrEna, true.B)
+  step(2)
+  expect(r.io.rdData, "b11111110".U)
 
-    poke(r.io.wrEna, true.B)
-    poke(r.io.rdAddr, addr)
-    poke(r.io.wrAddr, addr)
-    poke(r.io.wrData, wrData)
+  poke(r.io.rdAddr, 584.U)
+  poke(r.io.wrAddr, 584.U)
+  poke(r.io.wrData, "b11111110111111101111111011111110".U)
+  poke(r.io.wrEna, true.B)
+  poke(r.io.mask, "b0010".U)
+  step(2)
+  expect(r.io.rdData, "b1111111011111110".U)
 
-    step(3)
+  poke(r.io.rdAddr, 584.U)
+  poke(r.io.wrAddr, 584.U)
+  poke(r.io.wrData, "b11111110111111101111111011111110".U)
+  poke(r.io.wrEna, true.B)
+  poke(r.io.mask, "b0100".U)
+  step(2)
+  expect(r.io.rdData, "b111111101111111011111110".U)
 
-    expect(r.io.rdData, wrData)
-  }
+  poke(r.io.rdAddr, 584.U)
+  poke(r.io.wrAddr, 584.U)
+  poke(r.io.wrData, "b11111110111111101111111011111110".U)
+  poke(r.io.wrEna, true.B)
+  poke(r.io.mask, "b1000".U)
+  step(2)
+  expect(r.io.rdData, "b11111110111111101111111011111110".U)
+
 }
 
 class MemTest extends FlatSpec with Matchers {
