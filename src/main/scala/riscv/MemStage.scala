@@ -11,7 +11,7 @@ import chisel3.util._
 class MemStage extends Module {
   val io = IO(new Bundle {
     // Inputs
-    val exMemCtlIn = Input(UInt(7.W)) // control signals, EX_MEM_Wb/EX_MEM_RegWrite, MemWrite, MemRead
+    val exMemCtlIn = Input(UInt(4.W)) // control signals, EX_MEM_Wb/EX_MEM_RegWrite, MemWrite, MemRead
     val exMemIn = Input(UInt(69.W))  // register from EX/MEM stage
 
     // Outputs
@@ -31,20 +31,19 @@ class MemStage extends Module {
   val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
   val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
 
-  val Unsigned = io.exMemCtlIn(0)
-  val B = io.exMemCtlIn(1)
-  val HW = io.exMemCtlIn(2)
-  val memRd = io.exMemCtlIn(3)  // MemRead, bool Dont care
+  val hw = io.exMemCtlIn(0)  // Unsigned, bool
+  val b = io.exMemCtlIn(1)  // B, bool
+  val unsigned = io.exMemCtlIn(2)  // HW, bool
   val memWr = io.exMemCtlIn(4)  // MemWrite, bool
   val exMemWb = io.exMemCtlIn(6, 5) // EX_MEM_Wb/EX_MEM_RegWrite, 2-bit
+
   ctlReg := exMemWb
-
-  val memWdData = dataMem.io.rdData
-
-  dataMem.io.rdAddr := exMemAddr // addr
-  dataMem.io.wrAddr := exMemAddr // addr
+  dataMem.io.rdAddr := exMemAddr // read addr
+  dataMem.io.wrAddr := exMemAddr // write addr
   dataMem.io.wrEna := memWr  // write enable
   dataMem.io.wrData := exMemWd // data
+
+  val memWdData = dataMem.io.rdData
 
   // CAT(MSB, LSB)
   memRg := Cat(memWdData, exMemAddr, exMemRd)
