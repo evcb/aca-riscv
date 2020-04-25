@@ -11,7 +11,7 @@ import chisel3.util._
 class MemStage extends Module {
   val io = IO(new Bundle {
     // Inputs
-    val exMemCtlIn = Input(UInt(4.W)) // control signals, EX_MEM_Wb/EX_MEM_RegWrite, MemWrite, MemRead
+    val exMemCtlIn = Input(UInt(7.W)) // control signals, EX_MEM_Wb/EX_MEM_RegWrite, MemWrite, MemRead
     val exMemIn = Input(UInt(69.W))  // register from EX/MEM stage
 
     // Outputs
@@ -31,9 +31,12 @@ class MemStage extends Module {
   val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
   val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
 
-  val memRd = io.exMemCtlIn(0)  // MemRead, bool
-  val memWr = io.exMemCtlIn(1)  // MemWrite, bool
-  val exMemWb = io.exMemCtlIn(3, 2) // EX_MEM_Wb/EX_MEM_RegWrite, 2-bit
+  val Unsigned = io.exMemCtlIn(0)
+  val B = io.exMemCtlIn(1)
+  val HW = io.exMemCtlIn(2)
+  val memRd = io.exMemCtlIn(3)  // MemRead, bool Dont care
+  val memWr = io.exMemCtlIn(4)  // MemWrite, bool
+  val exMemWb = io.exMemCtlIn(6, 5) // EX_MEM_Wb/EX_MEM_RegWrite, 2-bit
   ctlReg := exMemWb
 
   val memWdData = dataMem.io.rdData

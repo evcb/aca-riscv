@@ -54,12 +54,16 @@ object Constants
 
 
   // Supported ALU functions
-  def FN_ADD  = 2.U
-  def FN_SUB  = 6.U
-  def FN_OR = 1.U
-  def FN_AND = 0.U
+  def FN_ADD  = 0.U
+  def FN_SUB  = 1.U
+  def FN_SLL: UInt = 2.U
+  def FN_SLT  = 3.U
+  def FN_SLTU  = 4.U
+  def FN_XOR  = 5.U
+  def FN_SRL  = 6.U
+  def FN_SRA  = 7.U
+  def FN_OR = 8.U
+  def FN_AND = 9.U
 
-  
-  def FN_SLT  = 7.U
-  //def FN_NOR = 1
+
 }

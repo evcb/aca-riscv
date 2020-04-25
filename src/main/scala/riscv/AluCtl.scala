@@ -15,13 +15,13 @@ class AluCtl extends Module {
   })
 
   val result = WireDefault(0.U)
-  val MemCtl = WireDefault(0.U)
+  val MemCtl = WireDefault(0.U(3.W))
 
   switch(io.ALUOP) {
     is ("b01".U) { //R-type instructions
       switch(Cat(io.funct7, io.funct3)) {
         is (0.U) { result := 0.U } //ADD or Addi
-        is ("b0100000000".U) { result := 2.U } //SUB
+        is ("b0100000000".U) { result := 1.U } //SUB
         is (1.U) { result := 2.U } //SLL or SLLI
         is (2.U) { result := 3.U } //SLT or SLTI
         is (3.U) { result := 4.U } //SLTU or SLTUI
