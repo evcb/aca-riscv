@@ -17,7 +17,7 @@ class MainCtl extends Module {
       signal := "b010000100000".U
     }
     is("b0010011".U) { //I-type 1 IMM
-      signal := "b010000110000".U
+      signal := "b010001110000".U
     }
     is("b0000011".U){ //I-type 2 Load
       signal := "b011011010000".U

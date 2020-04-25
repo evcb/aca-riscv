@@ -19,19 +19,32 @@ class AluCtl extends Module {
 
   switch(io.ALUOP) {
     is ("b01".U) { //R-type instructions
-      switch(io.funct3) {
+      switch(Cat(io.funct7,io.funct3)) {
         is (0.U) { result := 0.U } //ADD or Addi
-        is (1.U) { result := 2.U } //SLL or SLLI
-        is (2.U) { result := 3.U } //SLT or SLTI
-        is (3.U) { result := 4.U } //SLTU or SLTUI
-        is (4.U) { result := 5.U } //XOR or XORI
-        is (5.U) { result := 6.U } //SRL or SRLI
-        is (6.U) { result := 8.U } //OR or ORI
-        is (7.U) { result := 9.U } //AND or ANDI
+        is ("b0100000000".U) { result := 1.U } //SUB
+        is (1.U) { result := 2.U } //SLL
+        is (2.U) { result := 3.U } //SLT
+        is (3.U) { result := 4.U } //SLTU
+        is (4.U) { result := 5.U } //XOR
+        is (5.U) { result := 6.U } //SRL
+        is ("b0100000101".U) { result := 7.U } //SRA
+        is (6.U) { result := 8.U } //OR
+        is (7.U) { result := 9.U } //AND
+        }
+    }
+    is ("b11".U) { //R-type instructions
+      switch(io.funct3) {
+        is (0.U) { result := 0.U } // Addi
+        is (1.U) { result := 2.U } // SLLI
+        is (2.U) { result := 3.U } // SLTI
+        is (3.U) { result := 4.U } // SLTUI
+        is (4.U) { result := 5.U } // XORI
+        is (5.U) { result := 6.U } // SRLI
+        is (6.U) { result := 8.U } // ORI
+        is (7.U) { result := 9.U } // ANDI
       }
       switch(Cat(io.funct7,io.funct3)) {
-      is ("b0100000101".U) { result := 7.U } //SRA or SRAI
-      is ("b0100000000".U) { result := 1.U } //SUB
+        is ("b0100000101".U) { result := 7.U } // SRAI
       }
     }
     is ("b10".U) { // S-type instructions
