@@ -18,7 +18,6 @@ class Memory() extends Module {
   })
 
   val mem = SyncReadMem(1024, Vec(4, UInt(8.W)))
-  val mask = Wire(Vec(4, Bool()))
   val wrData = Wire(Vec(4, UInt(8.W)))
   val rdData = Reg(Vec(4, UInt(8.W)))
 
@@ -28,19 +27,23 @@ class Memory() extends Module {
   wrData(1) := io.wrData(15, 8)
   wrData(0) := io.wrData(7, 0)
 
-  val byteEn = Wire(UInt(4.W))
-  byteEn := "b1111".U
-
+  val byteEn = Wire(Vec(4, Bool()))
+  byteEn(0):= true.B
+  byteEn(1):= true.B
+  byteEn(2):= true.B
+  byteEn(3):= true.B
   // half-word
   when(io.hw) {
     when(io.wrAddr(1) === "b0".U) {
       wrData(2) := io.wrData(15, 0)
       wrData(3) := io.wrData(31, 16)
-      byteEn := "b1100".U
+      byteEn(0):= false.B
+      byteEn(1):= false.B // 1100
     }.elsewhen(io.wrAddr(1) === "b1".U){
       wrData(0) := io.wrData(15, 0)
       wrData(1) := io.wrData(31, 16)
-      byteEn := "b0011".U
+      byteEn(2):= false.B
+      byteEn(3):= false.B // 0011
     }
   }
 
@@ -49,26 +52,34 @@ class Memory() extends Module {
     switch(io.wrAddr(1, 0)) {
       is("b00".U) {
         wrData(3) := io.wrData(31, 24)
-        byteEn := "b1000".U
+        byteEn(0):= false.B
+        byteEn(1):= false.B
+        byteEn(2):= false.B //1000
       }
       is("b01".U) {
         wrData(2) := io.wrData(23, 16)
-        byteEn := "b0100".U
+        byteEn(0):= false.B
+        byteEn(1):= false.B
+        byteEn(3):= false.B //0100
       }
       is("b10".U) {
         wrData(1) := io.wrData(15, 8)
-        byteEn := "b0010".U
+        byteEn(0):= false.B
+        byteEn(2):= false.B
+        byteEn(3):= false.B //0010
       }
       is("b11".U) {
         wrData(0) := io.wrData(7, 0)
-        byteEn := "b0001".U
+        byteEn(1):= false.B
+        byteEn(2):= false.B
+        byteEn(3):= false.B //0001
       }
     }
   }
 
   // write
   when (io.wrEna){
-    mem.write(io.wrAddr, wrData, mask)
+    mem.write(io.wrAddr, wrData, byteEn)
   }
 
   rdData := mem.read(io.rdAddr)
@@ -95,15 +106,13 @@ class Memory() extends Module {
   // sign extensions
   when(io.b) {
     dout := Mux(io.unsigned,
-      Cat(Fill(24, 0.U), rdData(0)),
-      Fill(DATA_WIDTH-BYTE_WIDTH, bval(BYTE_WIDTH-1))) ## bval
+      Cat(Fill(24, 0.U), bval),
+      Cat(Fill(24, bval(7)),bval))
   }
-  when(memReg.mem.hword) {
-    dout := Mux(memReg.mem.zext,
-      UInt(0, DATA_WIDTH-2*BYTE_WIDTH),
-      Fill(DATA_WIDTH-2*BYTE_WIDTH, hval(DATA_WIDTH/2-1))) ## hval
+  when(io.hw) {
+    dout := Mux(io.unsigned,
+      Cat(Fill(16, 0.U), hval),
+      Cat(Fill(16, bval(7)),hval))
   }
-
-  // read address, CAT(MSB, LSB)
-  io.rdData := Cat(tmpRg(3), tmpRg(2), tmpRg(1), tmpRg(0))
+ io.rdData := dout
 }
