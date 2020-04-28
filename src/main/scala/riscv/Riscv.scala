@@ -74,6 +74,7 @@ class Riscv(data: Array[String] = Array()) extends Module {
   // WRITE BACK
   writeBackStage.io.memWbIn := memStage.io.memWbOut
   writeBackStage.io.memWbCtlIn := memStage.io.memWbCtlOut
+  writeBackStage.io.memWbData := memStage.io.memWbData
   io.wbOut := writeBackStage.io.memWbWd
 
   // DEBUGGING
