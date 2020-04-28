@@ -8,8 +8,8 @@ class Memory() extends Module {
 
     val wrEna = Input(Bool())
     val wrData = Input(UInt(32.W)) // write data
-    val wrAddr = Input(UInt(10.W)) // write address
-    val rdAddr = Input(UInt(10.W)) // read address
+    val wrAddr = Input(UInt(32.W)) // write address
+    val rdAddr = Input(UInt(32.W)) // read address
     val hw = Input(Bool())
     val b = Input(Bool())
     val unsigned = Input(Bool())
