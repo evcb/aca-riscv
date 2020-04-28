@@ -67,8 +67,6 @@ class Riscv(data: Array[String] = Array()) extends Module {
   // MEM
   memStage.io.exMemCtlIn := executionStage.io.exMemCtlOut
   memStage.io.exMemIn := executionStage.io.exMemOut
-  //memStage.io.exMemAddrIn := executionStage.io.exMemOutAddr
-  //memStage.io.exMemWdIn := executionStage.io.exMemOutWd
   io.memOut := memStage.io.memWbOut
 
   // WRITE BACK

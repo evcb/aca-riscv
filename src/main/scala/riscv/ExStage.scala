@@ -20,17 +20,14 @@ class ExStage extends Module {
 
     val exMemAddr = Input(UInt(32.W)) // memory address from EX/MEM register
     val memWbWd = Input(UInt(32.W)) // output from Mux in Writeback stage
-    val exMemRegWrite = Input(Bool()) //control signal for register file from EX/MEM register (used in Forwarder)
-    val memWbRegWrite = Input(Bool()) //control signal for register file from MEM/WB register (used in Forwarder)
+    val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
+    val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
     val exMemRd = Input(UInt(5.W)) // register destination from EX/MEM register (used in Forwarder)
     val memWbRd = Input(UInt(5.W)) // register destination from MEM/WB register (used in Forwarder)
 
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(5.W)) // register destination - passthrough to Hazard Detection Unit
-    val exMemOut = Output(UInt(69.W))
-    //val exMemOut = Output(UInt(37.W)) // stage output reigster EX/MEM
-    //val exMemOutAddr = Output(UInt(32.W))
-    //val exMemOutWd = Output(UInt(32.W))
+    val exMemOut = Output(UInt(69.W)) // stage output reigster EX/MEM
     val exMemCtlOut = Output(UInt(7.W)) // stage output control register
 
   })
@@ -38,7 +35,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
-  val exMemRg = RegInit(0.U(37.W)) //holds data for output register
+  val exMemRg = RegInit(0.U(69.W)) //holds data for output register
   val ctlRg = RegInit(0.asUInt(7.W))
 
   /*********************************************************************************************************/
@@ -173,10 +170,7 @@ class ExStage extends Module {
   io.exMemCtlOut := ctlRg
 
   //write to Output Register EX/MEM
-  //io.exMemOutAddr := aluResult.asUInt()
-  //io.exMemOutWd := outputMux2.asUInt()
-  //exMemRg := Cat(aluResult,idExRd)
-  exMemRg := Cat(aluResult,outputMux2,idExRd)
+  exMemRg := Cat(idExWb, idExMem, aluResult, outputMux2, idExRd)
   io.exMemOut := exMemRg
 
 }

@@ -12,10 +12,7 @@ class MemStage extends Module {
   val io = IO(new Bundle {
     // Inputs
     val exMemCtlIn = Input(UInt(7.W)) // control signals, EX_MEM_Wb/EX_MEM_RegWrite, MemWrite, MemRead, Hw, B, Unsigned
-    val exMemIn = Input(UInt(69.W))
-    //val exMemIn = Input(UInt(37.W))  // register from EX/MEM stage
-    //val exMemAddrIn = Input(UInt(32.W))
-    //val exMemWdIn = Input(UInt(32.W))
+    val exMemIn = Input(UInt(69.W))  // register from EX/MEM stage
 
     // Outputs
     val exMemRegWr = Output(Bool()) // EX_MEM_REGWRITE pass-through
@@ -32,8 +29,7 @@ class MemStage extends Module {
 
   // Parsing input (expects LSB -> MSB)
   val exMemRd = io.exMemIn(4, 0) // EX_MEM_Rd, 5.W
-  val exMemWd = io.exMemIn(36, 5)
-  //val exMemWd = io.exMemWdIn // EX_MEM_WRITE_DATA, 32.W
+  val exMemWd = io.exMemIn(36, 5) // EX_MEM_WRITE_DATA, 32.W
   val exMemAddr = io.exMemIn(68, 37) // EX_MEM_ADDRESS, 32.W
 
   val Unsigned = io.exMemCtlIn(0)  // Unsigned, bool
@@ -43,8 +39,6 @@ class MemStage extends Module {
   val exMemWb = io.exMemCtlIn(6, 5) // EX_MEM_Wb/EX_MEM_RegWrite, 2-bit
 
   ctlReg := exMemWb
-  //dataMem.io.rdAddr := io.exMemAddrIn // read addr
-  //dataMem.io.wrAddr := io.exMemAddrIn // write addr
   dataMem.io.rdAddr := exMemAddr // read addr
   dataMem.io.wrAddr := exMemAddr // write addr
   dataMem.io.wrEna := memWr  // write enable
