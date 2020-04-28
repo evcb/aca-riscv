@@ -20,14 +20,16 @@ class ExStage extends Module {
 
     val exMemAddr = Input(UInt(32.W)) // memory address from EX/MEM register
     val memWbWd = Input(UInt(32.W)) // output from Mux in Writeback stage
-    val exMemRegWrite = Input(Bool())//control signal for register file from EX/MEM register (used in Forwarder)
-    val memWbRegWrite = Input(Bool())//control signal for register file from MEM/WB register (used in Forwarder)
+    val exMemRegWrite = Input(Bool()) //control signal for register file from EX/MEM register (used in Forwarder)
+    val memWbRegWrite = Input(Bool()) //control signal for register file from MEM/WB register (used in Forwarder)
     val exMemRd = Input(UInt(5.W)) // register destination from EX/MEM register (used in Forwarder)
     val memWbRd = Input(UInt(5.W)) // register destination from MEM/WB register (used in Forwarder)
 
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(5.W)) // register destination - passthrough to Hazard Detection Unit
-    val exMemOut = Output(UInt(69.W)) // stage output reigster EX/MEM
+    val exMemOut = Output(UInt(37.W)) // stage output reigster EX/MEM
+    val exMemOutAddr = Output(UInt(32.W))
+    val exMemOutWd = Output(UInt(32.W))
     val exMemCtlOut = Output(UInt(7.W)) // stage output control register
 
   })
@@ -51,7 +53,7 @@ class ExStage extends Module {
   aluOp := io.idExCtlIn(2, 1)
   val aluSrc = Wire(Bool())
   aluSrc := io.idExCtlIn(0).asBool()
-  
+
   //Parse idExIn
   val idExD1 = Wire(SInt())
   idExD1 := io.idExIn(120, 89).asSInt// read data 1
@@ -90,7 +92,7 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Default assignments                                                                                   */
   /*********************************************************************************************************/
-  //passthrough signals   
+  //passthrough signals
   io.idExMemRead := idExMemRead
   io.idExRd := idExRd
 
@@ -137,7 +139,7 @@ class ExStage extends Module {
   B := aluCtrl.io.B
   Unsigned := aluCtrl.io.Unsigned
   //@TODO Add extra control to mem control reg for mem stage
- 
+
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */
   /*********************************************************************************************************/
@@ -146,7 +148,7 @@ class ExStage extends Module {
                                 "b10".U -> io.exMemAddr.asSInt(),
                                 "b01".U -> io.memWbWd.asSInt()
                                 ))
-  
+
   outputMux2 := MuxLookup(forwardB, idExD2,
                           Array("b00".U -> idExD2,
                                 "b10".U -> io.exMemAddr.asSInt(),
@@ -165,12 +167,14 @@ class ExStage extends Module {
   /*********************************************************************************************************/
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
-  //write to Control Register EX/MEM  
+  //write to Control Register EX/MEM
   ctlRg := Cat(idExWb, idExMem,HW,B,Unsigned)
   io.exMemCtlOut := ctlRg
 
   //write to Output Register EX/MEM
-  exMemRg := Cat(idExWb, idExMem, aluResult, outputMux2, idExRd)
+  io.exMemOutAddr := aluResult.asUInt()
+  io.exMemOutWd := outputMux2.asUInt()
+  exMemRg := Cat(aluResult,idExRd)
   io.exMemOut := exMemRg
 
 }
