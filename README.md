@@ -27,15 +27,15 @@ See the Makefile for further examples, or simply run `sbt run` to see all object
 Step-by-step intstructions to install the toolchain for the RISCVi user set ISA for Ubuntu.
 You should execute these commands from a directory, that is NOT the aca-riscv solutions.
 
-1. sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
-2. sudo apt-get update 
-3. sudo mkdir /opt/riscv32i
-4. git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
-5. cd riscv-gnu-toolchain/
-6. mkdir build; cd build
-7. ../configure --prefix=/opt/riscv32i --with-arch=rv32i
-8. make
-9. export PATH=/opt/riscv32i/bin:$PATH
+1. `sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev`
+2. `sudo apt-get update`
+3. `sudo mkdir /opt/riscv32i`
+4. `git clone --recursive https://github.com/riscv/riscv-gnu-toolchain`
+5. `cd riscv-gnu-toolchain/`
+6. `mkdir build; cd build`
+7. `../configure --prefix=/opt/riscv32i --with-arch=rv32i`
+8. `make`
+9. `export PATH=/opt/riscv32i/bin:$PATH`
 
 **Note:** steps #4 and #8 take a long time. 
 **Note 2:**Step #9 needs to be repeated every time you restart. To add the toolchain permanently to you path variable, do the following:
