@@ -35,9 +35,10 @@ class DecodeStage extends Module {
   MnCtl.io.Opc := io.ifIdIn(6,0)
 
   val MnCtlw = Wire(UInt())
+  MnCtlw := MnCtl.io.Ctl
 
   //Flush
-  io.ifFlush := MnCtl.io.Ctl(11).asBool()
+  io.ifFlush := MnCtlw(11).asBool()
 
   // Immediate Generator
   val Imm32 = Module(new ImmGen())
@@ -105,17 +106,14 @@ class DecodeStage extends Module {
   io.pcWrite := Hazard.io.PCWrite
   io.ifIdWrite := Hazard.io.IfIdWrite
 
-  //Mux for inserting bubble
-  val NOP: Bool = Hazard.io.NOP
-  //printf(p"NOP = $NOP \n")
-  MnCtlw := Mux(NOP, 0.U, MnCtl.io.Ctl(10,0))
-
   //Branch
   val Branch: Bool = MnCtlw(3)
   io.pcSrc := Branch & True
 
+  //Mux for inserting bubble
+  val NOP: Bool = Hazard.io.NOP
   //Set input for Control Reg ID/EX
-  CtlRg := MnCtlw(10,4)
+  CtlRg := Mux(NOP, 0.U, MnCtl.io.Ctl(10,4))
   io.IdExCtlOut := CtlRg
 
   //Set input Stage Reg ID/EX

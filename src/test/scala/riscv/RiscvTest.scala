@@ -42,6 +42,7 @@ class RiscvTest extends FlatSpec with Matchers {
   "Riscv" should "pass" in {
     Driver.execute(RiscvTester.param,
       () => new Riscv(Array(
+      "b00001100100000000000000100010011",
       "b11111110000000010000000100010011",
       "b00000000100000010010111000100011",
       "b00000010000000010000010000010011",
