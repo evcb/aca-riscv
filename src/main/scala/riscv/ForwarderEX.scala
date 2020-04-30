@@ -46,6 +46,16 @@ class ForwarderEX() extends Module {
    * Like EX stage hazard, but also takes into account that the result in
    * the MEM stage is the more recent result.
    */
+  when(io.memWbRegWrite){            //detect MEM stage hazards in DataA
+    when(io.memWbRd =/= "b00000".U){
+      when(io.memWbRd === io.idExRs1){
+        io.forwardA := "b01".U
+      }.elsewhen(io.memWbRd === io.idExRs2){
+        io.forwardB := "b01".U
+      }
+    }
+  }
+
   when (io.exMemRegWrite ){         //detect EX stage hazards in DataA
     when(io.exMemRd =/= "b00000".U) {
       when(io.exMemRd === io.idExRs1){
@@ -56,14 +66,6 @@ class ForwarderEX() extends Module {
     }
   }
 
-  when(io.memWbRegWrite){            //detect MEM stage hazards in DataA
-    when(io.memWbRd =/= "b00000".U){
-      when(io.memWbRd === io.idExRs1){
-        io.forwardA := "b01".U
-      }.elsewhen(io.memWbRd === io.idExRs2){
-        io.forwardB := "b01".U
-      }
-    }
-  }
+
 
 }

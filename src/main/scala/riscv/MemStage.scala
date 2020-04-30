@@ -58,6 +58,6 @@ class MemStage extends Module {
 
   // pass-through
   io.exMemRd := exMemRd
-  io.exMemRegWr := ctlReg(1) // exMemWb
+  io.exMemRegWr := io.exMemCtlIn(6) // exMemWb
   io.exMemAddr := exMemAddr
 }
