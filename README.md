@@ -64,7 +64,8 @@ Start in root aca-riscv directory.
 
 lw	a4,-20(s0)
 111111101100 01000 010 01110 0000011
+
 ## Print machine code to use in RISCV test:
-`xxd -b -c 4  ctests/foo.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $2, $3, $4, $5}'`
+`xxd -b -c 4  ctests/foo.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $5, $4, $3, $2}'`
 - *ctests/output.bin* is the output from #3
 - You can take the machine code and paste it into the array in **RiscvTest**.
