@@ -33,7 +33,7 @@ You should execute these commands from a directory, that is NOT the aca-riscv so
 4. git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
 5. cd riscv-gnu-toolchain/
 6. mkdir build; cd build
-7. ../configure --prefix=/opt/riscvi --with-arch=rv32i
+7. ../configure --prefix=/opt/riscv32i --with-arch=rv32i
 8. make
 9. export PATH=/opt/riscv32i/bin:$PATH
 
@@ -45,12 +45,17 @@ You should execute these commands from a directory, that is NOT the aca-riscv so
 
 # Compiling a file into machine code
 Quick guide on how to do it manually, taken from Martin's lab. (should be replaced with CMake)
-Start in root directory.
-1. riscv32-unknown-elf-gcc -S ctests/foo.c -o ctests/foo.s -O0
-2. riscv32-unknown-elf-gcc -c ctests/foo.s -o ctests/foo.o -O0
-3. riscv32-unknown-elf-objcopy ctests/foo.o --dump-section .text=ctests/output.bin
+Start in root aca-riscv directory.
+- to make pseudo assembler code:  
+`riscv32-unknown-elf-gcc -nostartfiles -march=rv32i -mabi=ilp32 -Wl,--script=linker.ld -S ctests/foo.c -o ctests/foo.s`
+
+- to make object code: 
+`riscv32-unknown-elf-gcc -nostartfiles -march=rv32i -mabi=ilp32 -Wl,--script=linker.ld ctests/foo.c -o ctests/foo.out`
+
+- to make hexdump of machine instructions:
+`riscv32-unknown-elf-objcopy ctests/foo.out --dump-section .text=ctests/foo.bin`
 
 ## Print machine code to use in RISCV test:
-xxd -b -c 4  ctests/output.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $2, $3, $4, $5}'
+`xxd -b -c 4  ctests/foo.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $2, $3, $4, $5}'`
 - *ctests/output.bin* is the output from #3
 - You can take the machine code and paste it into the array in **RiscvTest**.
