@@ -1,12 +1,12 @@
 --
--- Tops level for the UART
+-- Tops level for the UART interface for th RISCV processor
 --
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity uart_top is
+entity riscv_top is
 
 port (
     clock : in std_logic;
@@ -15,11 +15,11 @@ port (
     rxd : in std_logic;
     txd : out std_logic
 );
-end uart_top;
+end riscv_top;
 
-architecture rtl of uart_top is
+architecture rtl of riscv_top is
 
-component UartMain is
+component RiscvMain is
 port (clock : std_logic;
       reset : in std_logic;
       io_led : out std_logic;
@@ -54,7 +54,7 @@ begin
 
    reset <= int_res;
 
-    u: UartMain port map(clock, reset, led, rxd, txd);
+    u: RiscvMain port map(clock, reset, led, rxd, txd);
 
 --    led <= not rxd;
 --    txd <= rxd;
