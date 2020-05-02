@@ -6,6 +6,9 @@ class RegisterFile() extends Module {
   val io = IO(new Bundle {
 
     val wrEna = Input(Bool()) // write enable
+    val J = Input(Bool()) // JAL write enable
+    val Jr = Input(Bool()) // JALR write enable
+    val U = Input(Bool()) // U write enable
     val rdAddr1 = Input(UInt(5.W))  // read reg address
     val rdAddr2 = Input(UInt(5.W))  // read reg address
     val wrAddr = Input(UInt(5.W))  // write reg address
@@ -19,7 +22,7 @@ class RegisterFile() extends Module {
 
   rgFile(0) := 0.U
 
-  when(io.wrEna && io.wrAddr > 0.U) { rgFile(io.wrAddr.asUInt()) := io.wrData }
+  when((io.wrEna|io.J|io.Jr|io.U) && io.wrAddr > 0.U) { rgFile(io.wrAddr.asUInt()) := io.wrData }
 
   io.rdOut1 := rgFile(io.rdAddr1.asUInt())
   io.rdOut2 := rgFile(io.rdAddr2.asUInt())

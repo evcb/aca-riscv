@@ -11,7 +11,8 @@ class WriteBackStage extends Module {
   val io = IO(new Bundle {
     // inputs
     val memWbCtlIn = Input(UInt(2.W))  // memToReg/memWbRegWrite
-    val memWbIn = Input(UInt(69.W))  // MemStage pipeline
+    val memWbIn = Input(UInt(37.W))  // MemStage pipeline
+    val memWbData = Input(UInt(32.W))
 
     // outputs
     val memWbRegWrite = Output(Bool())  // pass-through MEM_WB_RegWrite
@@ -22,7 +23,7 @@ class WriteBackStage extends Module {
   val memWbRegWrite = io.memWbCtlIn(1) // MEM_WB_RegWrite
   val memToRg = io.memWbCtlIn(0)
 
-  val memWbData = io.memWbIn(68, 37) // MEM_WB_D, 32 bits
+  val memWbData = io.memWbData // MEM_WB_D, 32 bits
   val memWbAddr = io.memWbIn(36, 5)  // MEM_WB_Addr, 32 bits
   val memWbRd = io.memWbIn(4, 0)  // MEM_WB_Rd, 5 bits
 

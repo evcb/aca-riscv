@@ -33,19 +33,29 @@ class Alu() extends Module {
     is(FN_SUB) {
       result := a - b
     }
+    is(FN_SLL) {
+      result := (a.asUInt() << b(4,0).asUInt()).asSInt()
+    }
+    is(FN_SLT) {
+      result := (a < b).asSInt()
+    }
+    is(FN_SLTU) {
+      result := (a.asUInt() < b.asUInt()).asSInt()
+    }
+    is(FN_XOR) {
+      result := a ^ b
+    }
+    is(FN_SRL) {
+      result := (a.asUInt() >> b(4,0).asUInt()).asSInt()
+    }
+    is(FN_SRA) {
+      result := a >> b(4,0)
+    }
     is(FN_OR) {
       result := a | b
     }
     is(FN_AND) {
       result := a & b
-    }
-    is(FN_SLT) {
-      when (a < b) {
-        result := 1.S
-      }
-      .otherwise {
-        result := 0.S
-      }
     }
   }
 

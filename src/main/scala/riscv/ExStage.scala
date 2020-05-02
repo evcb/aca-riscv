@@ -28,7 +28,7 @@ class ExStage extends Module {
     val idExMemRead = Output(Bool()) // memory read control signal - goes to Hazard Detection Unit
     val idExRd = Output(UInt(5.W)) // register destination - passthrough to Hazard Detection Unit
     val exMemOut = Output(UInt(69.W)) // stage output reigster EX/MEM
-    val exMemCtlOut = Output(UInt(4.W)) // stage output control register 
+    val exMemCtlOut = Output(UInt(7.W)) // stage output control register
 
   })
 
@@ -36,7 +36,7 @@ class ExStage extends Module {
   /* Stage registers                                                                                       */
   /*********************************************************************************************************/
   val exMemRg = RegInit(0.U(69.W)) //holds data for output register
-  val ctlRg = RegInit(0.asUInt(4.W))
+  val ctlRg = RegInit(0.asUInt(7.W))
 
   /*********************************************************************************************************/
   /* Parse input registers into signals                                                                    */
@@ -132,6 +132,11 @@ class ExStage extends Module {
 
   //outputs from aluCtrl
   alu.io.alu_ctl := aluCtrl.io.alu_ctl
+  val HW,B,Unsigned = Wire(Bool())
+  HW := aluCtrl.io.HW
+  B := aluCtrl.io.B
+  Unsigned := aluCtrl.io.Unsigned
+  //@TODO Add extra control to mem control reg for mem stage
  
   /*********************************************************************************************************/
   /* Mux logic                                                                                             */
@@ -161,7 +166,7 @@ class ExStage extends Module {
   /* Populate output register                                                                              */
   /*********************************************************************************************************/
   //write to Control Register EX/MEM  
-  ctlRg := Cat(idExWb, idExMem)
+  ctlRg := Cat(idExWb, idExMem,HW,B,Unsigned)
   io.exMemCtlOut := ctlRg
 
   //write to Output Register EX/MEM
