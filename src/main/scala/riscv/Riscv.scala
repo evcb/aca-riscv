@@ -244,20 +244,15 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   memWbRd := decodeStage.io.MemWbRd
 
   //UART
+  RegNext(io.rxd) // dont care - for now
   val tx = Module(new BufferedTx(frequency, baudRate))
-
-  RegNext(io.rxd)
-  io.txd := tx.io.txd
   io.led := 1.U
+  io.txd := tx.io.txd
 
-  val cntReg = RegInit(0.U(32.W))
-  tx.io.channel.bits := RegNext(writeBackStage.io.memWbWd(cntReg))
-  tx.io.channel.valid := cntReg =/= 32.U
+  tx.io.channel.bits := memWbData
+  tx.io.channel.valid := memWbData =/= 0.U
 
-  when(tx.io.channel.ready && cntReg =/= 32.U) {
-    cntReg := cntReg + 1.U
-  }
-
+//
 //  printf("- Start of cycle %d: \n", (pc / 4.S))
 //  printf("------------------------------\n")
 //  printf(p"IfId: ${Binary(IfId)} ")
