@@ -251,23 +251,22 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
 
   val results = Reg(Vec(100, UInt(32.W)))
   val cntReg = RegInit(0.U(8.W))
-  val cntRes = RegInit(0.U(8.W))
+  val cntBit = RegInit(0.U(8.W))
+  val cntWrd = RegInit(0.U(8.W))
 
   results(cntReg) := memWbData
   cntReg := cntReg + 1.U
 
-  val value = results(cntRes)
+  val value = results(cntWrd)
+  tx.io.channel.bits := value(cntBit)
+  tx.io.channel.valid := cntWrd =/= 100.U
 
-  when(cntRes =/= 100.U && value =/= 0.U) {
-    printf(p"$value \n")
-  }
-
-  tx.io.channel.bits := value
-  tx.io.channel.valid := cntRes =/= 100.U && value =/= 0.U
-
-  when(tx.io.channel.ready) {
-    when(cntRes =/= 100.U && memWbData =/= 0.U) {
-      cntRes := cntRes + 1.U
+  when(tx.io.channel.ready && cntWrd =/= 100.U) {
+    when(cntBit =/= 31.U) {
+      cntBit := cntBit + 1.U
+    } .otherwise {
+      cntWrd := cntWrd + 1.U
+      cntBit := 0.U
     }
   }
 

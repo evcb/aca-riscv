@@ -9,6 +9,7 @@ build.sbt
 quartus/altde2-115/db/*
 quartus/altde2-115/incremental_db/*
 quartus/altde2-115/*.sof
+quartus/altde2-115/*.*.rpt
 quartus/altde2-115/*.summary
 quartus/altde2-115/*.fit.*
 quartus/altde2-115/*.done
