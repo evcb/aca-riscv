@@ -13,7 +13,8 @@ object log2Up
 
 class Uart(frequency: Int, baudRate: Int) extends Module {
   val io = IO(new Bundle {
-    val data = Input(UInt(32.W))
+    val data = Input(UInt())
+    val rd = Input(UInt())
     val tx = Output(UInt(1.W))
   })
 
@@ -45,33 +46,23 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   val tx_buff = RegInit(0.U (10.W))
   val tx_reg = RegInit(1.U (1.W))
   val tx_counter = RegInit(0.U (4.W))
-  val fake_register_signal = RegInit(true.B )
   val UART_REGISTER = 0.U; // for now, register x0
 
-  txQueue.io.enq.bits := io.data
+  txQueue.io.enq.bits := io.data(7, 0)
   txQueue.io.enq.valid := true.B
 
-  //write to queue
-  when (fake_register_signal === true.B)
-  {
-    txQueue.io.enq.bits := io.data
-    txQueue.io.enq.valid := true.B
-    fake_register_signal := false.B
-  }
-
   //write to queue every clock
-  /*  when(io.memWbRd === UART_REGISTER)
+  when(io.rd =/= UART_REGISTER)
   {
-    txQueue.io.enq.bits := io.memWbWd
+    txQueue.io.enq.bits := io.data(7, 0)
     txQueue.io.enq.valid := true.B
-  }*/
+  }
 
   // process queue - prepare for send
   when (tx_state === tx_idle) {
     when (txQueue.io.deq.valid) {
       txQueue.io.deq.ready := true.B
       tx_buff := Cat(true.B, txQueue.io.deq.bits, false.B)
-      fake_register_signal := true.B
       tx_state := tx_send
     }
   }
