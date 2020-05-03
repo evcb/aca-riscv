@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE115F29) Path("/home/patmos/chisel-examples/quartus/altde2-115/") File("riscv.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE115F29) Path("/home/patmos/aca-riscv/quartus/altde2-115/") File("riscv.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 
