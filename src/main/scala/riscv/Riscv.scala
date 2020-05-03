@@ -246,11 +246,37 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   //UART
   RegNext(io.rxd) // dont care - for now
   val tx = Module(new BufferedTx(frequency, baudRate))
-  io.led := 1.U
-  io.txd := tx.io.txd
 
-  tx.io.channel.bits := memWbData
-  tx.io.channel.valid := memWbData =/= 0.U
+  val results = Reg(Vec(100, UInt(32.W)))
+  val cntReg = RegInit(0.U(8.W))
+  val cntRes = RegInit(0.U(8.W))
+  val cntBit = RegInit(0.U(8.W))
+
+  when(memWbData =/= 0.U) {
+    results(cntReg) := memWbData
+    cntReg := cntReg + 1.U
+  }
+
+  io.txd := tx.io.txd
+  io.led := 1.U
+
+  val value = results(cntRes)
+
+  tx.io.channel.bits := value(cntBit)
+  tx.io.channel.valid := cntRes =/= 100.U
+
+  when(tx.io.channel.ready) {
+    when(cntBit =/= 31.U) {
+      cntBit := cntBit + 1.U
+    } .otherwise {
+
+      // next result
+      when(cntRes =/= 100.U) {
+        cntRes := cntRes + 1.U
+        cntBit := 0.U
+      }
+    }
+  }
 
 //
 //  printf("- Start of cycle %d: \n", (pc / 4.S))
