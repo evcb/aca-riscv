@@ -17,6 +17,7 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
     val memWbRd = Input(UInt())
     val tx = Output(UInt(1.W))
   })
+  val packageSize = 8
 
   val tx_baud_size = log2Up(frequency/baudRate)
   val calculated_baud = (frequency/baudRate).asUInt()
@@ -33,7 +34,7 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   }
 
   // Create a Queue with 8 items of 8 bytes each
-  val txQueue = Module(new Queue(Bits(8.W), 8))
+  val txQueue = Module(new Queue(Bits(packageSize.W), 8))
   txQueue.io.enq.bits := io.memWbWd
   txQueue.io.enq.valid := false.B
   txQueue.io.deq.ready := false.B
@@ -49,7 +50,7 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   val UART_REGISTER = 0.U; // for now, register x0
 
   //this implementation only tests if we can see the test bits, transmitted from the UART
-  val testBits = "b01001000".U
+  val testBits = "b01101000".U
   //txQueue.io.enq.bits := io.memWbWd
   txQueue.io.enq.bits := testBits
   txQueue.io.enq.valid := true.B
@@ -82,11 +83,11 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   // send data prepared
   when (tx_state === tx_send) {
     when (tx_baud_tick === 1.U){
-      tx_buff         := Cat (0.U, tx_buff (9, 1))
+      tx_buff         := Cat (0.U, tx_buff (packageSize + 1, 1))
       tx_reg          := tx_buff(0)
-      tx_counter      := Mux(tx_counter === 10.U, 0.U, tx_counter + 1.U)
+      tx_counter      := Mux(tx_counter === (packageSize + 2).U, 0.U, tx_counter + 1.U)
 
-      when (tx_counter === 10.U) {
+      when (tx_counter === (packageSize + 2).U) {
         when (txQueue.io.deq.valid) {
           txQueue.io.deq.ready := true.B
           tx_buff              := Cat(true.B, txQueue.io.deq.bits)
