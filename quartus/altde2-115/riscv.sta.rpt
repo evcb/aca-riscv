@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for riscv
-Sun May  3 09:56:42 2020
+Sun May  3 18:14:13 2020
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -17,31 +17,41 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
   9. Slow 1200mV 85C Model Recovery Summary
  10. Slow 1200mV 85C Model Removal Summary
  11. Slow 1200mV 85C Model Minimum Pulse Width Summary
- 12. Slow 1200mV 85C Model Metastability Summary
- 13. Slow 1200mV 0C Model Fmax Summary
- 14. Slow 1200mV 0C Model Setup Summary
- 15. Slow 1200mV 0C Model Hold Summary
- 16. Slow 1200mV 0C Model Recovery Summary
- 17. Slow 1200mV 0C Model Removal Summary
- 18. Slow 1200mV 0C Model Minimum Pulse Width Summary
- 19. Slow 1200mV 0C Model Metastability Summary
- 20. Fast 1200mV 0C Model Setup Summary
- 21. Fast 1200mV 0C Model Hold Summary
- 22. Fast 1200mV 0C Model Recovery Summary
- 23. Fast 1200mV 0C Model Removal Summary
- 24. Fast 1200mV 0C Model Minimum Pulse Width Summary
- 25. Fast 1200mV 0C Model Metastability Summary
- 26. Multicorner Timing Analysis Summary
- 27. Board Trace Model Assignments
- 28. Input Transition Times
- 29. Signal Integrity Metrics (Slow 1200mv 0c Model)
- 30. Signal Integrity Metrics (Slow 1200mv 85c Model)
- 31. Signal Integrity Metrics (Fast 1200mv 0c Model)
- 32. Clock Transfers
- 33. Report TCCS
- 34. Report RSKM
- 35. Unconstrained Paths Summary
- 36. TimeQuest Timing Analyzer Messages
+ 12. Slow 1200mV 85C Model Setup: 'clock'
+ 13. Slow 1200mV 85C Model Hold: 'clock'
+ 14. Slow 1200mV 85C Model Metastability Summary
+ 15. Slow 1200mV 0C Model Fmax Summary
+ 16. Slow 1200mV 0C Model Setup Summary
+ 17. Slow 1200mV 0C Model Hold Summary
+ 18. Slow 1200mV 0C Model Recovery Summary
+ 19. Slow 1200mV 0C Model Removal Summary
+ 20. Slow 1200mV 0C Model Minimum Pulse Width Summary
+ 21. Slow 1200mV 0C Model Setup: 'clock'
+ 22. Slow 1200mV 0C Model Hold: 'clock'
+ 23. Slow 1200mV 0C Model Metastability Summary
+ 24. Fast 1200mV 0C Model Setup Summary
+ 25. Fast 1200mV 0C Model Hold Summary
+ 26. Fast 1200mV 0C Model Recovery Summary
+ 27. Fast 1200mV 0C Model Removal Summary
+ 28. Fast 1200mV 0C Model Minimum Pulse Width Summary
+ 29. Fast 1200mV 0C Model Setup: 'clock'
+ 30. Fast 1200mV 0C Model Hold: 'clock'
+ 31. Fast 1200mV 0C Model Metastability Summary
+ 32. Multicorner Timing Analysis Summary
+ 33. Board Trace Model Assignments
+ 34. Input Transition Times
+ 35. Signal Integrity Metrics (Slow 1200mv 0c Model)
+ 36. Signal Integrity Metrics (Slow 1200mv 85c Model)
+ 37. Signal Integrity Metrics (Fast 1200mv 0c Model)
+ 38. Setup Transfers
+ 39. Hold Transfers
+ 40. Report TCCS
+ 41. Report RSKM
+ 42. Unconstrained Paths Summary
+ 43. Clock Status Summary
+ 44. Unconstrained Output Ports
+ 45. Unconstrained Output Ports
+ 46. TimeQuest Timing Analyzer Messages
 
 
 
@@ -87,25 +97,32 @@ agreement for further details.
 ; Number detected on machine ; 2           ;
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
+; Average used               ; 1.01        ;
 ; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.2%      ;
+;     Processor 2            ;   0.5%      ;
 +----------------------------+-------------+
 
 
-----------
-; Clocks ;
-----------
-No clocks to report.
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                            ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; Clock Name ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets   ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; clock      ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { clock } ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
 
 
---------------------------------------
-; Slow 1200mV 85C Model Fmax Summary ;
---------------------------------------
-No paths to report.
++--------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary               ;
++------------+-----------------+------------+------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
++------------+-----------------+------------+------+
+; 229.67 MHz ; 229.67 MHz      ; clock      ;      ;
++------------+-----------------+------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
 ----------------------------------
@@ -114,16 +131,22 @@ No paths to report.
 HTML report is unavailable in plain text report export.
 
 
----------------------------------------
++-------------------------------------+
 ; Slow 1200mV 85C Model Setup Summary ;
----------------------------------------
-No paths to report.
++-------+--------+--------------------+
+; Clock ; Slack  ; End Point TNS      ;
++-------+--------+--------------------+
+; clock ; -3.354 ; -109.765           ;
++-------+--------+--------------------+
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 85C Model Hold Summary ;
---------------------------------------
-No paths to report.
++-------+-------+--------------------+
+; Clock ; Slack ; End Point TNS      ;
++-------+-------+--------------------+
+; clock ; 0.404 ; 0.000              ;
++-------+-------+--------------------+
 
 
 ------------------------------------------
@@ -138,10 +161,229 @@ No paths to report.
 No paths to report.
 
 
------------------------------------------------------
++---------------------------------------------------+
 ; Slow 1200mV 85C Model Minimum Pulse Width Summary ;
------------------------------------------------------
-No paths to report.
++-------+--------+----------------------------------+
+; Clock ; Slack  ; End Point TNS                    ;
++-------+--------+----------------------------------+
+; clock ; -3.000 ; -64.680                          ;
++-------+--------+----------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Setup: 'clock'                                                                                                                            ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                              ; To Node                                 ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.354 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.274      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.350 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.270      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.285 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.805      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.792      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.241 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.761      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.232 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.478     ; 3.752      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.193 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 4.113      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.023 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.943      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.022 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.942      ;
+; -3.020 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.943      ;
+; -3.020 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.943      ;
+; -3.020 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.943      ;
+; -3.020 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.943      ;
+; -3.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.939      ;
+; -3.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.939      ;
+; -3.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.939      ;
+; -3.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.075     ; 3.939      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.274      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.274      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.274      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.274      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.970 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.078     ; 3.890      ;
+; -2.966 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.270      ;
+; -2.966 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.270      ;
+; -2.966 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.270      ;
+; -2.966 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.306      ; 4.270      ;
+; -2.951 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.474      ;
+; -2.951 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.474      ;
+; -2.951 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.474      ;
+; -2.951 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.474      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.940 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.454      ;
+; -2.938 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.461      ;
+; -2.938 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.461      ;
+; -2.938 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.461      ;
+; -2.938 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.461      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.484     ; 3.447      ;
+; -2.907 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.430      ;
+; -2.907 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.430      ;
+; -2.907 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.430      ;
+; -2.907 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.475     ; 3.430      ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold: 'clock'                                                                                                                                   ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.404 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; res_cnt[2]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.404 ; res_cnt[1]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.669      ;
+; 0.409 ; res_cnt[0]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.674      ;
+; 0.429 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.694      ;
+; 0.431 ; res_reg1                                   ; res_reg2                                   ; clock        ; clock       ; 0.000        ; 0.079      ; 0.696      ;
+; 0.436 ; res_cnt[0]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.701      ;
+; 0.437 ; res_cnt[0]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.079      ; 0.702      ;
+; 0.443 ; Riscv:u|cntReg[7]                          ; Riscv:u|cntReg[7]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.708      ;
+; 0.445 ; res_cnt[1]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.710      ;
+; 0.446 ; res_cnt[0]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.711      ;
+; 0.556 ; res_reg2                                   ; int_res                                    ; clock        ; clock       ; 0.000        ; 0.079      ; 0.821      ;
+; 0.560 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.225      ;
+; 0.563 ; res_cnt[2]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.079      ; 0.828      ;
+; 0.573 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.238      ;
+; 0.578 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.243      ;
+; 0.581 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.245      ;
+; 0.589 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.259      ;
+; 0.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.254      ;
+; 0.623 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.095      ; 0.904      ;
+; 0.623 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.095      ; 0.904      ;
+; 0.625 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.095      ; 0.906      ;
+; 0.627 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.908      ;
+; 0.628 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.909      ;
+; 0.628 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.909      ;
+; 0.629 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.094      ; 0.909      ;
+; 0.629 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.910      ;
+; 0.630 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.094      ; 0.910      ;
+; 0.631 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.912      ;
+; 0.634 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.095      ; 0.915      ;
+; 0.638 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; clock        ; clock       ; 0.000        ; 0.079      ; 0.903      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]    ; clock        ; clock       ; 0.000        ; 0.079      ; 0.907      ;
+; 0.643 ; Riscv:u|cntReg[1]                          ; Riscv:u|cntReg[1]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.908      ;
+; 0.643 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.094      ; 0.923      ;
+; 0.644 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; clock        ; clock       ; 0.000        ; 0.078      ; 0.908      ;
+; 0.644 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.909      ;
+; 0.645 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.910      ;
+; 0.646 ; Riscv:u|cntReg[6]                          ; Riscv:u|cntReg[6]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.911      ;
+; 0.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; clock        ; clock       ; 0.000        ; 0.078      ; 0.910      ;
+; 0.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; clock        ; clock       ; 0.000        ; 0.079      ; 0.911      ;
+; 0.647 ; Riscv:u|cntReg[5]                          ; Riscv:u|cntReg[5]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.912      ;
+; 0.647 ; Riscv:u|cntReg[3]                          ; Riscv:u|cntReg[3]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.912      ;
+; 0.650 ; Riscv:u|cntReg[2]                          ; Riscv:u|cntReg[2]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.915      ;
+; 0.650 ; Riscv:u|cntReg[4]                          ; Riscv:u|cntReg[4]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.915      ;
+; 0.656 ; res_cnt[1]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.921      ;
+; 0.660 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; clock        ; clock       ; 0.000        ; 0.078      ; 0.924      ;
+; 0.660 ; res_cnt[2]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.925      ;
+; 0.660 ; res_cnt[2]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.079      ; 0.925      ;
+; 0.664 ; Riscv:u|cntReg[0]                          ; Riscv:u|cntReg[0]                          ; clock        ; clock       ; 0.000        ; 0.079      ; 0.929      ;
+; 0.665 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; clock        ; clock       ; 0.000        ; 0.078      ; 0.929      ;
+; 0.680 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.350      ;
+; 0.681 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.345      ;
+; 0.681 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.346      ;
+; 0.682 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.347      ;
+; 0.684 ; res_cnt[1]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.079      ; 0.949      ;
+; 0.686 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.351      ;
+; 0.687 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.352      ;
+; 0.702 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.366      ;
+; 0.704 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.368      ;
+; 0.707 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.371      ;
+; 0.715 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.385      ;
+; 0.738 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.402      ;
+; 0.782 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.095      ; 1.063      ;
+; 0.790 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.451      ;
+; 0.792 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.453      ;
+; 0.795 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.456      ;
+; 0.796 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.457      ;
+; 0.796 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.457      ;
+; 0.803 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; clock        ; clock       ; 0.000        ; 0.079      ; 1.068      ;
+; 0.806 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.476      ;
+; 0.808 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.079      ; 1.073      ;
+; 0.808 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.094      ; 1.088      ;
+; 0.810 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.079      ; 1.075      ;
+; 0.810 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.079      ; 1.075      ;
+; 0.816 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; clock        ; clock       ; 0.000        ; -0.305     ; 0.697      ;
+; 0.822 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; clock        ; clock       ; 0.000        ; 0.078      ; 1.086      ;
+; 0.825 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.489      ;
+; 0.827 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; clock        ; clock       ; 0.000        ; 0.078      ; 1.091      ;
+; 0.830 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.494      ;
+; 0.836 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.506      ;
+; 0.841 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.511      ;
+; 0.851 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.515      ;
+; 0.864 ; int_res                                    ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.079      ; 1.129      ;
+; 0.864 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.528      ;
+; 0.869 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.478      ; 1.533      ;
+; 0.898 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.077      ; 1.161      ;
+; 0.916 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.081      ; 1.183      ;
+; 0.927 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.597      ;
+; 0.932 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.484      ; 1.602      ;
+; 0.933 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.598      ;
+; 0.938 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.479      ; 1.603      ;
+; 0.944 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.095      ; 1.225      ;
+; 0.945 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.094      ; 1.225      ;
+; 0.948 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.095      ; 1.229      ;
+; 0.951 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.612      ;
+; 0.951 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.475      ; 1.612      ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 -----------------------------------------------
@@ -150,22 +392,32 @@ No paths to report.
 No synchronizer chains to report.
 
 
--------------------------------------
-; Slow 1200mV 0C Model Fmax Summary ;
--------------------------------------
-No paths to report.
++-----------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                                                                         ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 252.53 MHz ; 250.0 MHz       ; clock      ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -2.960 ; -95.325           ;
++-------+--------+-------------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Slow 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.356 ; 0.000             ;
++-------+-------+-------------------+
 
 
 -----------------------------------------
@@ -180,10 +432,229 @@ No paths to report.
 No paths to report.
 
 
-----------------------------------------------------
++--------------------------------------------------+
 ; Slow 1200mV 0C Model Minimum Pulse Width Summary ;
-----------------------------------------------------
-No paths to report.
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -64.680                         ;
++-------+--------+---------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup: 'clock'                                                                                                                             ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                              ; To Node                                 ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.960 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.889      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.956 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.885      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.897 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.460      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.891 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.454      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.861 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.424      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.853 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.436     ; 3.416      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.818 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.747      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.664 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.593      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.590      ;
+; -2.650 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.583      ;
+; -2.650 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.583      ;
+; -2.650 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.583      ;
+; -2.650 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.583      ;
+; -2.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.579      ;
+; -2.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.579      ;
+; -2.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.579      ;
+; -2.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.066     ; 3.579      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.613 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.070     ; 3.542      ;
+; -2.609 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.889      ;
+; -2.609 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.889      ;
+; -2.609 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.889      ;
+; -2.609 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.889      ;
+; -2.605 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.885      ;
+; -2.605 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.885      ;
+; -2.605 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.885      ;
+; -2.605 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]  ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.281      ; 3.885      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.595 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.153      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.441     ; 3.148      ;
+; -2.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.154      ;
+; -2.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.154      ;
+; -2.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.154      ;
+; -2.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.154      ;
+; -2.581 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.148      ;
+; -2.581 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.148      ;
+; -2.581 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.148      ;
+; -2.581 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.148      ;
+; -2.551 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.118      ;
+; -2.551 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.118      ;
+; -2.551 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.118      ;
+; -2.551 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]  ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.432     ; 3.118      ;
++--------+----------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold: 'clock'                                                                                                                                    ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.356 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; res_cnt[2]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.356 ; res_cnt[1]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.597      ;
+; 0.367 ; res_cnt[0]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.608      ;
+; 0.389 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.630      ;
+; 0.395 ; res_cnt[0]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.636      ;
+; 0.396 ; res_cnt[0]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.070      ; 0.637      ;
+; 0.398 ; res_reg1                                   ; res_reg2                                   ; clock        ; clock       ; 0.000        ; 0.070      ; 0.639      ;
+; 0.402 ; Riscv:u|cntReg[7]                          ; Riscv:u|cntReg[7]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.643      ;
+; 0.411 ; res_cnt[1]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.652      ;
+; 0.412 ; res_cnt[0]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.653      ;
+; 0.509 ; res_cnt[2]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.070      ; 0.750      ;
+; 0.510 ; res_reg2                                   ; int_res                                    ; clock        ; clock       ; 0.000        ; 0.070      ; 0.751      ;
+; 0.511 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.118      ;
+; 0.513 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.120      ;
+; 0.524 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.131      ;
+; 0.526 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.133      ;
+; 0.528 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.135      ;
+; 0.534 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.146      ;
+; 0.571 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.084      ; 0.826      ;
+; 0.571 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.084      ; 0.826      ;
+; 0.572 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.084      ; 0.827      ;
+; 0.573 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.829      ;
+; 0.574 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.085      ; 0.830      ;
+; 0.574 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.830      ;
+; 0.575 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.831      ;
+; 0.576 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.832      ;
+; 0.576 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.085      ; 0.832      ;
+; 0.578 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.834      ;
+; 0.580 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.836      ;
+; 0.585 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; clock        ; clock       ; 0.000        ; 0.069      ; 0.825      ;
+; 0.586 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.085      ; 0.842      ;
+; 0.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; clock        ; clock       ; 0.000        ; 0.070      ; 0.828      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]    ; clock        ; clock       ; 0.000        ; 0.069      ; 0.828      ;
+; 0.588 ; Riscv:u|cntReg[1]                          ; Riscv:u|cntReg[1]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.829      ;
+; 0.590 ; Riscv:u|cntReg[6]                          ; Riscv:u|cntReg[6]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.831      ;
+; 0.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.831      ;
+; 0.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.831      ;
+; 0.591 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; clock        ; clock       ; 0.000        ; 0.070      ; 0.832      ;
+; 0.592 ; Riscv:u|cntReg[3]                          ; Riscv:u|cntReg[3]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.833      ;
+; 0.592 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.833      ;
+; 0.593 ; Riscv:u|cntReg[5]                          ; Riscv:u|cntReg[5]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.834      ;
+; 0.594 ; Riscv:u|cntReg[4]                          ; Riscv:u|cntReg[4]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.835      ;
+; 0.595 ; Riscv:u|cntReg[2]                          ; Riscv:u|cntReg[2]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.836      ;
+; 0.601 ; res_cnt[1]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.842      ;
+; 0.603 ; res_cnt[2]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.844      ;
+; 0.603 ; res_cnt[2]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.070      ; 0.844      ;
+; 0.604 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; clock        ; clock       ; 0.000        ; 0.070      ; 0.845      ;
+; 0.605 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.212      ;
+; 0.608 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.215      ;
+; 0.609 ; Riscv:u|cntReg[0]                          ; Riscv:u|cntReg[0]                          ; clock        ; clock       ; 0.000        ; 0.070      ; 0.850      ;
+; 0.609 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; clock        ; clock       ; 0.000        ; 0.070      ; 0.850      ;
+; 0.610 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.217      ;
+; 0.611 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.223      ;
+; 0.619 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.226      ;
+; 0.621 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.228      ;
+; 0.625 ; res_cnt[1]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.070      ; 0.866      ;
+; 0.625 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.232      ;
+; 0.633 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.240      ;
+; 0.636 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.243      ;
+; 0.644 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.256      ;
+; 0.681 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.288      ;
+; 0.721 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.333      ;
+; 0.729 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.084      ; 0.984      ;
+; 0.731 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.432      ; 1.334      ;
+; 0.732 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.339      ;
+; 0.733 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.432      ; 1.336      ;
+; 0.736 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; clock        ; clock       ; 0.000        ; 0.432      ; 1.339      ;
+; 0.737 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.978      ;
+; 0.737 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.432      ; 1.340      ;
+; 0.738 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.432      ; 1.341      ;
+; 0.739 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.980      ;
+; 0.740 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.070      ; 0.981      ;
+; 0.743 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.355      ;
+; 0.743 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.350      ;
+; 0.748 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; clock        ; clock       ; 0.000        ; 0.069      ; 0.988      ;
+; 0.749 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.085      ; 1.005      ;
+; 0.751 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; clock        ; clock       ; 0.000        ; -0.282     ; 0.640      ;
+; 0.752 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.359      ;
+; 0.754 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.366      ;
+; 0.762 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; clock        ; clock       ; 0.000        ; 0.070      ; 1.003      ;
+; 0.765 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; clock        ; clock       ; 0.000        ; 0.070      ; 1.006      ;
+; 0.791 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.398      ;
+; 0.794 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.401      ;
+; 0.799 ; int_res                                    ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.070      ; 1.040      ;
+; 0.820 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.432      ;
+; 0.830 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.068      ; 1.069      ;
+; 0.830 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.437      ;
+; 0.831 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.443      ;
+; 0.835 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.072      ; 1.078      ;
+; 0.841 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.436      ; 1.448      ;
+; 0.845 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.452      ;
+; 0.851 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.441      ; 1.463      ;
+; 0.857 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.436      ; 1.464      ;
+; 0.858 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.085      ; 1.114      ;
+; 0.859 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.085      ; 1.115      ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 ----------------------------------------------
@@ -192,16 +663,22 @@ No paths to report.
 No synchronizer chains to report.
 
 
---------------------------------------
++------------------------------------+
 ; Fast 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -1.097 ; -31.167           ;
++-------+--------+-------------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Fast 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.183 ; 0.000             ;
++-------+-------+-------------------+
 
 
 -----------------------------------------
@@ -216,10 +693,229 @@ No paths to report.
 No paths to report.
 
 
-----------------------------------------------------
++--------------------------------------------------+
 ; Fast 1200mV 0C Model Minimum Pulse Width Summary ;
-----------------------------------------------------
-No paths to report.
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -65.439                         ;
++-------+--------+---------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup: 'clock'                                                                                                                            ;
++--------+---------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                             ; To Node                                 ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.097 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.045      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.095 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 2.043      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.062 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.821      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.045 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.804      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.039 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.228     ; 1.798      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -1.016 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.964      ;
+; -0.946 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.896      ;
+; -0.946 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.896      ;
+; -0.946 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.896      ;
+; -0.946 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.896      ;
+; -0.944 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.894      ;
+; -0.944 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.894      ;
+; -0.944 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.894      ;
+; -0.944 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.037     ; 1.894      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.942 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.890      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.939 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.887      ;
+; -0.915 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.045      ;
+; -0.915 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.045      ;
+; -0.915 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.045      ;
+; -0.915 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.045      ;
+; -0.913 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.043      ;
+; -0.913 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.043      ;
+; -0.913 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.043      ;
+; -0.913 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; 0.143      ; 2.043      ;
+; -0.911 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.672      ;
+; -0.911 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.672      ;
+; -0.911 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.672      ;
+; -0.911 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.672      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.910 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]   ; clock        ; clock       ; 1.000        ; -0.039     ; 1.858      ;
+; -0.894 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.655      ;
+; -0.894 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.655      ;
+; -0.894 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.655      ;
+; -0.894 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.655      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.888 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3] ; clock        ; clock       ; 1.000        ; -0.226     ; 1.649      ;
+; -0.880 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]   ; clock        ; clock       ; 1.000        ; -0.046     ; 1.821      ;
+; -0.880 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]   ; clock        ; clock       ; 1.000        ; -0.046     ; 1.821      ;
+; -0.880 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]   ; clock        ; clock       ; 1.000        ; -0.046     ; 1.821      ;
+; -0.880 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]   ; clock        ; clock       ; 1.000        ; -0.046     ; 1.821      ;
+; -0.869 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]  ; clock        ; clock       ; 1.000        ; -0.035     ; 1.821      ;
+; -0.869 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]  ; clock        ; clock       ; 1.000        ; -0.035     ; 1.821      ;
+; -0.869 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]  ; clock        ; clock       ; 1.000        ; -0.035     ; 1.821      ;
+; -0.869 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3] ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]  ; clock        ; clock       ; 1.000        ; -0.035     ; 1.821      ;
++--------+---------------------------------------+-----------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold: 'clock'                                                                                                                                    ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.183 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; res_cnt[2]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.183 ; res_cnt[1]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.307      ;
+; 0.190 ; res_reg1                                   ; res_reg2                                   ; clock        ; clock       ; 0.000        ; 0.040      ; 0.314      ;
+; 0.190 ; res_cnt[0]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.314      ;
+; 0.194 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.318      ;
+; 0.197 ; res_cnt[0]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.321      ;
+; 0.197 ; res_cnt[0]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.321      ;
+; 0.199 ; res_cnt[1]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.323      ;
+; 0.201 ; Riscv:u|cntReg[7]                          ; Riscv:u|cntReg[7]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.325      ;
+; 0.202 ; res_cnt[0]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.040      ; 0.326      ;
+; 0.251 ; res_reg2                                   ; int_res                                    ; clock        ; clock       ; 0.000        ; 0.040      ; 0.375      ;
+; 0.254 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.567      ;
+; 0.258 ; res_cnt[2]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.040      ; 0.382      ;
+; 0.265 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.578      ;
+; 0.268 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.580      ;
+; 0.268 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.581      ;
+; 0.270 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.587      ;
+; 0.272 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.584      ;
+; 0.284 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.047      ; 0.415      ;
+; 0.284 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.047      ; 0.415      ;
+; 0.286 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.047      ; 0.417      ;
+; 0.286 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.417      ;
+; 0.287 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.418      ;
+; 0.288 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.419      ;
+; 0.288 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.419      ;
+; 0.289 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.046      ; 0.419      ;
+; 0.289 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.420      ;
+; 0.289 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.420      ;
+; 0.289 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.046      ; 0.419      ;
+; 0.290 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; clock        ; clock       ; 0.000        ; 0.040      ; 0.414      ;
+; 0.294 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]    ; clock        ; clock       ; 0.000        ; 0.040      ; 0.418      ;
+; 0.294 ; Riscv:u|cntReg[1]                          ; Riscv:u|cntReg[1]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.418      ;
+; 0.295 ; Riscv:u|cntReg[3]                          ; Riscv:u|cntReg[3]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.419      ;
+; 0.295 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.418      ;
+; 0.295 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.418      ;
+; 0.295 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.419      ;
+; 0.295 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.419      ;
+; 0.295 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.046      ; 0.425      ;
+; 0.296 ; Riscv:u|cntReg[5]                          ; Riscv:u|cntReg[5]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.420      ;
+; 0.296 ; Riscv:u|cntReg[2]                          ; Riscv:u|cntReg[2]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.420      ;
+; 0.296 ; Riscv:u|cntReg[6]                          ; Riscv:u|cntReg[6]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.420      ;
+; 0.296 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.420      ;
+; 0.297 ; Riscv:u|cntReg[4]                          ; Riscv:u|cntReg[4]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.421      ;
+; 0.301 ; res_cnt[1]                                 ; res_cnt[2]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.425      ;
+; 0.302 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.425      ;
+; 0.302 ; res_cnt[2]                                 ; res_cnt[1]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.426      ;
+; 0.302 ; res_cnt[2]                                 ; res_cnt[0]                                 ; clock        ; clock       ; 0.000        ; 0.040      ; 0.426      ;
+; 0.305 ; Riscv:u|cntReg[0]                          ; Riscv:u|cntReg[0]                          ; clock        ; clock       ; 0.000        ; 0.040      ; 0.429      ;
+; 0.305 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.428      ;
+; 0.315 ; res_cnt[1]                                 ; res_reg1                                   ; clock        ; clock       ; 0.000        ; 0.040      ; 0.439      ;
+; 0.315 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.632      ;
+; 0.317 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.629      ;
+; 0.317 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.630      ;
+; 0.318 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.631      ;
+; 0.320 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.633      ;
+; 0.321 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.229      ; 0.634      ;
+; 0.328 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.640      ;
+; 0.331 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.643      ;
+; 0.334 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.646      ;
+; 0.334 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.646      ;
+; 0.336 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.653      ;
+; 0.349 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.047      ; 0.480      ;
+; 0.360 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[2]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[1]    ; clock        ; clock       ; 0.000        ; 0.040      ; 0.484      ;
+; 0.360 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.669      ;
+; 0.362 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.671      ;
+; 0.363 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.046      ; 0.493      ;
+; 0.365 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.674      ;
+; 0.366 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.675      ;
+; 0.366 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.675      ;
+; 0.369 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.492      ;
+; 0.371 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; clock        ; clock       ; 0.000        ; 0.039      ; 0.494      ;
+; 0.374 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[3]    ; clock        ; clock       ; 0.000        ; -0.142     ; 0.316      ;
+; 0.377 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.501      ;
+; 0.380 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.504      ;
+; 0.381 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.698      ;
+; 0.383 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.507      ;
+; 0.391 ; int_res                                    ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg ; clock        ; clock       ; 0.000        ; 0.040      ; 0.515      ;
+; 0.391 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.703      ;
+; 0.394 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.706      ;
+; 0.396 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.708      ;
+; 0.397 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.709      ;
+; 0.399 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.716      ;
+; 0.400 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.228      ; 0.712      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.233      ; 0.719      ;
+; 0.408 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; clock        ; clock       ; 0.000        ; 0.038      ; 0.530      ;
+; 0.409 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]     ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]     ; clock        ; clock       ; 0.000        ; 0.042      ; 0.535      ;
+; 0.423 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.732      ;
+; 0.423 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.732      ;
+; 0.423 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.732      ;
+; 0.423 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.732      ;
+; 0.423 ; int_res                                    ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]    ; clock        ; clock       ; 0.000        ; 0.225      ; 0.732      ;
+; 0.435 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.566      ;
+; 0.437 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]     ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]     ; clock        ; clock       ; 0.000        ; 0.047      ; 0.568      ;
+; 0.437 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]      ; clock        ; clock       ; 0.000        ; 0.046      ; 0.567      ;
+; 0.438 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]     ; clock        ; clock       ; 0.000        ; 0.051      ; 0.573      ;
++-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 ----------------------------------------------
@@ -228,14 +924,16 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+----------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                        ;
-+------------------+-------+------+----------+---------+---------------------+
-; Clock            ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+-------+------+----------+---------+---------------------+
-; Worst-case Slack ; N/A   ; N/A  ; N/A      ; N/A     ; N/A                 ;
-; Design-wide TNS  ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; 0.0                 ;
-+------------------+-------+------+----------+---------+---------------------+
++--------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                            ;
++------------------+----------+-------+----------+---------+---------------------+
+; Clock            ; Setup    ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+----------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -3.354   ; 0.183 ; N/A      ; N/A     ; -3.000              ;
+;  clock           ; -3.354   ; 0.183 ; N/A      ; N/A     ; -3.000              ;
+; Design-wide TNS  ; -109.765 ; 0.0   ; 0.0      ; 0.0     ; -65.439             ;
+;  clock           ; -109.765 ; 0.000 ; N/A      ; N/A     ; -65.439             ;
++------------------+----------+-------+----------+---------+---------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -299,10 +997,24 @@ No synchronizer chains to report.
 +---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
 
 
--------------------
-; Clock Transfers ;
--------------------
-Nothing to report.
++-------------------------------------------------------------------+
+; Setup Transfers                                                   ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 1179     ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Hold Transfers                                                    ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 1179     ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
 ---------------
@@ -326,9 +1038,36 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 0     ; 0    ;
 ; Unconstrained Input Port Paths  ; 0     ; 0    ;
-; Unconstrained Output Ports      ; 0     ; 0    ;
-; Unconstrained Output Port Paths ; 0     ; 0    ;
+; Unconstrained Output Ports      ; 1     ; 1    ;
+; Unconstrained Output Port Paths ; 1     ; 1    ;
 +---------------------------------+-------+------+
+
+
++-------------------------------------+
+; Clock Status Summary                ;
++--------+-------+------+-------------+
+; Target ; Clock ; Type ; Status      ;
++--------+-------+------+-------------+
+; clock  ; clock ; Base ; Constrained ;
++--------+-------+------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; txd         ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; txd         ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
 
 
 +------------------------------------+
@@ -337,7 +1076,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Sun May  3 09:56:41 2020
+    Info: Processing started: Sun May  3 18:14:12 2020
 Info: Command: quartus_sta riscv -c riscv
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -346,48 +1085,72 @@ Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'riscv.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name clock clock
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
-Info (332159): No clocks to report
 Info: Analyzing Slow 1200mV 85C Model
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -3.354
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.354            -109.765 clock 
+Info (332146): Worst-case hold slack is 0.404
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.404               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -64.680 clock 
 Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -2.960
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -2.960             -95.325 clock 
+Info (332146): Worst-case hold slack is 0.356
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.356               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -64.680 clock 
 Info: Analyzing Fast 1200mV 0C Model
-Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -1.097
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -1.097             -31.167 clock 
+Info (332146): Worst-case hold slack is 0.183
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.183               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
-Info (332101): Design is fully constrained for setup requirements
-Info (332101): Design is fully constrained for hold requirements
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -65.439 clock 
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 887 megabytes
-    Info: Processing ended: Sun May  3 09:56:42 2020
+    Info: Peak virtual memory: 897 megabytes
+    Info: Processing ended: Sun May  3 18:14:13 2020
     Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
 
 
