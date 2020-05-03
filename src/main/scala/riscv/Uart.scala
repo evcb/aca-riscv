@@ -13,16 +13,15 @@ object log2Up
 
 class Uart(frequency: Int, baudRate: Int) extends Module {
   val io = IO(new Bundle {
-    val memWbWd = Input(UInt())
-    val memWbRd = Input(UInt())
+    val data = Input(UInt(32.W))
     val tx = Output(UInt(1.W))
   })
-  val packageSize = 8
 
   val tx_baud_size = log2Up(frequency/baudRate)
   val calculated_baud = (frequency/baudRate).asUInt()
   val tx_baud_counter = RegInit(0.U (tx_baud_size.W))
   val tx_baud_tick = RegInit(0.U (1.W))
+  val tx_clk = RegInit(0.U (8.W))
 
   // UART TX clk
   when (tx_baud_counter === calculated_baud){
@@ -34,8 +33,8 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   }
 
   // Create a Queue with 8 items of 8 bytes each
-  val txQueue = Module(new Queue(Bits(packageSize.W), 8))
-  txQueue.io.enq.bits := io.memWbWd
+  val txQueue = Module(new Queue(Bits(8.W), 8))
+  txQueue.io.enq.bits := io.data
   txQueue.io.enq.valid := false.B
   txQueue.io.deq.ready := false.B
 
@@ -49,16 +48,13 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   val fake_register_signal = RegInit(true.B )
   val UART_REGISTER = 0.U; // for now, register x0
 
-  //this implementation only tests if we can see the test bits, transmitted from the UART
-  val testBits = "b01101000".U
-  //txQueue.io.enq.bits := io.memWbWd
-  txQueue.io.enq.bits := testBits
+  txQueue.io.enq.bits := io.data
   txQueue.io.enq.valid := true.B
 
   //write to queue
   when (fake_register_signal === true.B)
   {
-    txQueue.io.enq.bits := testBits
+    txQueue.io.enq.bits := io.data
     txQueue.io.enq.valid := true.B
     fake_register_signal := false.B
   }
@@ -82,17 +78,18 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
 
   // send data prepared
   when (tx_state === tx_send) {
-    when (tx_baud_tick === 1.U){
-      tx_buff         := Cat (0.U, tx_buff (packageSize + 1, 1))
+    when (tx_baud_tick === 1.U && tx_clk =/= 200.U){
+      tx_buff         := Cat (0.U, tx_buff (9, 1))
       tx_reg          := tx_buff(0)
-      tx_counter      := Mux(tx_counter === (packageSize + 2).U, 0.U, tx_counter + 1.U)
+      tx_counter      := Mux(tx_counter === 10.U, 0.U, tx_counter + 1.U)
 
-      when (tx_counter === (packageSize + 2).U) {
+      when (tx_counter === 10.U) {
         when (txQueue.io.deq.valid) {
           txQueue.io.deq.ready := true.B
           tx_buff              := Cat(true.B, txQueue.io.deq.bits)
           tx_reg               := 0.U
           tx_counter           := 1.U
+          tx_clk               := tx_clk + 1.U
         }
         .otherwise {
           tx_reg          := 1.U

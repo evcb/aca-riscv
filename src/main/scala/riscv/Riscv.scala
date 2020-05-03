@@ -24,8 +24,7 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 100000000, baudRate:
   io.led := true.B
   //UART
   io.rxd := DontCare
-  uartPrinter.io.memWbRd := decodeStage.io.MemWbRd
-  uartPrinter.io.memWbWd := decodeStage.io.MemWbWd
+  uartPrinter.io.data := writeBackStage.io.memWbWd
   io.txd := uartPrinter.io.tx
 
   // IF
