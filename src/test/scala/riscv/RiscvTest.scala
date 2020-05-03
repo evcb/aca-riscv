@@ -12,17 +12,7 @@ val param = Array("--target-dir", "generated", "--generate-vcd-output", "on")
 class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
   poke(dut.io.rxd, 0.U)
 
-  step(4)
-
-  expect(dut.io.led, 0.U)
-  expect(dut.io.txd, 1.U)
-
-  step(25)
-
-  expect(dut.io.led, 0.U)
-  expect(dut.io.txd, 1.U)
-
-  step(10)
+  step(100)
 
   expect(dut.io.led, 0.U)
   expect(dut.io.txd, 1.U)
