@@ -255,21 +255,35 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   val cntWrd = RegInit(0.U(8.W))
 
   results(cntReg) := memWbData
-  cntReg := cntReg + 1.U
+  /*
+    cntReg := cntReg + 1.U
 
-  val value = results(cntWrd)
-  tx.io.channel.bits := value(cntBit)
-  tx.io.channel.valid := cntWrd =/= 100.U
+    val value = results(cntWrd)
+    tx.io.channel.bits := value(cntBit)
+    tx.io.channel.valid := cntWrd =/= 100.U
 
-  when(tx.io.channel.ready && cntWrd =/= 100.U) {
-    when(cntBit =/= 31.U) {
-      cntBit := cntBit + 1.U
-    } .otherwise {
-      cntWrd := cntWrd + 1.U
-      cntBit := 0.U
-    }
+    when(tx.io.channel.ready && cntWrd =/= 100.U) {
+      when(cntBit =/= 31.U) {
+        cntBit := cntBit + 1.U
+      } .otherwise {
+        cntWrd := cntWrd + 1.U
+        cntBit := 0.U
+      }
+    }*/
+  val msg = "Hello World!"
+  val text = VecInit(msg.map(_.U))
+  val len = msg.length.U
+
+/*
+  val cntReg = RegInit(0.U(8.W))
+*/
+
+  tx.io.channel.bits := text(cntReg)
+  tx.io.channel.valid := cntReg =/= len
+
+  when(tx.io.channel.ready && cntReg =/= len) {
+    cntReg := cntReg + 1.U
   }
-
 //
 //  printf("- Start of cycle %d: \n", (pc / 4.S))
 //  printf("------------------------------\n")
