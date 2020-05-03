@@ -48,6 +48,7 @@ class Uart(frequency: Int, baudRate: Int) extends Module {
   val fake_register_signal = RegInit(true.B )
   val UART_REGISTER = 0.U; // for now, register x0
 
+  //this implementation only tests if we can see the test bits, transmitted from the UART
   val testBits = "b01001000".U
   //txQueue.io.enq.bits := io.memWbWd
   txQueue.io.enq.bits := testBits
