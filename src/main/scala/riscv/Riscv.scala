@@ -290,6 +290,7 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
 
   when(tx.io.channel.ready && cntReg <= 10.U){
     cntReg := cntReg + 1.U
+    dtReg := 0.U // after sending - reset dtReg back to 0
   }
 
 
