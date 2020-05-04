@@ -2,6 +2,7 @@
 
 FILE="$1"
 FILEPATH="ctests/output/$FILE"
+rm -rf $FILEPATH
 mkdir -p $FILEPATH
 cp ctests/$FILE.c $FILEPATH/$FILE.c 
 
