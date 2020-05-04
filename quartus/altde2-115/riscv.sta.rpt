@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for riscv
-Sun May  3 09:56:42 2020
+Mon May  4 10:26:00 2020
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -17,31 +17,41 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
   9. Slow 1200mV 85C Model Recovery Summary
  10. Slow 1200mV 85C Model Removal Summary
  11. Slow 1200mV 85C Model Minimum Pulse Width Summary
- 12. Slow 1200mV 85C Model Metastability Summary
- 13. Slow 1200mV 0C Model Fmax Summary
- 14. Slow 1200mV 0C Model Setup Summary
- 15. Slow 1200mV 0C Model Hold Summary
- 16. Slow 1200mV 0C Model Recovery Summary
- 17. Slow 1200mV 0C Model Removal Summary
- 18. Slow 1200mV 0C Model Minimum Pulse Width Summary
- 19. Slow 1200mV 0C Model Metastability Summary
- 20. Fast 1200mV 0C Model Setup Summary
- 21. Fast 1200mV 0C Model Hold Summary
- 22. Fast 1200mV 0C Model Recovery Summary
- 23. Fast 1200mV 0C Model Removal Summary
- 24. Fast 1200mV 0C Model Minimum Pulse Width Summary
- 25. Fast 1200mV 0C Model Metastability Summary
- 26. Multicorner Timing Analysis Summary
- 27. Board Trace Model Assignments
- 28. Input Transition Times
- 29. Signal Integrity Metrics (Slow 1200mv 0c Model)
- 30. Signal Integrity Metrics (Slow 1200mv 85c Model)
- 31. Signal Integrity Metrics (Fast 1200mv 0c Model)
- 32. Clock Transfers
- 33. Report TCCS
- 34. Report RSKM
- 35. Unconstrained Paths Summary
- 36. TimeQuest Timing Analyzer Messages
+ 12. Slow 1200mV 85C Model Setup: 'clock'
+ 13. Slow 1200mV 85C Model Hold: 'clock'
+ 14. Slow 1200mV 85C Model Metastability Summary
+ 15. Slow 1200mV 0C Model Fmax Summary
+ 16. Slow 1200mV 0C Model Setup Summary
+ 17. Slow 1200mV 0C Model Hold Summary
+ 18. Slow 1200mV 0C Model Recovery Summary
+ 19. Slow 1200mV 0C Model Removal Summary
+ 20. Slow 1200mV 0C Model Minimum Pulse Width Summary
+ 21. Slow 1200mV 0C Model Setup: 'clock'
+ 22. Slow 1200mV 0C Model Hold: 'clock'
+ 23. Slow 1200mV 0C Model Metastability Summary
+ 24. Fast 1200mV 0C Model Setup Summary
+ 25. Fast 1200mV 0C Model Hold Summary
+ 26. Fast 1200mV 0C Model Recovery Summary
+ 27. Fast 1200mV 0C Model Removal Summary
+ 28. Fast 1200mV 0C Model Minimum Pulse Width Summary
+ 29. Fast 1200mV 0C Model Setup: 'clock'
+ 30. Fast 1200mV 0C Model Hold: 'clock'
+ 31. Fast 1200mV 0C Model Metastability Summary
+ 32. Multicorner Timing Analysis Summary
+ 33. Board Trace Model Assignments
+ 34. Input Transition Times
+ 35. Signal Integrity Metrics (Slow 1200mv 0c Model)
+ 36. Signal Integrity Metrics (Slow 1200mv 85c Model)
+ 37. Signal Integrity Metrics (Fast 1200mv 0c Model)
+ 38. Setup Transfers
+ 39. Hold Transfers
+ 40. Report TCCS
+ 41. Report RSKM
+ 42. Unconstrained Paths Summary
+ 43. Clock Status Summary
+ 44. Unconstrained Output Ports
+ 45. Unconstrained Output Ports
+ 46. TimeQuest Timing Analyzer Messages
 
 
 
@@ -87,25 +97,32 @@ agreement for further details.
 ; Number detected on machine ; 2           ;
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
+; Average used               ; 1.22        ;
 ; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.2%      ;
+;     Processor 2            ;  21.9%      ;
 +----------------------------+-------------+
 
 
-----------
-; Clocks ;
-----------
-No clocks to report.
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                            ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; Clock Name ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets   ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; clock      ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { clock } ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
 
 
---------------------------------------
-; Slow 1200mV 85C Model Fmax Summary ;
---------------------------------------
-No paths to report.
++-------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary              ;
++-----------+-----------------+------------+------+
+; Fmax      ; Restricted Fmax ; Clock Name ; Note ;
++-----------+-----------------+------------+------+
+; 89.37 MHz ; 89.37 MHz       ; clock      ;      ;
++-----------+-----------------+------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
 ----------------------------------
@@ -114,16 +131,22 @@ No paths to report.
 HTML report is unavailable in plain text report export.
 
 
----------------------------------------
++-------------------------------------+
 ; Slow 1200mV 85C Model Setup Summary ;
----------------------------------------
-No paths to report.
++-------+---------+-------------------+
+; Clock ; Slack   ; End Point TNS     ;
++-------+---------+-------------------+
+; clock ; -10.190 ; -4012.209         ;
++-------+---------+-------------------+
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 85C Model Hold Summary ;
---------------------------------------
-No paths to report.
++-------+-------+--------------------+
+; Clock ; Slack ; End Point TNS      ;
++-------+-------+--------------------+
+; clock ; 0.386 ; 0.000              ;
++-------+-------+--------------------+
 
 
 ------------------------------------------
@@ -138,10 +161,229 @@ No paths to report.
 No paths to report.
 
 
------------------------------------------------------
++---------------------------------------------------+
 ; Slow 1200mV 85C Model Minimum Pulse Width Summary ;
------------------------------------------------------
-No paths to report.
++-------+--------+----------------------------------+
+; Clock ; Slack  ; End Point TNS                    ;
++-------+--------+----------------------------------+
+; clock ; -3.000 ; -1092.871                        ;
++-------+--------+----------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Setup: 'clock'                                                                                                                                              ;
++---------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack   ; From Node                                            ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++---------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; -10.190 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; -0.123     ; 11.065     ;
+; -10.069 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.535     ; 10.532     ;
+; -10.037 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; -0.114     ; 10.921     ;
+; -10.020 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; -0.134     ; 10.884     ;
+; -10.005 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; -0.136     ; 10.867     ;
+; -9.955  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; -0.175     ; 10.778     ;
+; -9.953  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; -0.120     ; 10.831     ;
+; -9.950  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; -0.095     ; 10.853     ;
+; -9.949  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; -0.112     ; 10.835     ;
+; -9.933  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; -0.134     ; 10.797     ;
+; -9.933  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; -0.098     ; 10.833     ;
+; -9.930  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; -0.133     ; 10.795     ;
+; -9.929  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; -0.133     ; 10.794     ;
+; -9.859  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; -0.119     ; 10.738     ;
+; -9.852  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[41] ; clock        ; clock       ; 1.000        ; -0.183     ; 10.667     ;
+; -9.815  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.076     ; 10.737     ;
+; -9.814  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[42] ; clock        ; clock       ; 1.000        ; -0.168     ; 10.644     ;
+; -9.797  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.076     ; 10.719     ;
+; -9.779  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; -0.136     ; 10.641     ;
+; -9.771  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; -0.180     ; 10.589     ;
+; -9.755  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[66] ; clock        ; clock       ; 1.000        ; -0.099     ; 10.654     ;
+; -9.737  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.325      ; 11.060     ;
+; -9.726  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.080     ; 10.644     ;
+; -9.703  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[44] ; clock        ; clock       ; 1.000        ; -0.183     ; 10.518     ;
+; -9.696  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.364      ; 11.058     ;
+; -9.695  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.325      ; 11.018     ;
+; -9.687  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[48] ; clock        ; clock       ; 1.000        ; -0.120     ; 10.565     ;
+; -9.678  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.364      ; 11.040     ;
+; -9.668  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.075     ; 10.591     ;
+; -9.664  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[63] ; clock        ; clock       ; 1.000        ; -0.136     ; 10.526     ;
+; -9.652  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[58] ; clock        ; clock       ; 1.000        ; -0.164     ; 10.486     ;
+; -9.644  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.345      ; 10.987     ;
+; -9.640  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.336      ; 10.974     ;
+; -9.626  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.345      ; 10.969     ;
+; -9.618  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.336      ; 10.952     ;
+; -9.616  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[57] ; clock        ; clock       ; 1.000        ; -0.181     ; 10.433     ;
+; -9.614  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.339      ; 10.951     ;
+; -9.613  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.347      ; 10.958     ;
+; -9.607  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.360      ; 10.965     ;
+; -9.604  ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.076     ; 10.526     ;
+; -9.603  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.927     ;
+; -9.600  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.336      ; 10.934     ;
+; -9.596  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.339      ; 10.933     ;
+; -9.595  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.325      ; 10.918     ;
+; -9.595  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.347      ; 10.940     ;
+; -9.584  ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.325      ; 10.907     ;
+; -9.580  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.284      ; 10.862     ;
+; -9.577  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.340      ; 10.915     ;
+; -9.577  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.325      ; 10.900     ;
+; -9.567  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[55] ; clock        ; clock       ; 1.000        ; -0.181     ; 10.384     ;
+; -9.562  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.284      ; 10.844     ;
+; -9.561  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[56] ; clock        ; clock       ; 1.000        ; -0.150     ; 10.409     ;
+; -9.559  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.340      ; 10.897     ;
+; -9.555  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.879     ;
+; -9.554  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.878     ;
+; -9.549  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.323      ; 10.870     ;
+; -9.549  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.365      ; 10.912     ;
+; -9.547  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[54] ; clock        ; clock       ; 1.000        ; -0.186     ; 10.359     ;
+; -9.538  ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.462     ;
+; -9.537  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.861     ;
+; -9.536  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.860     ;
+; -9.533  ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.073     ; 10.458     ;
+; -9.531  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.361      ; 10.890     ;
+; -9.531  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.323      ; 10.852     ;
+; -9.526  ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.450     ;
+; -9.525  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; 0.323      ; 10.846     ;
+; -9.524  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.343      ; 10.865     ;
+; -9.517  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; 0.279      ; 10.794     ;
+; -9.507  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; 0.323      ; 10.828     ;
+; -9.506  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.321      ; 10.825     ;
+; -9.504  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[66] ; clock        ; clock       ; 1.000        ; 0.360      ; 10.862     ;
+; -9.502  ; Riscv:u|DecodeStage:decodeStage|IdExRg[6]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.076     ; 10.424     ;
+; -9.499  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; 0.279      ; 10.776     ;
+; -9.497  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.346      ; 10.841     ;
+; -9.496  ; Riscv:u|DecodeStage:decodeStage|IdExRg[8]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.420     ;
+; -9.495  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.361      ; 10.854     ;
+; -9.491  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.280      ; 10.769     ;
+; -9.488  ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.327      ; 10.813     ;
+; -9.488  ; Riscv:u|DecodeStage:decodeStage|IdExRg[7]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.412     ;
+; -9.487  ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.327      ; 10.812     ;
+; -9.486  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[66] ; clock        ; clock       ; 1.000        ; 0.360      ; 10.844     ;
+; -9.485  ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.364      ; 10.847     ;
+; -9.477  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[41] ; clock        ; clock       ; 1.000        ; 0.276      ; 10.751     ;
+; -9.471  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.337      ; 10.806     ;
+; -9.470  ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_3[7] ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.333      ; 10.801     ;
+; -9.467  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.340      ; 10.805     ;
+; -9.466  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.322      ; 10.786     ;
+; -9.466  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.348      ; 10.812     ;
+; -9.465  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.322      ; 10.785     ;
+; -9.462  ; Riscv:u|MemStage:memStage|memRg[3]                   ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.386     ;
+; -9.460  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.319      ; 10.777     ;
+; -9.460  ; Riscv:u|ExStage:executionStage|exMemRg[2]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.384     ;
+; -9.460  ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.074     ; 10.384     ;
+; -9.459  ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[41] ; clock        ; clock       ; 1.000        ; 0.276      ; 10.733     ;
+; -9.458  ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[42] ; clock        ; clock       ; 1.000        ; 0.291      ; 10.747     ;
+; -9.452  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.335      ; 10.785     ;
+; -9.448  ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.326      ; 10.772     ;
+; -9.443  ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.321      ; 10.762     ;
+; -9.440  ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[67] ; clock        ; clock       ; 1.000        ; -0.130     ; 10.308     ;
+; -9.440  ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.327      ; 10.765     ;
++---------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold: 'clock'                                                                                                                                                                                                                         ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                    ; To Node                                                                                                                        ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.386 ; Riscv:u|FetchStage:fetchStage|pcRg[1]        ; Riscv:u|FetchStage:fetchStage|pcRg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.097      ; 0.669      ;
+; 0.401 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]                                                                                        ; clock        ; clock       ; 0.000        ; 0.082      ; 0.669      ;
+; 0.401 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]                                                                                        ; clock        ; clock       ; 0.000        ; 0.082      ; 0.669      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg   ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg                                                                                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.669      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.669      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.669      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.669      ;
+; 0.402 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.669      ;
+; 0.403 ; res_cnt[2]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.669      ;
+; 0.403 ; res_cnt[1]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.669      ;
+; 0.408 ; res_cnt[0]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.674      ;
+; 0.414 ; Riscv:u|ExStage:executionStage|exMemRg[37]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.434      ; 1.070      ;
+; 0.423 ; Riscv:u|ExStage:executionStage|exMemRg[7]    ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.440      ; 1.085      ;
+; 0.427 ; Riscv:u|ExStage:executionStage|ctlRg[5]      ; Riscv:u|MemStage:memStage|ctlReg[0]                                                                                            ; clock        ; clock       ; 0.000        ; 0.081      ; 0.694      ;
+; 0.427 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.694      ;
+; 0.431 ; res_reg2                                     ; int_res                                                                                                                        ; clock        ; clock       ; 0.000        ; 0.080      ; 0.697      ;
+; 0.431 ; res_reg1                                     ; res_reg2                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.697      ;
+; 0.435 ; res_cnt[2]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.701      ;
+; 0.439 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.706      ;
+; 0.444 ; res_cnt[2]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.710      ;
+; 0.444 ; res_cnt[0]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.710      ;
+; 0.445 ; res_cnt[2]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.711      ;
+; 0.594 ; Riscv:u|FetchStage:fetchStage|pcRg[1]        ; Riscv:u|FetchStage:fetchStage|ifRg[33]                                                                                         ; clock        ; clock       ; 0.000        ; 0.063      ; 0.843      ;
+; 0.596 ; Riscv:u|ExStage:executionStage|exMemRg[33]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.432      ; 1.250      ;
+; 0.630 ; Riscv:u|ExStage:executionStage|ctlRg[6]      ; Riscv:u|MemStage:memStage|ctlReg[1]                                                                                            ; clock        ; clock       ; 0.000        ; 0.079      ; 0.895      ;
+; 0.640 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.908      ;
+; 0.641 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.909      ;
+; 0.641 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.909      ;
+; 0.641 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.908      ;
+; 0.642 ; Riscv:u|cntReg[0]                            ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.909      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.909      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.910      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.910      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.909      ;
+; 0.642 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.909      ;
+; 0.643 ; Riscv:u|cntReg[5]                            ; Riscv:u|cntReg[5]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.910      ;
+; 0.643 ; Riscv:u|cntReg[7]                            ; Riscv:u|cntReg[7]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.910      ;
+; 0.643 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.910      ;
+; 0.643 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.910      ;
+; 0.644 ; Riscv:u|cntReg[3]                            ; Riscv:u|cntReg[3]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.911      ;
+; 0.644 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.911      ;
+; 0.645 ; Riscv:u|cntReg[1]                            ; Riscv:u|cntReg[1]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.912      ;
+; 0.645 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.913      ;
+; 0.645 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.912      ;
+; 0.646 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.914      ;
+; 0.647 ; Riscv:u|cntReg[2]                            ; Riscv:u|cntReg[2]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.914      ;
+; 0.648 ; Riscv:u|cntReg[4]                            ; Riscv:u|cntReg[4]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.915      ;
+; 0.648 ; Riscv:u|cntReg[6]                            ; Riscv:u|cntReg[6]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.915      ;
+; 0.648 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.915      ;
+; 0.654 ; res_cnt[1]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.920      ;
+; 0.655 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.923      ;
+; 0.656 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.924      ;
+; 0.657 ; res_cnt[0]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.923      ;
+; 0.658 ; res_cnt[1]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.924      ;
+; 0.659 ; Riscv:u|ExStage:executionStage|exMemRg[0]    ; Riscv:u|MemStage:memStage|memRg[0]                                                                                             ; clock        ; clock       ; 0.000        ; 0.079      ; 0.924      ;
+; 0.661 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]                                                                                          ; clock        ; clock       ; 0.000        ; 0.082      ; 0.929      ;
+; 0.667 ; Riscv:u|ExStage:executionStage|exMemRg[1]    ; Riscv:u|MemStage:memStage|memRg[1]                                                                                             ; clock        ; clock       ; 0.000        ; 0.080      ; 0.933      ;
+; 0.673 ; Riscv:u|ExStage:executionStage|exMemRg[3]    ; Riscv:u|MemStage:memStage|memRg[3]                                                                                             ; clock        ; clock       ; 0.000        ; 0.080      ; 0.939      ;
+; 0.674 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg   ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.941      ;
+; 0.682 ; Riscv:u|ExStage:executionStage|exMemRg[41]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.058      ; 0.962      ;
+; 0.695 ; res_cnt[1]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.961      ;
+; 0.695 ; res_cnt[0]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.961      ;
+; 0.701 ; Riscv:u|ExStage:executionStage|exMemRg[50]   ; Riscv:u|ExStage:executionStage|exMemRg[18]                                                                                     ; clock        ; clock       ; 0.000        ; 0.097      ; 0.984      ;
+; 0.704 ; Riscv:u|DecodeStage:decodeStage|IdExRg[84]   ; Riscv:u|ExStage:executionStage|exMemRg[32]                                                                                     ; clock        ; clock       ; 0.000        ; 0.096      ; 0.986      ;
+; 0.710 ; Riscv:u|ExStage:executionStage|exMemRg[52]   ; Riscv:u|ExStage:executionStage|exMemRg[20]                                                                                     ; clock        ; clock       ; 0.000        ; 0.098      ; 0.994      ;
+; 0.713 ; Riscv:u|ExStage:executionStage|exMemRg[60]   ; Riscv:u|ExStage:executionStage|exMemRg[28]                                                                                     ; clock        ; clock       ; 0.000        ; 0.096      ; 0.995      ;
+; 0.714 ; Riscv:u|ExStage:executionStage|exMemRg[10]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.431      ; 1.367      ;
+; 0.742 ; Riscv:u|MemStage:memStage|ctlReg[0]          ; Riscv:u|dtReg[1]                                                                                                               ; clock        ; clock       ; 0.000        ; 0.081      ; 1.009      ;
+; 0.747 ; Riscv:u|ExStage:executionStage|exMemRg[30]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.026      ; 0.995      ;
+; 0.748 ; Riscv:u|ExStage:executionStage|exMemRg[2]    ; Riscv:u|MemStage:memStage|memRg[2]                                                                                             ; clock        ; clock       ; 0.000        ; 0.080      ; 1.014      ;
+; 0.756 ; Riscv:u|ExStage:executionStage|exMemRg[29]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.026      ; 1.004      ;
+; 0.765 ; Riscv:u|DecodeStage:decodeStage|IdExRg[75]   ; Riscv:u|ExStage:executionStage|exMemRg[23]                                                                                     ; clock        ; clock       ; 0.000        ; 0.097      ; 1.048      ;
+; 0.767 ; Riscv:u|ExStage:executionStage|exMemRg[18]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.035      ; 1.024      ;
+; 0.774 ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]                                                                                        ; clock        ; clock       ; 0.000        ; 0.081      ; 1.041      ;
+; 0.774 ; Riscv:u|ExStage:executionStage|exMemRg[32]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.026      ; 1.022      ;
+; 0.776 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]                                                                                        ; clock        ; clock       ; 0.000        ; 0.082      ; 1.044      ;
+; 0.776 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]                                                                                        ; clock        ; clock       ; 0.000        ; 0.081      ; 1.043      ;
+; 0.776 ; Riscv:u|ExStage:executionStage|exMemRg[21]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.025      ; 1.023      ;
+; 0.777 ; Riscv:u|MemStage:memStage|ctlReg[0]          ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[1]                                                              ; clock        ; clock       ; 0.000        ; 0.080      ; 1.043      ;
+; 0.783 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 1.050      ;
+; 0.785 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 1.052      ;
+; 0.786 ; Riscv:u|ExStage:executionStage|exMemRg[26]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.025      ; 1.033      ;
+; 0.788 ; Riscv:u|ExStage:executionStage|exMemRg[27]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.025      ; 1.035      ;
+; 0.790 ; int_res                                      ; Riscv:u|ExStage:executionStage|exMemRg[39]                                                                                     ; clock        ; clock       ; 0.000        ; 0.514      ; 1.490      ;
+; 0.790 ; Riscv:u|ExStage:executionStage|exMemRg[35]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.026      ; 1.038      ;
+; 0.792 ; Riscv:u|ExStage:executionStage|exMemRg[8]    ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.050      ; 1.064      ;
+; 0.795 ; Riscv:u|ExStage:executionStage|exMemRg[14]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.045      ; 1.062      ;
+; 0.798 ; Riscv:u|ExStage:executionStage|exMemRg[25]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.025      ; 1.045      ;
+; 0.802 ; Riscv:u|ExStage:executionStage|exMemRg[17]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.021      ; 1.045      ;
+; 0.803 ; Riscv:u|ExStage:executionStage|exMemRg[12]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.019      ; 1.044      ;
+; 0.823 ; Riscv:u|ExStage:executionStage|exMemRg[36]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.002      ; 1.047      ;
+; 0.829 ; Riscv:u|ExStage:executionStage|exMemRg[16]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 1.065      ;
+; 0.830 ; Riscv:u|ExStage:executionStage|exMemRg[13]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 1.066      ;
+; 0.868 ; Riscv:u|DecodeStage:decodeStage|IdExRg[85]   ; Riscv:u|ExStage:executionStage|exMemRg[33]                                                                                     ; clock        ; clock       ; 0.000        ; 0.079      ; 1.133      ;
+; 0.871 ; Riscv:u|DecodeStage:decodeStage|CtlRg[3]     ; Riscv:u|ExStage:executionStage|ctlRg[5]                                                                                        ; clock        ; clock       ; 0.000        ; 0.081      ; 1.138      ;
+; 0.888 ; Riscv:u|ExStage:executionStage|exMemRg[38]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; -0.003     ; 1.107      ;
+; 0.893 ; Riscv:u|MemStage:memStage|memRg[25]          ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[20]                                                             ; clock        ; clock       ; 0.000        ; 0.079      ; 1.158      ;
+; 0.895 ; Riscv:u|dtReg[0]                             ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[0]                                                                                   ; clock        ; clock       ; 0.000        ; 0.092      ; 1.173      ;
+; 0.898 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 1.165      ;
+; 0.900 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.081      ; 1.167      ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 -----------------------------------------------
@@ -150,22 +392,32 @@ No paths to report.
 No synchronizer chains to report.
 
 
--------------------------------------
-; Slow 1200mV 0C Model Fmax Summary ;
--------------------------------------
-No paths to report.
++-------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary               ;
++-----------+-----------------+------------+------+
+; Fmax      ; Restricted Fmax ; Clock Name ; Note ;
++-----------+-----------------+------------+------+
+; 96.82 MHz ; 96.82 MHz       ; clock      ;      ;
++-----------+-----------------+------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -9.328 ; -3635.043         ;
++-------+--------+-------------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Slow 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.338 ; 0.000             ;
++-------+-------+-------------------+
 
 
 -----------------------------------------
@@ -180,10 +432,229 @@ No paths to report.
 No paths to report.
 
 
-----------------------------------------------------
++--------------------------------------------------+
 ; Slow 1200mV 0C Model Minimum Pulse Width Summary ;
-----------------------------------------------------
-No paths to report.
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -1092.343                       ;
++-------+--------+---------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup: 'clock'                                                                                                                                              ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                            ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; -9.328 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; -0.109     ; 10.218     ;
+; -9.215 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; -0.122     ; 10.092     ;
+; -9.208 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; -0.101     ; 10.106     ;
+; -9.165 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; -0.124     ; 10.040     ;
+; -9.122 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.488     ; 9.633      ;
+; -9.095 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; -0.122     ; 9.972      ;
+; -9.093 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; -0.106     ; 9.986      ;
+; -9.062 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; -0.088     ; 9.973      ;
+; -9.019 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; -0.099     ; 9.919      ;
+; -8.997 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; -0.083     ; 9.913      ;
+; -8.975 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[42] ; clock        ; clock       ; 1.000        ; -0.156     ; 9.818      ;
+; -8.974 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; -0.164     ; 9.809      ;
+; -8.957 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; -0.121     ; 9.835      ;
+; -8.956 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; -0.121     ; 9.834      ;
+; -8.908 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[66] ; clock        ; clock       ; 1.000        ; -0.089     ; 9.818      ;
+; -8.900 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[44] ; clock        ; clock       ; 1.000        ; -0.172     ; 9.727      ;
+; -8.892 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; -0.106     ; 9.785      ;
+; -8.884 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[41] ; clock        ; clock       ; 1.000        ; -0.172     ; 9.711      ;
+; -8.874 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.068     ; 9.805      ;
+; -8.865 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.072     ; 9.792      ;
+; -8.864 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[58] ; clock        ; clock       ; 1.000        ; -0.152     ; 9.711      ;
+; -8.861 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.298      ; 10.158     ;
+; -8.860 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.068     ; 9.791      ;
+; -8.851 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.319      ; 10.169     ;
+; -8.837 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.319      ; 10.155     ;
+; -8.835 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; -0.123     ; 9.711      ;
+; -8.832 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; -0.169     ; 9.662      ;
+; -8.823 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.298      ; 10.120     ;
+; -8.774 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.311      ; 10.084     ;
+; -8.760 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.311      ; 10.070     ;
+; -8.749 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.337      ; 10.085     ;
+; -8.746 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[55] ; clock        ; clock       ; 1.000        ; -0.170     ; 9.575      ;
+; -8.743 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.067     ; 9.675      ;
+; -8.740 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.333      ; 10.072     ;
+; -8.737 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.299      ; 10.035     ;
+; -8.735 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.337      ; 10.071     ;
+; -8.728 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[63] ; clock        ; clock       ; 1.000        ; -0.124     ; 9.603      ;
+; -8.728 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.298      ; 10.025     ;
+; -8.725 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[48] ; clock        ; clock       ; 1.000        ; -0.106     ; 9.618      ;
+; -8.720 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.320      ; 10.039     ;
+; -8.715 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.332      ; 10.046     ;
+; -8.713 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.314      ; 10.026     ;
+; -8.699 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.314      ; 10.012     ;
+; -8.696 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.068     ; 9.627      ;
+; -8.695 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.321      ; 10.015     ;
+; -8.694 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.310      ; 10.003     ;
+; -8.690 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[57] ; clock        ; clock       ; 1.000        ; -0.170     ; 9.519      ;
+; -8.686 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.317      ; 10.002     ;
+; -8.681 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.321      ; 10.001     ;
+; -8.677 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.332      ; 10.008     ;
+; -8.674 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_3[7] ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.308      ; 9.981      ;
+; -8.673 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.319      ; 9.991      ;
+; -8.656 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.298      ; 9.953      ;
+; -8.648 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[67] ; clock        ; clock       ; 1.000        ; -0.119     ; 9.528      ;
+; -8.647 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.294      ; 9.940      ;
+; -8.643 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.314      ; 9.956      ;
+; -8.643 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.312      ; 9.954      ;
+; -8.642 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.300      ; 9.941      ;
+; -8.642 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.298      ; 9.939      ;
+; -8.640 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.256      ; 9.895      ;
+; -8.638 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_1[7] ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.308      ; 9.945      ;
+; -8.637 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[56] ; clock        ; clock       ; 1.000        ; -0.136     ; 9.500      ;
+; -8.631 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.252      ; 9.882      ;
+; -8.629 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.296      ; 9.924      ;
+; -8.629 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.314      ; 9.942      ;
+; -8.628 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[54] ; clock        ; clock       ; 1.000        ; -0.176     ; 9.451      ;
+; -8.626 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.066     ; 9.559      ;
+; -8.626 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; 0.256      ; 9.881      ;
+; -8.624 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[40] ; clock        ; clock       ; 1.000        ; -0.106     ; 9.517      ;
+; -8.624 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.300      ; 9.923      ;
+; -8.623 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.299      ; 9.921      ;
+; -8.622 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.299      ; 9.920      ;
+; -8.620 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.292      ; 9.911      ;
+; -8.618 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.338      ; 9.955      ;
+; -8.616 ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.300      ; 9.915      ;
+; -8.615 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; 0.296      ; 9.910      ;
+; -8.615 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.066     ; 9.548      ;
+; -8.614 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.295      ; 9.908      ;
+; -8.613 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.295      ; 9.907      ;
+; -8.609 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; 0.299      ; 9.907      ;
+; -8.608 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.299      ; 9.906      ;
+; -8.607 ; Riscv:u|ExStage:executionStage|exMemRg[2]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.300      ; 9.906      ;
+; -8.603 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.321      ; 9.923      ;
+; -8.602 ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.314      ; 9.915      ;
+; -8.602 ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.065     ; 9.536      ;
+; -8.598 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.294      ; 9.891      ;
+; -8.598 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.310      ; 9.907      ;
+; -8.596 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.311      ; 9.906      ;
+; -8.592 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.321      ; 9.912      ;
+; -8.591 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.333      ; 9.923      ;
+; -8.587 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; 0.297      ; 9.883      ;
+; -8.584 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; 0.251      ; 9.834      ;
+; -8.582 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.332      ; 9.913      ;
+; -8.582 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.315      ; 9.896      ;
+; -8.580 ; Riscv:u|DecodeStage:decodeStage|IdExRg[6]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.068     ; 9.511      ;
+; -8.578 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; 0.293      ; 9.870      ;
+; -8.577 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.334      ; 9.910      ;
+; -8.575 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; 0.247      ; 9.821      ;
+; -8.573 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; 0.297      ; 9.869      ;
+; -8.572 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.334      ; 9.905      ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold: 'clock'                                                                                                                                                                                                                                  ;
++-------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                            ; To Node                                                                                                                        ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.338 ; Riscv:u|FetchStage:fetchStage|pcRg[1]                ; Riscv:u|FetchStage:fetchStage|pcRg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.088      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]              ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]                                                                                        ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]              ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]                                                                                        ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg           ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg                                                                                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.597      ;
+; 0.354 ; res_cnt[2]                                           ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.597      ;
+; 0.354 ; res_cnt[1]                                           ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.597      ;
+; 0.365 ; res_cnt[0]                                           ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.608      ;
+; 0.387 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.630      ;
+; 0.393 ; res_cnt[2]                                           ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.636      ;
+; 0.395 ; Riscv:u|ExStage:executionStage|ctlRg[5]              ; Riscv:u|MemStage:memStage|ctlReg[0]                                                                                            ; clock        ; clock       ; 0.000        ; 0.072      ; 0.638      ;
+; 0.397 ; res_reg2                                             ; int_res                                                                                                                        ; clock        ; clock       ; 0.000        ; 0.072      ; 0.640      ;
+; 0.397 ; res_reg1                                             ; res_reg2                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.640      ;
+; 0.397 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.641      ;
+; 0.409 ; res_cnt[2]                                           ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.652      ;
+; 0.409 ; res_cnt[0]                                           ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.652      ;
+; 0.410 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.387      ; 0.998      ;
+; 0.410 ; res_cnt[2]                                           ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.653      ;
+; 0.418 ; Riscv:u|ExStage:executionStage|exMemRg[7]            ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.391      ; 1.010      ;
+; 0.548 ; Riscv:u|FetchStage:fetchStage|pcRg[1]                ; Riscv:u|FetchStage:fetchStage|ifRg[33]                                                                                         ; clock        ; clock       ; 0.000        ; 0.053      ; 0.772      ;
+; 0.562 ; Riscv:u|ExStage:executionStage|exMemRg[33]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.383      ; 1.146      ;
+; 0.578 ; Riscv:u|ExStage:executionStage|ctlRg[6]              ; Riscv:u|MemStage:memStage|ctlReg[1]                                                                                            ; clock        ; clock       ; 0.000        ; 0.071      ; 0.820      ;
+; 0.584 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.828      ;
+; 0.585 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.829      ;
+; 0.586 ; Riscv:u|cntReg[5]                                    ; Riscv:u|cntReg[5]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.830      ;
+; 0.586 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.829      ;
+; 0.587 ; Riscv:u|cntReg[0]                                    ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.831      ;
+; 0.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.831      ;
+; 0.587 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.830      ;
+; 0.588 ; Riscv:u|cntReg[7]                                    ; Riscv:u|cntReg[7]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.832      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.832      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.832      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.831      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.831      ;
+; 0.588 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.831      ;
+; 0.589 ; Riscv:u|cntReg[3]                                    ; Riscv:u|cntReg[3]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.833      ;
+; 0.589 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.832      ;
+; 0.589 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.832      ;
+; 0.590 ; Riscv:u|cntReg[1]                                    ; Riscv:u|cntReg[1]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.834      ;
+; 0.590 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.834      ;
+; 0.591 ; Riscv:u|cntReg[6]                                    ; Riscv:u|cntReg[6]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.835      ;
+; 0.591 ; Riscv:u|cntReg[2]                                    ; Riscv:u|cntReg[2]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.835      ;
+; 0.591 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.835      ;
+; 0.591 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.834      ;
+; 0.592 ; Riscv:u|cntReg[4]                                    ; Riscv:u|cntReg[4]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.836      ;
+; 0.593 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]               ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]                                                                                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.836      ;
+; 0.598 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.842      ;
+; 0.598 ; res_cnt[1]                                           ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.841      ;
+; 0.601 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.845      ;
+; 0.601 ; res_cnt[0]                                           ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.844      ;
+; 0.601 ; res_cnt[1]                                           ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.844      ;
+; 0.602 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|MemStage:memStage|memRg[0]                                                                                             ; clock        ; clock       ; 0.000        ; 0.071      ; 0.844      ;
+; 0.606 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]                ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]                                                                                          ; clock        ; clock       ; 0.000        ; 0.073      ; 0.850      ;
+; 0.609 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|MemStage:memStage|memRg[1]                                                                                             ; clock        ; clock       ; 0.000        ; 0.072      ; 0.852      ;
+; 0.614 ; Riscv:u|ExStage:executionStage|exMemRg[3]            ; Riscv:u|MemStage:memStage|memRg[3]                                                                                             ; clock        ; clock       ; 0.000        ; 0.072      ; 0.857      ;
+; 0.615 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg           ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.073      ; 0.859      ;
+; 0.628 ; res_cnt[0]                                           ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.871      ;
+; 0.630 ; res_cnt[1]                                           ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.873      ;
+; 0.638 ; Riscv:u|ExStage:executionStage|exMemRg[50]           ; Riscv:u|ExStage:executionStage|exMemRg[18]                                                                                     ; clock        ; clock       ; 0.000        ; 0.087      ; 0.896      ;
+; 0.647 ; Riscv:u|DecodeStage:decodeStage|IdExRg[84]           ; Riscv:u|ExStage:executionStage|exMemRg[32]                                                                                     ; clock        ; clock       ; 0.000        ; 0.087      ; 0.905      ;
+; 0.654 ; Riscv:u|ExStage:executionStage|exMemRg[52]           ; Riscv:u|ExStage:executionStage|exMemRg[20]                                                                                     ; clock        ; clock       ; 0.000        ; 0.088      ; 0.913      ;
+; 0.657 ; Riscv:u|ExStage:executionStage|exMemRg[60]           ; Riscv:u|ExStage:executionStage|exMemRg[28]                                                                                     ; clock        ; clock       ; 0.000        ; 0.085      ; 0.913      ;
+; 0.659 ; Riscv:u|ExStage:executionStage|exMemRg[41]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.046      ; 0.906      ;
+; 0.676 ; Riscv:u|MemStage:memStage|ctlReg[0]                  ; Riscv:u|dtReg[1]                                                                                                               ; clock        ; clock       ; 0.000        ; 0.072      ; 0.919      ;
+; 0.681 ; Riscv:u|ExStage:executionStage|exMemRg[10]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.381      ; 1.263      ;
+; 0.696 ; Riscv:u|ExStage:executionStage|exMemRg[2]            ; Riscv:u|MemStage:memStage|memRg[2]                                                                                             ; clock        ; clock       ; 0.000        ; 0.072      ; 0.939      ;
+; 0.705 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.949      ;
+; 0.707 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 0.951      ;
+; 0.708 ; Riscv:u|DecodeStage:decodeStage|IdExRg[75]           ; Riscv:u|ExStage:executionStage|exMemRg[23]                                                                                     ; clock        ; clock       ; 0.000        ; 0.086      ; 0.965      ;
+; 0.715 ; Riscv:u|ExStage:executionStage|exMemRg[30]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 0.930      ;
+; 0.716 ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[7]         ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]                                                                                        ; clock        ; clock       ; 0.000        ; 0.073      ; 0.960      ;
+; 0.717 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]              ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]                                                                                        ; clock        ; clock       ; 0.000        ; 0.073      ; 0.961      ;
+; 0.717 ; Riscv:u|MemStage:memStage|ctlReg[0]                  ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[1]                                                              ; clock        ; clock       ; 0.000        ; 0.071      ; 0.959      ;
+; 0.718 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]              ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]                                                                                        ; clock        ; clock       ; 0.000        ; 0.073      ; 0.962      ;
+; 0.722 ; Riscv:u|ExStage:executionStage|exMemRg[29]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 0.937      ;
+; 0.730 ; Riscv:u|ExStage:executionStage|exMemRg[18]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.022      ; 0.953      ;
+; 0.734 ; int_res                                              ; Riscv:u|ExStage:executionStage|exMemRg[39]                                                                                     ; clock        ; clock       ; 0.000        ; 0.469      ; 1.374      ;
+; 0.736 ; Riscv:u|ExStage:executionStage|exMemRg[32]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 0.951      ;
+; 0.744 ; Riscv:u|ExStage:executionStage|exMemRg[21]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.013      ; 0.958      ;
+; 0.747 ; Riscv:u|ExStage:executionStage|exMemRg[35]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.014      ; 0.962      ;
+; 0.747 ; Riscv:u|ExStage:executionStage|exMemRg[27]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.013      ; 0.961      ;
+; 0.752 ; Riscv:u|ExStage:executionStage|exMemRg[26]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.013      ; 0.966      ;
+; 0.755 ; Riscv:u|ExStage:executionStage|exMemRg[8]            ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.039      ; 0.995      ;
+; 0.755 ; Riscv:u|ExStage:executionStage|exMemRg[25]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.013      ; 0.969      ;
+; 0.760 ; Riscv:u|ExStage:executionStage|exMemRg[14]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.034      ; 0.995      ;
+; 0.767 ; Riscv:u|ExStage:executionStage|exMemRg[17]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.009      ; 0.977      ;
+; 0.771 ; Riscv:u|ExStage:executionStage|exMemRg[12]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.005      ; 0.977      ;
+; 0.789 ; Riscv:u|ExStage:executionStage|exMemRg[36]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; -0.011     ; 0.979      ;
+; 0.795 ; Riscv:u|ExStage:executionStage|exMemRg[16]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.000      ; 0.996      ;
+; 0.798 ; Riscv:u|ExStage:executionStage|exMemRg[13]           ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.000      ; 0.999      ;
+; 0.803 ; Riscv:u|DecodeStage:decodeStage|IdExRg[85]           ; Riscv:u|ExStage:executionStage|exMemRg[33]                                                                                     ; clock        ; clock       ; 0.000        ; 0.071      ; 1.045      ;
+; 0.807 ; Riscv:u|DecodeStage:decodeStage|CtlRg[3]             ; Riscv:u|ExStage:executionStage|ctlRg[5]                                                                                        ; clock        ; clock       ; 0.000        ; 0.072      ; 1.050      ;
+; 0.810 ; Riscv:u|MemStage:memStage|memRg[25]                  ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[20]                                                             ; clock        ; clock       ; 0.000        ; 0.070      ; 1.051      ;
+; 0.810 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 1.054      ;
+; 0.812 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]               ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.073      ; 1.056      ;
+; 0.818 ; Riscv:u|dtReg[0]                                     ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[0]                                                                                   ; clock        ; clock       ; 0.000        ; 0.082      ; 1.071      ;
+; 0.821 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_2[6] ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[6]                                                              ; clock        ; clock       ; 0.000        ; 0.072      ; 1.064      ;
++-------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 ----------------------------------------------
@@ -192,16 +663,22 @@ No paths to report.
 No synchronizer chains to report.
 
 
---------------------------------------
++------------------------------------+
 ; Fast 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -4.626 ; -1641.512         ;
++-------+--------+-------------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Fast 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.174 ; 0.000             ;
++-------+-------+-------------------+
 
 
 -----------------------------------------
@@ -216,10 +693,229 @@ No paths to report.
 No paths to report.
 
 
-----------------------------------------------------
++--------------------------------------------------+
 ; Fast 1200mV 0C Model Minimum Pulse Width Summary ;
-----------------------------------------------------
-No paths to report.
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -1085.879                       ;
++-------+--------+---------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup: 'clock'                                                                                                                                              ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                            ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; -4.626 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; -0.050     ; 5.563      ;
+; -4.612 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; -0.043     ; 5.556      ;
+; -4.610 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; -0.049     ; 5.548      ;
+; -4.564 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.251     ; 5.300      ;
+; -4.552 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; -0.060     ; 5.479      ;
+; -4.550 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; -0.042     ; 5.495      ;
+; -4.528 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; -0.060     ; 5.455      ;
+; -4.521 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[47] ; clock        ; clock       ; 1.000        ; -0.064     ; 5.444      ;
+; -4.507 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[43] ; clock        ; clock       ; 1.000        ; -0.086     ; 5.408      ;
+; -4.506 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; -0.044     ; 5.449      ;
+; -4.498 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[49] ; clock        ; clock       ; 1.000        ; -0.064     ; 5.421      ;
+; -4.497 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; -0.064     ; 5.420      ;
+; -4.475 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[41] ; clock        ; clock       ; 1.000        ; -0.095     ; 5.367      ;
+; -4.464 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[42] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.370      ;
+; -4.455 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; -0.045     ; 5.397      ;
+; -4.445 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; -0.046     ; 5.386      ;
+; -4.425 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[51] ; clock        ; clock       ; 1.000        ; -0.063     ; 5.349      ;
+; -4.413 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[60] ; clock        ; clock       ; 1.000        ; -0.092     ; 5.308      ;
+; -4.402 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[66] ; clock        ; clock       ; 1.000        ; -0.050     ; 5.339      ;
+; -4.395 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[48] ; clock        ; clock       ; 1.000        ; -0.047     ; 5.335      ;
+; -4.386 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.168      ; 5.541      ;
+; -4.377 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.041     ; 5.323      ;
+; -4.367 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[58] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.280      ;
+; -4.365 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.168      ; 5.520      ;
+; -4.364 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.162      ; 5.513      ;
+; -4.361 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.162      ; 5.510      ;
+; -4.353 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.040     ; 5.300      ;
+; -4.352 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[63] ; clock        ; clock       ; 1.000        ; -0.064     ; 5.275      ;
+; -4.351 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.151      ; 5.489      ;
+; -4.348 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.151      ; 5.486      ;
+; -4.345 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[44] ; clock        ; clock       ; 1.000        ; -0.095     ; 5.237      ;
+; -4.342 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[55] ; clock        ; clock       ; 1.000        ; -0.093     ; 5.236      ;
+; -4.342 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[57] ; clock        ; clock       ; 1.000        ; -0.093     ; 5.236      ;
+; -4.332 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.040     ; 5.279      ;
+; -4.329 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.485      ;
+; -4.323 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.163      ; 5.473      ;
+; -4.320 ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.163      ; 5.470      ;
+; -4.314 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.161      ; 5.462      ;
+; -4.311 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.163      ; 5.461      ;
+; -4.308 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.168      ; 5.463      ;
+; -4.306 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[54] ; clock        ; clock       ; 1.000        ; -0.095     ; 5.198      ;
+; -4.302 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.458      ;
+; -4.300 ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.164      ; 5.451      ;
+; -4.299 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.166      ; 5.452      ;
+; -4.299 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.455      ;
+; -4.297 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.163      ; 5.447      ;
+; -4.296 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.039     ; 5.244      ;
+; -4.293 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.161      ; 5.441      ;
+; -4.284 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.152      ; 5.423      ;
+; -4.282 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.168      ; 5.437      ;
+; -4.279 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.151      ; 5.417      ;
+; -4.278 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.164      ; 5.429      ;
+; -4.277 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.165      ; 5.429      ;
+; -4.276 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[67] ; clock        ; clock       ; 1.000        ; -0.060     ; 5.203      ;
+; -4.276 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[9]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.169      ;
+; -4.276 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.162      ; 5.425      ;
+; -4.275 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.167      ; 5.429      ;
+; -4.275 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.040     ; 5.222      ;
+; -4.274 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[6]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.167      ;
+; -4.274 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[2]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.167      ;
+; -4.274 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[7]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.167      ;
+; -4.273 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[5]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.166      ;
+; -4.272 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[4]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.165      ;
+; -4.271 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[8]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.164      ;
+; -4.270 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[3]      ; clock        ; clock       ; 1.000        ; -0.094     ; 5.163      ;
+; -4.270 ; Riscv:u|MemStage:memStage|memRg[3]                   ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.163      ; 5.420      ;
+; -4.268 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.165      ; 5.420      ;
+; -4.261 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.150      ; 5.398      ;
+; -4.259 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|ExStage:executionStage|exMemRg[56] ; clock        ; clock       ; 1.000        ; -0.059     ; 5.187      ;
+; -4.259 ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.165      ; 5.411      ;
+; -4.258 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_3[7] ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.161      ; 5.406      ;
+; -4.258 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[61] ; clock        ; clock       ; 1.000        ; 0.151      ; 5.396      ;
+; -4.257 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.162      ; 5.406      ;
+; -4.256 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[64] ; clock        ; clock       ; 1.000        ; 0.165      ; 5.408      ;
+; -4.254 ; Riscv:u|ExStage:executionStage|exMemRg[38]           ; Riscv:u|FetchStage:fetchStage|pcRg[1]      ; clock        ; clock       ; 1.000        ; -0.079     ; 5.162      ;
+; -4.254 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[65] ; clock        ; clock       ; 1.000        ; 0.167      ; 5.408      ;
+; -4.249 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.152      ; 5.388      ;
+; -4.247 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.147      ; 5.381      ;
+; -4.245 ; Riscv:u|DecodeStage:decodeStage|IdExRg[7]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.401      ;
+; -4.244 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_3[7] ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.168      ; 5.399      ;
+; -4.244 ; Riscv:u|ExStage:executionStage|exMemRg[1]            ; Riscv:u|ExStage:executionStage|exMemRg[68] ; clock        ; clock       ; 1.000        ; 0.166      ; 5.397      ;
+; -4.242 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_3[7] ; Riscv:u|ExStage:executionStage|exMemRg[38] ; clock        ; clock       ; 1.000        ; 0.162      ; 5.391      ;
+; -4.242 ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.398      ;
+; -4.241 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.397      ;
+; -4.241 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.151      ; 5.379      ;
+; -4.237 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.152      ; 5.376      ;
+; -4.237 ; Riscv:u|DecodeStage:decodeStage|IdExRg[10]           ; Riscv:u|ExStage:executionStage|exMemRg[45] ; clock        ; clock       ; 1.000        ; 0.147      ; 5.371      ;
+; -4.236 ; Riscv:u|MemStage:memStage|Memory:dataMem|rdData_1[7] ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.161      ; 5.384      ;
+; -4.236 ; Riscv:u|DecodeStage:decodeStage|IdExRg[11]           ; Riscv:u|ExStage:executionStage|exMemRg[39] ; clock        ; clock       ; 1.000        ; 0.161      ; 5.384      ;
+; -4.235 ; Riscv:u|ExStage:executionStage|ctlRg[1]              ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.037     ; 5.185      ;
+; -4.235 ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[37] ; clock        ; clock       ; 1.000        ; -0.039     ; 5.183      ;
+; -4.235 ; Riscv:u|ExStage:executionStage|exMemRg[0]            ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.170      ; 5.392      ;
+; -4.235 ; Riscv:u|DecodeStage:decodeStage|IdExRg[12]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.391      ;
+; -4.234 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.167      ; 5.388      ;
+; -4.234 ; Riscv:u|DecodeStage:decodeStage|IdExRg[8]            ; Riscv:u|ExStage:executionStage|exMemRg[53] ; clock        ; clock       ; 1.000        ; 0.169      ; 5.390      ;
+; -4.233 ; Riscv:u|MemStage:memStage|memRg[0]                   ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.152      ; 5.372      ;
+; -4.230 ; Riscv:u|DecodeStage:decodeStage|IdExRg[13]           ; Riscv:u|ExStage:executionStage|exMemRg[52] ; clock        ; clock       ; 1.000        ; 0.170      ; 5.387      ;
+; -4.229 ; Riscv:u|ExStage:executionStage|exMemRg[37]           ; Riscv:u|ExStage:executionStage|exMemRg[62] ; clock        ; clock       ; 1.000        ; 0.150      ; 5.366      ;
+; -4.228 ; Riscv:u|FetchStage:fetchStage|ifRg[15]               ; Riscv:u|FetchStage:fetchStage|pcRg[9]      ; clock        ; clock       ; 1.000        ; 0.132      ; 5.347      ;
+; -4.227 ; Riscv:u|FetchStage:fetchStage|ifRg[15]               ; Riscv:u|FetchStage:fetchStage|pcRg[2]      ; clock        ; clock       ; 1.000        ; 0.132      ; 5.346      ;
++--------+------------------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold: 'clock'                                                                                                                                                                                                                          ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                    ; To Node                                                                                                                        ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.174 ; Riscv:u|FetchStage:fetchStage|pcRg[1]        ; Riscv:u|FetchStage:fetchStage|pcRg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.049      ; 0.307      ;
+; 0.174 ; Riscv:u|ExStage:executionStage|exMemRg[7]    ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.225      ; 0.503      ;
+; 0.175 ; Riscv:u|ExStage:executionStage|exMemRg[37]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.223      ; 0.502      ;
+; 0.181 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg   ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg                                                                                     ; clock        ; clock       ; 0.000        ; 0.042      ; 0.307      ;
+; 0.181 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.307      ;
+; 0.181 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.307      ;
+; 0.181 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.307      ;
+; 0.181 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.307      ;
+; 0.182 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[0]                                                                                        ; clock        ; clock       ; 0.000        ; 0.041      ; 0.307      ;
+; 0.182 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[9]                                                                                        ; clock        ; clock       ; 0.000        ; 0.041      ; 0.307      ;
+; 0.182 ; res_cnt[2]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.307      ;
+; 0.182 ; res_cnt[1]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.307      ;
+; 0.187 ; Riscv:u|ExStage:executionStage|ctlRg[5]      ; Riscv:u|MemStage:memStage|ctlReg[0]                                                                                            ; clock        ; clock       ; 0.000        ; 0.042      ; 0.313      ;
+; 0.189 ; res_cnt[0]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.314      ;
+; 0.190 ; res_reg2                                     ; int_res                                                                                                                        ; clock        ; clock       ; 0.000        ; 0.041      ; 0.315      ;
+; 0.190 ; res_reg1                                     ; res_reg2                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.041      ; 0.315      ;
+; 0.192 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.318      ;
+; 0.196 ; res_cnt[2]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.321      ;
+; 0.197 ; res_cnt[2]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.322      ;
+; 0.198 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.324      ;
+; 0.198 ; res_cnt[0]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.323      ;
+; 0.200 ; res_cnt[2]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.041      ; 0.325      ;
+; 0.259 ; Riscv:u|ExStage:executionStage|exMemRg[33]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.217      ; 0.580      ;
+; 0.269 ; Riscv:u|FetchStage:fetchStage|pcRg[1]        ; Riscv:u|FetchStage:fetchStage|ifRg[33]                                                                                         ; clock        ; clock       ; 0.000        ; 0.034      ; 0.387      ;
+; 0.273 ; Riscv:u|ExStage:executionStage|ctlRg[6]      ; Riscv:u|MemStage:memStage|ctlReg[1]                                                                                            ; clock        ; clock       ; 0.000        ; 0.040      ; 0.397      ;
+; 0.288 ; Riscv:u|ExStage:executionStage|exMemRg[0]    ; Riscv:u|MemStage:memStage|memRg[0]                                                                                             ; clock        ; clock       ; 0.000        ; 0.040      ; 0.412      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[13]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[2]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[6]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[7]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[10]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.292 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[11]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.418      ;
+; 0.293 ; Riscv:u|cntReg[5]                            ; Riscv:u|cntReg[5]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|cntReg[7]                            ; Riscv:u|cntReg[7]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|cntReg[3]                            ; Riscv:u|cntReg[3]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|cntReg[1]                            ; Riscv:u|cntReg[1]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|cntReg[0]                            ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[4]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[5]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[12]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[14]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[18]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.293 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[16]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.419      ;
+; 0.294 ; Riscv:u|cntReg[2]                            ; Riscv:u|cntReg[2]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.420      ;
+; 0.294 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[1]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.420      ;
+; 0.294 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[3]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.420      ;
+; 0.294 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[15]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.420      ;
+; 0.294 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]       ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[17]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.420      ;
+; 0.295 ; Riscv:u|ExStage:executionStage|exMemRg[41]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.046      ; 0.445      ;
+; 0.295 ; Riscv:u|cntReg[4]                            ; Riscv:u|cntReg[4]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.421      ;
+; 0.295 ; Riscv:u|cntReg[6]                            ; Riscv:u|cntReg[6]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.421      ;
+; 0.299 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.425      ;
+; 0.299 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[9]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.425      ;
+; 0.301 ; res_cnt[1]                                   ; res_cnt[2]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.426      ;
+; 0.302 ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]        ; Riscv:u|BufferedTx:tx|Tx:tx|cntReg[0]                                                                                          ; clock        ; clock       ; 0.000        ; 0.042      ; 0.428      ;
+; 0.302 ; res_cnt[0]                                   ; res_cnt[1]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.427      ;
+; 0.304 ; res_cnt[1]                                   ; res_cnt[0]                                                                                                                     ; clock        ; clock       ; 0.000        ; 0.041      ; 0.429      ;
+; 0.306 ; Riscv:u|ExStage:executionStage|exMemRg[1]    ; Riscv:u|MemStage:memStage|memRg[1]                                                                                             ; clock        ; clock       ; 0.000        ; 0.041      ; 0.431      ;
+; 0.310 ; Riscv:u|ExStage:executionStage|exMemRg[3]    ; Riscv:u|MemStage:memStage|memRg[3]                                                                                             ; clock        ; clock       ; 0.000        ; 0.040      ; 0.434      ;
+; 0.310 ; Riscv:u|BufferedTx:tx|Buffer:buf_|stateReg   ; Riscv:u|cntReg[0]                                                                                                              ; clock        ; clock       ; 0.000        ; 0.042      ; 0.436      ;
+; 0.319 ; res_cnt[0]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.041      ; 0.444      ;
+; 0.322 ; Riscv:u|DecodeStage:decodeStage|IdExRg[84]   ; Riscv:u|ExStage:executionStage|exMemRg[32]                                                                                     ; clock        ; clock       ; 0.000        ; 0.049      ; 0.455      ;
+; 0.323 ; res_cnt[1]                                   ; res_reg1                                                                                                                       ; clock        ; clock       ; 0.000        ; 0.041      ; 0.448      ;
+; 0.327 ; Riscv:u|ExStage:executionStage|exMemRg[50]   ; Riscv:u|ExStage:executionStage|exMemRg[18]                                                                                     ; clock        ; clock       ; 0.000        ; 0.048      ; 0.459      ;
+; 0.327 ; Riscv:u|ExStage:executionStage|exMemRg[30]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.030      ; 0.461      ;
+; 0.328 ; Riscv:u|ExStage:executionStage|exMemRg[52]   ; Riscv:u|ExStage:executionStage|exMemRg[20]                                                                                     ; clock        ; clock       ; 0.000        ; 0.049      ; 0.461      ;
+; 0.329 ; Riscv:u|ExStage:executionStage|exMemRg[60]   ; Riscv:u|ExStage:executionStage|exMemRg[28]                                                                                     ; clock        ; clock       ; 0.000        ; 0.048      ; 0.461      ;
+; 0.330 ; Riscv:u|ExStage:executionStage|exMemRg[10]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.211      ; 0.645      ;
+; 0.332 ; Riscv:u|ExStage:executionStage|exMemRg[2]    ; Riscv:u|MemStage:memStage|memRg[2]                                                                                             ; clock        ; clock       ; 0.000        ; 0.040      ; 0.456      ;
+; 0.335 ; Riscv:u|ExStage:executionStage|exMemRg[29]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.030      ; 0.469      ;
+; 0.338 ; Riscv:u|DecodeStage:decodeStage|IdExRg[75]   ; Riscv:u|ExStage:executionStage|exMemRg[23]                                                                                     ; clock        ; clock       ; 0.000        ; 0.048      ; 0.470      ;
+; 0.338 ; Riscv:u|ExStage:executionStage|exMemRg[8]    ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.051      ; 0.493      ;
+; 0.340 ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[7] ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]                                                                                        ; clock        ; clock       ; 0.000        ; 0.042      ; 0.466      ;
+; 0.340 ; Riscv:u|ExStage:executionStage|exMemRg[14]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.050      ; 0.494      ;
+; 0.340 ; Riscv:u|ExStage:executionStage|exMemRg[18]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.034      ; 0.478      ;
+; 0.340 ; Riscv:u|ExStage:executionStage|exMemRg[21]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.029      ; 0.473      ;
+; 0.341 ; int_res                                      ; Riscv:u|ExStage:executionStage|exMemRg[39]                                                                                     ; clock        ; clock       ; 0.000        ; 0.248      ; 0.673      ;
+; 0.342 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[8]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[7]                                                                                        ; clock        ; clock       ; 0.000        ; 0.042      ; 0.468      ;
+; 0.343 ; Riscv:u|MemStage:memStage|ctlReg[0]          ; Riscv:u|dtReg[1]                                                                                                               ; clock        ; clock       ; 0.000        ; 0.042      ; 0.469      ;
+; 0.344 ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[5]      ; Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]                                                                                        ; clock        ; clock       ; 0.000        ; 0.041      ; 0.469      ;
+; 0.345 ; Riscv:u|ExStage:executionStage|exMemRg[32]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.030      ; 0.479      ;
+; 0.347 ; Riscv:u|ExStage:executionStage|exMemRg[35]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.030      ; 0.481      ;
+; 0.347 ; Riscv:u|ExStage:executionStage|exMemRg[26]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.029      ; 0.480      ;
+; 0.348 ; Riscv:u|MemStage:memStage|ctlReg[0]          ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[1]                                                              ; clock        ; clock       ; 0.000        ; 0.041      ; 0.473      ;
+; 0.349 ; Riscv:u|ExStage:executionStage|exMemRg[17]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.026      ; 0.479      ;
+; 0.350 ; Riscv:u|ExStage:executionStage|exMemRg[27]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.029      ; 0.483      ;
+; 0.352 ; Riscv:u|ExStage:executionStage|exMemRg[25]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_2_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.029      ; 0.485      ;
+; 0.353 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.479      ;
+; 0.354 ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[0]       ; Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[2]                                                                                         ; clock        ; clock       ; 0.000        ; 0.042      ; 0.480      ;
+; 0.368 ; Riscv:u|ExStage:executionStage|exMemRg[12]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.017      ; 0.489      ;
+; 0.376 ; Riscv:u|ExStage:executionStage|exMemRg[16]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.016      ; 0.496      ;
+; 0.377 ; Riscv:u|ExStage:executionStage|exMemRg[13]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_1_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.016      ; 0.497      ;
+; 0.382 ; Riscv:u|ExStage:executionStage|exMemRg[36]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_3_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_datain_reg0  ; clock        ; clock       ; 0.000        ; 0.006      ; 0.492      ;
+; 0.393 ; Riscv:u|DecodeStage:decodeStage|IdExRg[85]   ; Riscv:u|ExStage:executionStage|exMemRg[33]                                                                                     ; clock        ; clock       ; 0.000        ; 0.040      ; 0.517      ;
+; 0.393 ; Riscv:u|DecodeStage:decodeStage|CtlRg[3]     ; Riscv:u|ExStage:executionStage|ctlRg[5]                                                                                        ; clock        ; clock       ; 0.000        ; 0.042      ; 0.519      ;
+; 0.397 ; Riscv:u|MemStage:memStage|memRg[25]          ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_15[20]                                                             ; clock        ; clock       ; 0.000        ; 0.040      ; 0.521      ;
+; 0.397 ; Riscv:u|ExStage:executionStage|exMemRg[38]   ; Riscv:u|MemStage:memStage|Memory:dataMem|altsyncram:mem_0_rtl_0|altsyncram_ig41:auto_generated|ram_block1a0~porta_address_reg0 ; clock        ; clock       ; 0.000        ; 0.021      ; 0.522      ;
+; 0.401 ; Riscv:u|dtReg[0]                             ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[0]                                                                                   ; clock        ; clock       ; 0.000        ; 0.053      ; 0.538      ;
+; 0.402 ; Riscv:u|dtReg[1]                             ; Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[1]                                                                                   ; clock        ; clock       ; 0.000        ; 0.059      ; 0.545      ;
+; 0.405 ; Riscv:u|FetchStage:fetchStage|ifRg[21]       ; Riscv:u|DecodeStage:decodeStage|IdExRg[26]                                                                                     ; clock        ; clock       ; 0.000        ; 0.062      ; 0.551      ;
++-------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
 ----------------------------------------------
@@ -228,14 +924,16 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+----------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                        ;
-+------------------+-------+------+----------+---------+---------------------+
-; Clock            ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+-------+------+----------+---------+---------------------+
-; Worst-case Slack ; N/A   ; N/A  ; N/A      ; N/A     ; N/A                 ;
-; Design-wide TNS  ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; 0.0                 ;
-+------------------+-------+------+----------+---------+---------------------+
++---------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                             ;
++------------------+-----------+-------+----------+---------+---------------------+
+; Clock            ; Setup     ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+-----------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -10.190   ; 0.174 ; N/A      ; N/A     ; -3.000              ;
+;  clock           ; -10.190   ; 0.174 ; N/A      ; N/A     ; -3.000              ;
+; Design-wide TNS  ; -4012.209 ; 0.0   ; 0.0      ; 0.0     ; -1092.871           ;
+;  clock           ; -4012.209 ; 0.000 ; N/A      ; N/A     ; -1092.871           ;
++------------------+-----------+-------+----------+---------+---------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -299,10 +997,24 @@ No synchronizer chains to report.
 +---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
 
 
--------------------
-; Clock Transfers ;
--------------------
-Nothing to report.
++-------------------------------------------------------------------+
+; Setup Transfers                                                   ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 1029640  ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Hold Transfers                                                    ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 1029640  ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
 ---------------
@@ -326,9 +1038,36 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 0     ; 0    ;
 ; Unconstrained Input Port Paths  ; 0     ; 0    ;
-; Unconstrained Output Ports      ; 0     ; 0    ;
-; Unconstrained Output Port Paths ; 0     ; 0    ;
+; Unconstrained Output Ports      ; 1     ; 1    ;
+; Unconstrained Output Port Paths ; 1     ; 1    ;
 +---------------------------------+-------+------+
+
+
++-------------------------------------+
+; Clock Status Summary                ;
++--------+-------+------+-------------+
+; Target ; Clock ; Type ; Status      ;
++--------+-------+------+-------------+
+; clock  ; clock ; Base ; Constrained ;
++--------+-------+------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; txd         ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; txd         ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
 
 
 +------------------------------------+
@@ -337,7 +1076,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Sun May  3 09:56:41 2020
+    Info: Processing started: Mon May  4 10:25:58 2020
 Info: Command: quartus_sta riscv -c riscv
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -346,48 +1085,72 @@ Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'riscv.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name clock clock
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
-Info (332159): No clocks to report
 Info: Analyzing Slow 1200mV 85C Model
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -10.190
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):   -10.190           -4012.209 clock 
+Info (332146): Worst-case hold slack is 0.386
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.386               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000           -1092.871 clock 
 Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -9.328
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -9.328           -3635.043 clock 
+Info (332146): Worst-case hold slack is 0.338
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.338               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000           -1092.343 clock 
 Info: Analyzing Fast 1200mV 0C Model
-Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
+Info (332146): Worst-case setup slack is -4.626
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -4.626           -1641.512 clock 
+Info (332146): Worst-case hold slack is 0.174
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.174               0.000 clock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
-Info (332101): Design is fully constrained for setup requirements
-Info (332101): Design is fully constrained for hold requirements
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000           -1085.879 clock 
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 887 megabytes
-    Info: Processing ended: Sun May  3 09:56:42 2020
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Peak virtual memory: 917 megabytes
+    Info: Processing ended: Mon May  4 10:26:00 2020
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:03
 
 

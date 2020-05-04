@@ -164,13 +164,13 @@ class Sender(frequency: Int, baudRate: Int) extends Module {
   tx.io.channel.bits := text(cntReg)
   tx.io.channel.valid := cntReg =/= len
 
-  when(tx.io.channel.ready && cntReg =/= len) {
+  when(cntReg =/= len) {
     cntReg := cntReg + 1.U
   }
 }
 
 
-class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: Int = 115200) extends Module {
+class Riscv(data: Array[String] = Array(), frequency: Int = 1000000000, baudRate: Int = 115200) extends Module {
   val io = IO(new Bundle {
     val rxd = Input(UInt(1.W))
     val led = Output(UInt(1.W))
@@ -267,27 +267,20 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   val tx = Module(new BufferedTx(frequency, baudRate))
   io.txd := tx.io.txd
   io.led := 1.U
-
-  val results = Reg(Vec(100, UInt(32.W)))
   val cntReg = RegInit(0.U(8.W))
-  val cntBit = RegInit(0.U(8.W))
-  val cntWrd = RegInit(0.U(8.W))
+  val dtReg = RegInit(0.U(8.W))
 
-  results(cntReg) := memWbData
-  cntReg := cntReg + 1.U
-
-  val value = results(cntWrd)
-  tx.io.channel.bits := value(cntBit)
-  tx.io.channel.valid := cntWrd =/= 100.U
-
-  when(tx.io.channel.ready && cntWrd =/= 100.U) {
-    when(cntBit =/= 31.U) {
-      cntBit := cntBit + 1.U
-    } .otherwise {
-      cntWrd := cntWrd + 1.U
-      cntBit := 0.U
-    }
+  when(memWbRd === 1.U && memWbData =/= 0.U) {
+    dtReg := memWbData(7,0)
   }
+
+  tx.io.channel.bits := dtReg
+  tx.io.channel.valid := cntReg =/= 8.U
+
+  when(tx.io.channel.ready){
+    cntReg := cntReg + 1.U
+  }
+
 
 //
 //  printf("- Start of cycle %d: \n", (pc / 4.S))
