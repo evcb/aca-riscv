@@ -281,7 +281,7 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   val cntReg = RegInit(0.U(8.W))
   val dtReg = RegInit(0.U(32.W))
 
-  when(memWbRd === 1.U && dtReg === 0.U && memWbData =/= 0.U) {
+  when(memWbRd === 10.U && dtReg === 0.U && memWbData =/= 0.U) {
     dtReg := memWbData
   }
 
