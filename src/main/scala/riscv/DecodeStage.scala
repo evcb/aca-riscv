@@ -108,7 +108,7 @@ class DecodeStage extends Module {
 
   //Branch
   val Branch: Bool = MnCtlw(3)
-  io.pcSrc := Branch & True
+  io.pcSrc := (Branch & True) | MnCtlw(1) | MnCtlw(2)
 
   //Mux for inserting bubble
   val NOP: Bool = Hazard.io.NOP
