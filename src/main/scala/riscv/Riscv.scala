@@ -275,7 +275,7 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 1000000000, baudRate
   }
 
   tx.io.channel.bits := dtReg
-  tx.io.channel.valid := cntReg =/= 8.U
+  tx.io.channel.valid := cntReg <= 7.U
 
   when(tx.io.channel.ready){
     cntReg := cntReg + 1.U
