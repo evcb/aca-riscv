@@ -268,42 +268,42 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 1000000000, baudRate
   io.txd := tx.io.txd
   io.led := 1.U
   val cntReg = RegInit(0.U(8.W))
-  val dtReg = RegInit(0.U(8.W))
+  val dtReg = RegInit(0.U(32.W))
 
-  when(memWbRd === 1.U && memWbData =/= 0.U) {
-    dtReg := memWbData(7,0)
+  when(memWbRd === 1.U && dtReg === 0.U && memWbData =/= 0.U) {
+    dtReg := memWbData(9,0)
   }
 
   tx.io.channel.bits := dtReg
-  tx.io.channel.valid := cntReg <= 7.U
+  tx.io.channel.valid := cntReg <= 100.U
 
-  when(tx.io.channel.ready){
+  when(tx.io.channel.ready && cntReg <= 100.U){
     cntReg := cntReg + 1.U
   }
 
 
-//
-//  printf("- Start of cycle %d: \n", (pc / 4.S))
-//  printf("------------------------------\n")
-//  printf(p"IfId: ${Binary(IfId)} ")
-//  printf("-- Instruction: %d \n", (pc / 4.S))
-//  printf("------------------------------\n")
-//  printf(p"IdExCtl: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
-//  printf("-- Instruction: %d \n", ((pc - 4.S) / 4.S))
-//  printf("-- MemWbRegWrite: %d \n", rgWr)
-//  printf("-- MemWbAddress: %d \n", memWbRd)
-//  printf("-- MemWbData: %d \n", memWbData)
-//  printf("------------------------------\n")
-//  printf(p"ExMem: ${Binary(ExMem)} ")
-//  printf("-- Instruction: %d \n", ((pc - 8.S) / 4.S))
-//  printf("------------------------------\n")
-//  printf(p"MemWb: ${Binary(MemWb)} ")
-//  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
-//  printf("------------------------------\n")
-//  printf(p"WbWd: $WbWd ")
-//  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
-//  printf("------------------------------\n")
-//  printf("-****************************-\n")
+
+  printf("- Start of cycle %d: \n", (pc / 4.S))
+  printf("------------------------------\n")
+  printf(p"IfId: ${Binary(IfId)} ")
+  printf("-- Instruction: %d \n", (pc / 4.S))
+  printf("------------------------------\n")
+  printf(p"IdExCtl: ${Binary(IdExCtl)} ${Binary(IdEx)} ")
+  printf("-- Instruction: %d \n", ((pc - 4.S) / 4.S))
+  printf("-- MemWbRegWrite: %d \n", rgWr)
+  printf("-- MemWbAddress: %d \n", memWbRd)
+  printf("-- MemWbData: %d \n", memWbData)
+  printf("------------------------------\n")
+  printf(p"ExMem: ${Binary(ExMem)} ")
+  printf("-- Instruction: %d \n", ((pc - 8.S) / 4.S))
+  printf("------------------------------\n")
+  printf(p"MemWb: ${Binary(MemWb)} ")
+  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
+  printf("------------------------------\n")
+  printf(p"WbWd: $WbWd ")
+  printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
+  printf("------------------------------\n")
+  printf("-****************************-\n")
 }
 
 object RiscvMain extends App {

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for riscv
-Mon May  4 10:25:13 2020
+Mon May  4 14:36:47 2020
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -58,15 +58,15 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon May  4 10:25:13 2020       ;
+; Analysis & Synthesis Status        ; Successful - Mon May  4 14:36:47 2020       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; riscv                                       ;
 ; Top-level Entity Name              ; riscv_top                                   ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 2,689                                       ;
-;     Total combinational functions  ; 2,207                                       ;
-;     Dedicated logic registers      ; 823                                         ;
-; Total registers                    ; 823                                         ;
+; Total logic elements               ; 2,705                                       ;
+;     Total combinational functions  ; 2,223                                       ;
+;     Dedicated logic registers      ; 825                                         ;
+; Total registers                    ; 825                                         ;
 ; Total pins                         ; 4                                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 32,768                                      ;
@@ -203,20 +203,20 @@ agreement for further details.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 2,689       ;
+; Estimated Total logic elements              ; 2,705       ;
 ;                                             ;             ;
-; Total combinational functions               ; 2207        ;
+; Total combinational functions               ; 2223        ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 1432        ;
-;     -- 3 input functions                    ; 563         ;
-;     -- <=2 input functions                  ; 212         ;
+;     -- 4 input functions                    ; 1445        ;
+;     -- 3 input functions                    ; 562         ;
+;     -- <=2 input functions                  ; 216         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 2010        ;
+;     -- normal mode                          ; 2026        ;
 ;     -- arithmetic mode                      ; 197         ;
 ;                                             ;             ;
-; Total registers                             ; 823         ;
-;     -- Dedicated logic registers            ; 823         ;
+; Total registers                             ; 825         ;
+;     -- Dedicated logic registers            ; 825         ;
 ;     -- I/O registers                        ; 0           ;
 ;                                             ;             ;
 ; I/O pins                                    ; 4           ;
@@ -225,8 +225,8 @@ agreement for further details.
 ; Embedded Multiplier 9-bit elements          ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; clock~input ;
-; Maximum fan-out                             ; 855         ;
-; Total fan-out                               ; 10579       ;
+; Maximum fan-out                             ; 857         ;
+; Total fan-out                               ; 10650       ;
 ; Average fan-out                             ; 3.45        ;
 +---------------------------------------------+-------------+
 
@@ -236,10 +236,10 @@ agreement for further details.
 +-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                       ; Entity Name         ; Library Name ;
 +-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |riscv_top                                      ; 2207 (6)            ; 823 (6)                   ; 32768       ; 0            ; 0       ; 0         ; 4    ; 0            ; |riscv_top                                                                                                ; riscv_top           ; work         ;
-;    |Riscv:u|                                    ; 2201 (29)           ; 817 (16)                  ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u                                                                                        ; Riscv               ; work         ;
-;       |BufferedTx:tx|                           ; 58 (0)              ; 43 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|BufferedTx:tx                                                                          ; BufferedTx          ; work         ;
-;          |Buffer:buf_|                          ; 11 (11)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|BufferedTx:tx|Buffer:buf_                                                              ; Buffer              ; work         ;
+; |riscv_top                                      ; 2223 (6)            ; 825 (6)                   ; 32768       ; 0            ; 0       ; 0         ; 4    ; 0            ; |riscv_top                                                                                                ; riscv_top           ; work         ;
+;    |Riscv:u|                                    ; 2217 (36)           ; 819 (18)                  ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u                                                                                        ; Riscv               ; work         ;
+;       |BufferedTx:tx|                           ; 57 (0)              ; 43 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|BufferedTx:tx                                                                          ; BufferedTx          ; work         ;
+;          |Buffer:buf_|                          ; 10 (10)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|BufferedTx:tx|Buffer:buf_                                                              ; Buffer              ; work         ;
 ;          |Tx:tx|                                ; 47 (47)             ; 34 (34)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx                                                                    ; Tx                  ; work         ;
 ;       |DecodeStage:decodeStage|                 ; 944 (810)           ; 576 (96)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|DecodeStage:decodeStage                                                                ; DecodeStage         ; work         ;
 ;          |BranchCtl:BranchCtl|                  ; 87 (87)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|DecodeStage:decodeStage|BranchCtl:BranchCtl                                            ; BranchCtl           ; work         ;
@@ -248,11 +248,11 @@ agreement for further details.
 ;          |ImmGen:Imm32|                         ; 16 (16)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|DecodeStage:decodeStage|ImmGen:Imm32                                                   ; ImmGen              ; work         ;
 ;          |MainCtl:MnCtl|                        ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|DecodeStage:decodeStage|MainCtl:MnCtl                                                  ; MainCtl             ; work         ;
 ;          |RegisterFile:RegFile|                 ; 16 (16)             ; 480 (480)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile                                           ; RegisterFile        ; work         ;
-;       |ExStage:executionStage|                  ; 972 (480)           ; 72 (72)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage                                                                 ; ExStage             ; work         ;
-;          |Alu:alu|                              ; 421 (421)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage|Alu:alu                                                         ; Alu                 ; work         ;
+;       |ExStage:executionStage|                  ; 981 (493)           ; 72 (72)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage                                                                 ; ExStage             ; work         ;
+;          |Alu:alu|                              ; 418 (418)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage|Alu:alu                                                         ; Alu                 ; work         ;
 ;          |AluCtl:aluCtrl|                       ; 39 (39)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage|AluCtl:aluCtrl                                                  ; AluCtl              ; work         ;
-;          |ForwarderEX:forwarder|                ; 32 (32)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage|ForwarderEX:forwarder                                           ; ForwarderEX         ; work         ;
-;       |FetchStage:fetchStage|                   ; 81 (42)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|FetchStage:fetchStage                                                                  ; FetchStage          ; work         ;
+;          |ForwarderEX:forwarder|                ; 31 (31)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|ExStage:executionStage|ForwarderEX:forwarder                                           ; ForwarderEX         ; work         ;
+;       |FetchStage:fetchStage|                   ; 82 (43)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|FetchStage:fetchStage                                                                  ; FetchStage          ; work         ;
 ;          |InstructionMemory:inMem|              ; 39 (39)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|FetchStage:fetchStage|InstructionMemory:inMem                                          ; InstructionMemory   ; work         ;
 ;       |MemStage:memStage|                       ; 44 (38)             ; 70 (38)                   ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|MemStage:memStage                                                                      ; MemStage            ; work         ;
 ;          |Memory:dataMem|                       ; 6 (6)               ; 32 (32)                   ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |riscv_top|Riscv:u|MemStage:memStage|Memory:dataMem                                                       ; Memory              ; work         ;
@@ -287,6 +287,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Register name                                                         ; Reason for Removal                                                              ;
 +-----------------------------------------------------------------------+---------------------------------------------------------------------------------+
 ; Riscv:u|ExStage:executionStage|ctlRg[0,2]                             ; Stuck at GND due to stuck port data_in                                          ;
+; Riscv:u|dtReg[11,13..16,27..30]                                       ; Merged with Riscv:u|dtReg[31]                                                   ;
+; Riscv:u|dtReg[10,12,17..25]                                           ; Merged with Riscv:u|dtReg[26]                                                   ;
 ; Riscv:u|MemStage:memStage|Memory:dataMem|mem_3__T_24_addr_pipe_0[9]   ; Merged with Riscv:u|MemStage:memStage|Memory:dataMem|mem_0__T_24_addr_pipe_0[9] ;
 ; Riscv:u|MemStage:memStage|Memory:dataMem|mem_2__T_24_addr_pipe_0[9]   ; Merged with Riscv:u|MemStage:memStage|Memory:dataMem|mem_0__T_24_addr_pipe_0[9] ;
 ; Riscv:u|MemStage:memStage|Memory:dataMem|mem_1__T_24_addr_pipe_0[9]   ; Merged with Riscv:u|MemStage:memStage|Memory:dataMem|mem_0__T_24_addr_pipe_0[9] ;
@@ -318,9 +320,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Riscv:u|MemStage:memStage|Memory:dataMem|mem_2__T_24_addr_pipe_0[0]   ; Merged with Riscv:u|MemStage:memStage|Memory:dataMem|mem_0__T_24_addr_pipe_0[0] ;
 ; Riscv:u|MemStage:memStage|Memory:dataMem|mem_1__T_24_addr_pipe_0[0]   ; Merged with Riscv:u|MemStage:memStage|Memory:dataMem|mem_0__T_24_addr_pipe_0[0] ;
 ; Riscv:u|FetchStage:fetchStage|ifRg[3,11,19]                           ; Merged with Riscv:u|FetchStage:fetchStage|ifRg[2]                               ;
+; Riscv:u|dtReg[26]                                                     ; Merged with Riscv:u|dtReg[31]                                                   ;
 ; Riscv:u|DecodeStage:decodeStage|IdExRg[4]                             ; Merged with Riscv:u|DecodeStage:decodeStage|IdExRg[14]                          ;
 ; Riscv:u|DecodeStage:decodeStage|CtlRg[2]                              ; Merged with Riscv:u|DecodeStage:decodeStage|CtlRg[0]                            ;
 ; Riscv:u|DecodeStage:decodeStage|CtlRg[5]                              ; Merged with Riscv:u|DecodeStage:decodeStage|CtlRg[3]                            ;
+; Riscv:u|dtReg[31]                                                     ; Stuck at GND due to stuck port data_in                                          ;
 ; Riscv:u|FetchStage:fetchStage|ifRg[2]                                 ; Stuck at GND due to stuck port data_in                                          ;
 ; Riscv:u|DecodeStage:decodeStage|IdExRg[14]                            ; Stuck at GND due to stuck port data_in                                          ;
 ; Riscv:u|ExStage:executionStage|exMemRg[4]                             ; Stuck at GND due to stuck port data_in                                          ;
@@ -355,7 +359,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Riscv:u|DecodeStage:decodeStage|IdExRg[32,33,36]                      ; Merged with Riscv:u|DecodeStage:decodeStage|IdExRg[31]                          ;
 ; Riscv:u|FetchStage:fetchStage|ifRg[42..63]                            ; Lost fanout                                                                     ;
 ; Riscv:u|FetchStage:fetchStage|pcRg[10..31]                            ; Lost fanout                                                                     ;
-; Total Number of Removed Registers = 667                               ;                                                                                 ;
+; Total Number of Removed Registers = 689                               ;                                                                                 ;
 +-----------------------------------------------------------------------+---------------------------------------------------------------------------------+
 
 
@@ -364,8 +368,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------+---------------------------+---------------------------------------------------------------------------------+
 ; Register name                           ; Reason for Removal        ; Registers Removed due to This Register                                          ;
 +-----------------------------------------+---------------------------+---------------------------------------------------------------------------------+
-; Riscv:u|ExStage:executionStage|ctlRg[2] ; Stuck at GND              ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[31],             ;
-;                                         ; due to stuck port data_in ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[24],             ;
+; Riscv:u|ExStage:executionStage|ctlRg[2] ; Stuck at GND              ; Riscv:u|dtReg[31],                                                              ;
+;                                         ; due to stuck port data_in ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[31],             ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[22],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[21],             ;
@@ -380,10 +385,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[12],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[10],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[9],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_31[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[12],             ;
@@ -400,8 +401,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_30[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[12],             ;
@@ -418,8 +417,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_29[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[12],             ;
@@ -436,8 +433,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[12],             ;
@@ -454,8 +449,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[12],             ;
@@ -472,8 +465,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[12],             ;
@@ -490,8 +481,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[12],             ;
@@ -508,8 +497,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[12],             ;
@@ -526,8 +513,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[12],             ;
@@ -544,8 +529,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[12],             ;
@@ -562,8 +545,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[12],             ;
@@ -580,8 +561,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[12],             ;
@@ -598,8 +577,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[12],             ;
@@ -616,8 +593,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[12],             ;
@@ -634,8 +609,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[8],              ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[10],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[11],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[12],             ;
@@ -652,8 +625,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[23],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[24],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[31],             ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[8],               ;
-;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[9],               ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[10],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[11],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[12],              ;
@@ -681,6 +652,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_28[29],             ;
@@ -693,6 +666,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_27[29],             ;
@@ -705,6 +680,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_26[29],             ;
@@ -717,6 +694,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_25[29],             ;
@@ -729,6 +708,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_24[29],             ;
@@ -741,6 +722,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_23[29],             ;
@@ -753,6 +736,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_22[29],             ;
@@ -765,6 +750,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_21[29],             ;
@@ -777,6 +764,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_20[29],             ;
@@ -789,6 +778,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_19[29],             ;
@@ -801,6 +792,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_18[29],             ;
@@ -813,6 +806,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_17[29],             ;
@@ -825,6 +820,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[5],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[6],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[7],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[8],              ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[9],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[27],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[28],             ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_16[29],             ;
@@ -838,6 +835,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[5],               ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[6],               ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[7],               ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[8],               ;
+;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[9],               ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[27],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[28],              ;
 ;                                         ;                           ; Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[29],              ;
@@ -896,12 +895,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 823   ;
+; Total registers                              ; 825   ;
 ; Number of registers using Synchronous Clear  ; 61    ;
 ; Number of registers using Synchronous Load   ; 41    ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 543   ;
+; Number of registers using Clock Enable       ; 553   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -920,33 +919,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                    ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
-; 3:1                ; 20 bits   ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|cntReg[8]                              ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[6]                       ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |riscv_top|Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[24]  ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|dtReg[6]                                                   ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|ifRg[59]                             ;
+; 3:1                ; 20 bits   ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|cntReg[19]                             ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |riscv_top|Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile|rgFile_0[27]  ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |riscv_top|Riscv:u|dtReg[9]                                                   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|ifRg[35]                             ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|pcRg[1]                              ;
-; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|pcRg[29]                             ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[4]                            ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[3]                             ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |riscv_top|Riscv:u|DecodeStage:decodeStage|CtlRg[6]                           ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|ifRg[9]                              ;
-; 16:1               ; 7 bits    ; 70 LEs        ; 56 LEs               ; 14 LEs                 ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[60]                         ;
-; 15:1               ; 8 bits    ; 80 LEs        ; 64 LEs               ; 16 LEs                 ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[49]                         ;
-; 17:1               ; 4 bits    ; 44 LEs        ; 36 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[61]                         ;
-; 16:1               ; 4 bits    ; 40 LEs        ; 32 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[44]                         ;
-; 18:1               ; 2 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[66]                         ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Buffer:buf_|dataReg[4]                       ;
+; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|pcRg[28]                             ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|shiftReg[6]                            ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |riscv_top|Riscv:u|BufferedTx:tx|Tx:tx|bitsReg[1]                             ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |riscv_top|Riscv:u|DecodeStage:decodeStage|CtlRg[3]                           ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |riscv_top|Riscv:u|FetchStage:fetchStage|ifRg[8]                              ;
+; 16:1               ; 7 bits    ; 70 LEs        ; 56 LEs               ; 14 LEs                 ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[59]                         ;
+; 15:1               ; 8 bits    ; 80 LEs        ; 64 LEs               ; 16 LEs                 ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[52]                         ;
+; 17:1               ; 4 bits    ; 44 LEs        ; 36 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[62]                         ;
+; 16:1               ; 4 bits    ; 40 LEs        ; 32 LEs               ; 8 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[42]                         ;
+; 18:1               ; 2 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[65]                         ;
 ; 17:1               ; 2 bits    ; 22 LEs        ; 20 LEs               ; 2 LEs                  ; Yes        ; |riscv_top|Riscv:u|ExStage:executionStage|exMemRg[40]                         ;
-; 3:1                ; 25 bits   ; 50 LEs        ; 50 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|WriteBackStage:writeBackStage|io_memWbWd[23]               ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|ExStage:executionStage|_T_45[32]                           ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|ExStage:executionStage|alu_io_a[29]                        ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|ImmGen:Imm32|io_ImmOut[10]         ;
+; 3:1                ; 25 bits   ; 50 LEs        ; 50 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|WriteBackStage:writeBackStage|io_memWbWd[19]               ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|ExStage:executionStage|_T_45[9]                            ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|ExStage:executionStage|alu_io_a[2]                         ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|ImmGen:Imm32|io_ImmOut[5]          ;
 ; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|ImmGen:Imm32|io_ImmOut[0]          ;
 ; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; No         ; |riscv_top|Riscv:u|FetchStage:fetchStage|InstructionMemory:inMem|_GEN_255[17] ;
 ; 6:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |riscv_top|Riscv:u|WriteBackStage:writeBackStage|io_memWbWd[0]                ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|MemStage:memStage|Memory:dataMem|mem_2__T_22_mask          ;
-; 17:1               ; 32 bits   ; 352 LEs       ; 352 LEs              ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|_T_53[30]                          ;
-; 33:1               ; 32 bits   ; 704 LEs       ; 384 LEs              ; 320 LEs                ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|rdOut2[8]                          ;
+; 17:1               ; 32 bits   ; 352 LEs       ; 352 LEs              ; 0 LEs                  ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|_T_53[19]                          ;
+; 33:1               ; 32 bits   ; 704 LEs       ; 384 LEs              ; 320 LEs                ; No         ; |riscv_top|Riscv:u|DecodeStage:decodeStage|rdOut2[13]                         ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
 
 
@@ -1300,29 +1299,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 4                           ;
-; cycloneiii_ff         ; 823                         ;
-;     ENA               ; 509                         ;
-;     ENA SCLR          ; 25                          ;
+; cycloneiii_ff         ; 825                         ;
+;     ENA               ; 511                         ;
+;     ENA SCLR          ; 33                          ;
 ;     ENA SCLR SLD      ; 1                           ;
 ;     ENA SLD           ; 8                           ;
-;     SCLR              ; 24                          ;
+;     SCLR              ; 16                          ;
 ;     SCLR SLD          ; 11                          ;
 ;     SLD               ; 21                          ;
 ;     plain             ; 224                         ;
-; cycloneiii_lcell_comb ; 2208                        ;
+; cycloneiii_lcell_comb ; 2224                        ;
 ;     arith             ; 197                         ;
-;         2 data inputs ; 33                          ;
-;         3 data inputs ; 164                         ;
-;     normal            ; 2011                        ;
+;         2 data inputs ; 34                          ;
+;         3 data inputs ; 163                         ;
+;     normal            ; 2027                        ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 4                           ;
-;         2 data inputs ; 174                         ;
+;         2 data inputs ; 177                         ;
 ;         3 data inputs ; 399                         ;
-;         4 data inputs ; 1432                        ;
+;         4 data inputs ; 1445                        ;
 ; cycloneiii_ram_block  ; 32                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 16.00                       ;
-; Average LUT depth     ; 10.03                       ;
+; Average LUT depth     ; 10.39                       ;
 +-----------------------+-----------------------------+
 
 
@@ -1331,7 +1330,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:09     ;
+; Top            ; 00:00:08     ;
 +----------------+--------------+
 
 
@@ -1341,7 +1340,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Mon May  4 10:24:50 2020
+    Info: Processing started: Mon May  4 14:36:26 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off riscv -c riscv
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -1371,27 +1370,39 @@ Info (12021): Found 20 design units, including 20 entities, in source file /home
     Info (12023): Found entity 20: Riscv File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4363
 Info (12127): Elaborating entity "riscv_top" for the top level hierarchy
 Info (12128): Elaborating entity "Riscv" for hierarchy "Riscv:u" File: /home/patmos/chisel-projects/aca-riscv/vhdl/riscv_top.vhdl Line: 57
-Info (12128): Elaborating entity "FetchStage" for hierarchy "Riscv:u|FetchStage:fetchStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4449
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4446): object "_T_14" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4446
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4447): object "_T_16" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4447
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4450): object "_T_31" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4450
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4453): object "_T_47" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4453
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4456): object "_T_57" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4456
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4457): object "IfId" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4457
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4458): object "IdEx" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4458
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4459): object "rgWr" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4459
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4460): object "IdExCtl" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4460
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4461): object "ExMem" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4461
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4462): object "MemWb" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4462
+Warning (10036): Verilog HDL or VHDL warning at Riscv.v(4463): object "WbWd" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4463
+Info (12128): Elaborating entity "FetchStage" for hierarchy "Riscv:u|FetchStage:fetchStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4473
 Info (12128): Elaborating entity "InstructionMemory" for hierarchy "Riscv:u|FetchStage:fetchStage|InstructionMemory:inMem" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 2078
-Info (12128): Elaborating entity "DecodeStage" for hierarchy "Riscv:u|DecodeStage:decodeStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4466
+Info (12128): Elaborating entity "DecodeStage" for hierarchy "Riscv:u|DecodeStage:decodeStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4490
 Info (12128): Elaborating entity "MainCtl" for hierarchy "Riscv:u|DecodeStage:decodeStage|MainCtl:MnCtl" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 2995
 Info (12128): Elaborating entity "ImmGen" for hierarchy "Riscv:u|DecodeStage:decodeStage|ImmGen:Imm32" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3000
 Info (12128): Elaborating entity "ForwarderID" for hierarchy "Riscv:u|DecodeStage:decodeStage|ForwarderID:Forwarder" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3008
 Info (12128): Elaborating entity "RegisterFile" for hierarchy "Riscv:u|DecodeStage:decodeStage|RegisterFile:RegFile" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3021
 Info (12128): Elaborating entity "BranchCtl" for hierarchy "Riscv:u|DecodeStage:decodeStage|BranchCtl:BranchCtl" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3027
 Info (12128): Elaborating entity "HazardDetectionUnit" for hierarchy "Riscv:u|DecodeStage:decodeStage|HazardDetectionUnit:Hazard" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3036
-Info (12128): Elaborating entity "ExStage" for hierarchy "Riscv:u|ExStage:executionStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4482
+Info (12128): Elaborating entity "ExStage" for hierarchy "Riscv:u|ExStage:executionStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4506
 Info (12128): Elaborating entity "Alu" for hierarchy "Riscv:u|ExStage:executionStage|Alu:alu" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3500
 Info (12128): Elaborating entity "AluCtl" for hierarchy "Riscv:u|ExStage:executionStage|AluCtl:aluCtrl" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3509
 Info (12128): Elaborating entity "ForwarderEX" for hierarchy "Riscv:u|ExStage:executionStage|ForwarderEX:forwarder" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3519
-Info (12128): Elaborating entity "MemStage" for hierarchy "Riscv:u|MemStage:memStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4494
+Info (12128): Elaborating entity "MemStage" for hierarchy "Riscv:u|MemStage:memStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4518
 Info (12128): Elaborating entity "Memory" for hierarchy "Riscv:u|MemStage:memStage|Memory:dataMem" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4033
 Warning (10036): Verilog HDL or VHDL warning at Riscv.v(3644): object "mem_0__T_24_en_pipe_0" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3644
 Warning (10036): Verilog HDL or VHDL warning at Riscv.v(3656): object "mem_1__T_24_en_pipe_0" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3656
 Warning (10036): Verilog HDL or VHDL warning at Riscv.v(3668): object "mem_2__T_24_en_pipe_0" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3668
 Warning (10036): Verilog HDL or VHDL warning at Riscv.v(3680): object "mem_3__T_24_en_pipe_0" assigned a value but never read File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 3680
-Info (12128): Elaborating entity "WriteBackStage" for hierarchy "Riscv:u|WriteBackStage:writeBackStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4502
-Info (12128): Elaborating entity "BufferedTx" for hierarchy "Riscv:u|BufferedTx:tx" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4510
+Info (12128): Elaborating entity "WriteBackStage" for hierarchy "Riscv:u|WriteBackStage:writeBackStage" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4526
+Info (12128): Elaborating entity "BufferedTx" for hierarchy "Riscv:u|BufferedTx:tx" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4534
 Info (12128): Elaborating entity "Tx" for hierarchy "Riscv:u|BufferedTx:tx|Tx:tx" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4340
 Info (12128): Elaborating entity "Buffer" for hierarchy "Riscv:u|BufferedTx:tx|Buffer:buf_" File: /home/patmos/chisel-projects/aca-riscv/generated/Riscv.v Line: 4350
 Info (19000): Inferred 4 megafunctions from design logic
@@ -1456,15 +1467,15 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "rxd" File: /home/patmos/chisel-projects/aca-riscv/vhdl/riscv_top.vhdl Line: 15
-Info (21057): Implemented 2758 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2774 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 2 output pins
-    Info (21061): Implemented 2722 logic cells
+    Info (21061): Implemented 2738 logic cells
     Info (21064): Implemented 32 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 9 warnings
-    Info: Peak virtual memory: 1024 megabytes
-    Info: Processing ended: Mon May  4 10:25:13 2020
-    Info: Elapsed time: 00:00:23
-    Info: Total CPU time (on all processors): 00:00:29
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 21 warnings
+    Info: Peak virtual memory: 1028 megabytes
+    Info: Processing ended: Mon May  4 14:36:47 2020
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:26
 
 
