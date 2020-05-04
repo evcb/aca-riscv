@@ -81,6 +81,7 @@ class Rx(frequency: Int, baudRate: Int) extends Module {
     cntReg := BIT_CNT
     shiftReg := Cat(rxReg, shiftReg >> 1)
     bitsReg := bitsReg - 1.U
+
     // the last shifted in
     when(bitsReg === 1.U) {
       valReg := true.B
@@ -170,7 +171,7 @@ class Sender(frequency: Int, baudRate: Int) extends Module {
 }
 
 
-class Riscv(data: Array[String] = Array(), frequency: Int = 1000000000, baudRate: Int = 115200) extends Module {
+class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: Int = 115200) extends Module {
   val io = IO(new Bundle {
     val rxd = Input(UInt(1.W))
     val led = Output(UInt(1.W))
@@ -271,13 +272,13 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 1000000000, baudRate
   val dtReg = RegInit(0.U(32.W))
 
   when(memWbRd === 1.U && dtReg === 0.U && memWbData =/= 0.U) {
-    dtReg := memWbData(9,0)
+    dtReg := memWbData
   }
 
   tx.io.channel.bits := dtReg
-  tx.io.channel.valid := cntReg <= 100.U
+  tx.io.channel.valid := cntReg <= 10.U
 
-  when(tx.io.channel.ready && cntReg <= 100.U){
+  when(tx.io.channel.ready && cntReg <= 10.U){
     cntReg := cntReg + 1.U
   }
 
