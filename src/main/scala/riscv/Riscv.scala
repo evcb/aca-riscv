@@ -178,26 +178,7 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
     val txd = Output(UInt(1.W))
   })
 
-  val fetchStage = Module(new FetchStage(Array(
-    "b00000000001100010000000010010011",
-    "b00000000101000011000000100010011",
-    "b00000010100000100000000110010011",
-    "b11111111111100101000001000010011",
-    "b00000000001000001000001010110011",
-    "b01000000001100010000001100110011",
-    "b00000000010000001000001110110011",
-    "b01000000010000001000010000110011",
-    "b00000000001000001111010010110011",
-    "b00000000010000001111010100110011",
-    "b00000000010101010000010110110011",
-    "b01000000101000101000011000110011",
-    "b00000010110000111010010000100011",
-    "b00000010100000111010011010000011",
-    "b00000000000101101000011100110011",
-    "b01000000000101101000011110110011",
-    "b11111100010001111000000011100011",
-    "b11111100010101110000001011100011"
-  )))
+  val fetchStage = Module(new FetchStage(data))
   val decodeStage = Module(new DecodeStage())
   val executionStage = Module(new ExStage())
   val memStage = Module(new MemStage())
@@ -275,11 +256,15 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
     dtReg := memWbData
   }
 
+  printf("dtReg: %d \n", (dtReg))
   tx.io.channel.bits := dtReg
+  printf("Tx.io.channel.bits: %d \n", (tx.io.channel.bits))
+
   tx.io.channel.valid := cntReg <= 10.U
 
   when(tx.io.channel.ready && cntReg <= 10.U){
     cntReg := cntReg + 1.U
+    dtReg := 0.U
   }
 
 
