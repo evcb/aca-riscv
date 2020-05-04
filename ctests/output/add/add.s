@@ -5,17 +5,14 @@
 	.attribute stack_align, 16
 	.text
  #APP
-	addi sp, sp, 0x100
+	addi sp, sp, 0x200
 	jal main
 	mv a1, a0
-	lui a0, 10
-	ecall
  #NO_APP
 	.align	2
 	.globl	main
 	.type	main, @function
 main:
-    addi sp, x0, 200
 	addi	sp,sp,-32
 	sw	s0,28(sp)
 	addi	s0,sp,32
