@@ -8,7 +8,7 @@ int main()
     int y = 2;
     int z, q = 0;
     int j = 3;
-    int k = 3;
+    int k = 4;
     if ((x==y) || (j>k))
         z=1;
     else

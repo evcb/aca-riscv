@@ -23,7 +23,7 @@ main:
 	sw	zero,-32(s0)
 	li	a5,3
 	sw	a5,-36(s0)
-	li	a5,3
+	li	a5,4
 	sw	a5,-40(s0)
 	lw	a4,-24(s0)
 	lw	a5,-28(s0)
