@@ -286,14 +286,11 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   }
 
   tx.io.channel.bits := dtReg
-  tx.io.channel.valid := cntReg <= 10.U
+  tx.io.channel.valid := cntReg <= 50.U
 
-  when(tx.io.channel.ready && cntReg <= 10.U){
+  when(tx.io.channel.ready && cntReg <= 50.U){
     cntReg := cntReg + 1.U
-    dtReg := 0.U // after sending - reset dtReg back to 0
   }
-
-
 
   printf("- Start of cycle %d: \n", (pc / 4.S))
   printf("------------------------------\n")
