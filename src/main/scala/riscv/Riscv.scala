@@ -144,33 +144,6 @@ class BufferedTx(frequency: Int, baudRate: Int) extends Module {
   io.txd <> tx.io.txd
 }
 
-/**
- * Send a string.
- */
-class Sender(frequency: Int, baudRate: Int) extends Module {
-  val io = IO(new Bundle {
-    val txd = Output(UInt(1.W))
-  })
-
-  val tx = Module(new BufferedTx(frequency, baudRate))
-
-  io.txd := tx.io.txd
-
-  val msg = "Hello World!"
-  val text = VecInit(msg.map(_.U))
-  val len = msg.length.U
-
-  val cntReg = RegInit(0.U(8.W))
-
-  tx.io.channel.bits := text(cntReg)
-  tx.io.channel.valid := cntReg =/= len
-
-  when(cntReg =/= len) {
-    cntReg := cntReg + 1.U
-  }
-}
-
-
 class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: Int = 115200) extends Module {
   val io = IO(new Bundle {
     val rxd = Input(UInt(1.W))
