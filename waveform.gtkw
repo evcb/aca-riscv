@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue May  5 06:58:31 2020
+[*]
+[dumpfile] "/mnt/c/git/aca-riscv/generated/riscv.RiscvTest1858571595/Riscv.vcd"
+[dumpfile_mtime] "Tue May  5 06:58:07 2020"
+[dumpfile_size] 2474205
+[savefile] "/mnt/c/git/aca-riscv/waveform.gtkw"
+[timestart] 0
+[size] 1920 1017
+[pos] 0 23
+*-6.130938 66 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] Riscv.
+[treeopen] Riscv.fetchStage.
+[sst_width] 191
+[signals_width] 183
+[sst_expanded] 1
+[sst_vpaned_height] 304
+@28
+Riscv.fetchStage.clock
+@24
+Riscv.fetchStage.io_pcSrc
+Riscv.fetchStage.pcRg[31:0]
+@25
+[color] 5
+Riscv.writeBackStage.io_memWbRd[4:0]
+@420
+[color] 5
+Riscv.writeBackStage.io_memWbWd[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
