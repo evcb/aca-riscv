@@ -10,6 +10,9 @@ val param = Array("--target-dir", "generated", "--generate-vcd-output", "on")
 }
 
 class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
+  /*
+  This test should only get stuff to print in the main riscv file
+   */
   poke(dut.io.rxd, 0.U)
 
   step(100)
