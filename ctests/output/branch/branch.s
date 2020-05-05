@@ -8,8 +8,6 @@
 	addi sp, sp, 0x100
 	jal main
 	mv a1, a0
-	lui a0, 10
-	ecall
  #NO_APP
 	.align	2
 	.globl	main

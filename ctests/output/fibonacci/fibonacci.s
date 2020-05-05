@@ -5,11 +5,9 @@
 	.attribute stack_align, 16
 	.text
  #APP
-	addi sp, sp, 0x100
+	addi sp, sp, 0x200
 	jal main
 	mv a1, a0
-	lui a0, 10
-	ecall
  #NO_APP
 	.align	2
 	.globl	fib
