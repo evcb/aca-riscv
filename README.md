@@ -54,16 +54,6 @@ Start in root aca-riscv directory.
 
 - to make hexdump of machine instructions:
 `riscv32-unknown-elf-objcopy ctests/foo.out --dump-section .text=ctests/foo.bin`
-11111110000 00010 000 00010 0010011
-
-00010011 00000001 00000001 11111110
-
-11111110 00000001 00000001 00010011
-11111110 00000001 00000001 00010011
-11111110000000010000000100010011
-
-lw	a4,-20(s0)
-111111101100 01000 010 01110 0000011
 
 ## Print machine code to use in RISCV test:
 `xxd -b -c 4  ctests/foo.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $5, $4, $3, $2}'`
