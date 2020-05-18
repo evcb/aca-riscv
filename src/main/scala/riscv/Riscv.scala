@@ -108,6 +108,10 @@ class Riscv(data: Array[String] = Array(), frequency: Int = 50000000, baudRate: 
   printf("-****************************-\n")
 }
 
+/* Companion singleton object - standalone instance;
+ * Because the companion object has the same name as the class, a call to Class.method is actually
+ * a call to the method in the companion object
+ */ 
 object RiscvMain extends App {
   chisel3.Driver.execute(Array("--target-dir", "generated"), () => new Riscv())
 }
