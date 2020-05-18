@@ -11,8 +11,8 @@ entity riscv_top is
 port (
     clock : in std_logic;
 --    reset : in std_logic;
-    led : out std_logic;
-    rxd : in std_logic;
+--    led : out std_logic;
+--    rxd : in std_logic;
     txd : out std_logic
 );
 end riscv_top;
@@ -22,8 +22,8 @@ architecture rtl of riscv_top is
 component Riscv is
 port (clock : std_logic;
       reset : in std_logic;
-      io_led : out std_logic;
-      io_rxd : in std_logic;
+--      io_led : out std_logic;
+--      io_rxd : in std_logic;
       io_txd : out std_logic);
 end component;
 
@@ -54,7 +54,7 @@ begin
 
    reset <= int_res;
 
-    u: Riscv port map(clock, reset, led, rxd, txd);
+    u: Riscv port map(clock, reset, txd);
 
 --    led <= not rxd;
 --    txd <= rxd;

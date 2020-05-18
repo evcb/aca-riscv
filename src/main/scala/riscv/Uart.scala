@@ -146,12 +146,12 @@ class BufferedTx(frequency: Int, baudRate: Int) extends Module {
 
 class UartMain(frequency: Int, baudRate: Int) extends Module {
   val io = IO(new Bundle {
-    val rxd = Input(UInt(1.W))
+    //val rxd = Input(UInt(1.W))
     val memWbRd = Input(UInt(5.W))
     val memWbData = Input(UInt(32.W))
     val txd = Output(UInt(1.W))
   })
-    io.rxd := DontCare // dont care - for now
+    //io.rxd := DontCare // dont care - for now
     val tx = Module(new BufferedTx(frequency, baudRate))
     io.txd := tx.io.txd
     val memWbRd = io.memWbRd //Use shorter variable names
@@ -169,8 +169,4 @@ class UartMain(frequency: Int, baudRate: Int) extends Module {
     when(tx.io.channel.ready && cntReg <= 50.U){
         cntReg := cntReg + 1.U
     }
-    }
-
-object UartMain extends App {
-  chisel3.Driver.execute(Array("--target-dir", "generated"), () => new UartMain(50000000, 115200))
 }

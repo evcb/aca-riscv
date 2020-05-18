@@ -12,11 +12,11 @@ import sys.process._
  */
 class RiscvTester(dut: Riscv, amountOfIntsructions: Int) extends PeekPokeTester(dut) {
 
-  poke(dut.io.rxd, 0.U)
+  //poke(dut.io.rxd, 0.U)
 
   step(amountOfIntsructions + 10)
 
-  expect(dut.io.led, 0.U)
+  //expect(dut.io.led, 0.U)
   expect(dut.io.txd, 1.U)
 
 }

@@ -5,8 +5,6 @@ import chisel3.util.{Cat, DecoupledIO, Enum}
 
 class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 115200) extends Module {
   val io = IO(new Bundle {
-    val rxd = Input(UInt(1.W))
-    val led = Output(UInt(1.W))
     val txd = Output(UInt(1.W))
   })
 
@@ -19,7 +17,6 @@ class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 1152
 
   // Wiring
   //UART
-  uart.io.rxd := io.rxd
   uart.io.memWbRd := decodeStage.io.MemWbRd
   uart.io.memWbData := decodeStage.io.MemWbWd
   io.txd := uart.io.txd
@@ -58,7 +55,7 @@ class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 1152
   writeBackStage.io.memWbIn := memStage.io.memWbOut
   writeBackStage.io.memWbCtlIn := memStage.io.memWbCtlOut
   writeBackStage.io.memWbData := memStage.io.memWbData
-
+ /*
   // DEBUGGING
   val pc = Wire(SInt())
   val IfId = Wire(UInt())
@@ -84,7 +81,7 @@ class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 1152
 
   //turn on LED -> program is running
   io.led := 1.U
-
+ 
   printf("- Start of cycle %d: \n", (pc / 4.S))
   printf("------------------------------\n")
   printf(p"IfId: ${Binary(IfId)} ")
@@ -105,7 +102,7 @@ class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 1152
   printf(p"WbWd: $WbWd ")
   printf("-- Instruction: %d \n", ((pc - 12.S) / 4.S))
   printf("------------------------------\n")
-  printf("-****************************-\n")
+  printf("-****************************-\n") */
 }
 
 /* 
