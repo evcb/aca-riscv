@@ -4,6 +4,8 @@ import chisel3._
 import chisel3.iotesters.Driver
 import chisel3.iotesters.PeekPokeTester
 import org.scalatest._
+import scala.io.Source
+import sys.process._
 
 /*
  * This test should only get stuff to print in the main riscv file
@@ -40,8 +42,21 @@ class RiscvTester(dut: Riscv, amountOfIntsructions: Int) extends PeekPokeTester(
    17 Beq x14, x5, three // instruction three:  1111110 00101 01110 000 00101 1100011
 */
 
-class RiscvTest extends FlatSpec with Matchers {
-  val chiselParam = Array("--target-dir", "generated", "--generate-vcd-output", "on")
+class RiscvTestFile extends RiscvTest {
+  //change this value to run test for specific file
+  val test = "add"
+  val result = s"./ctestsMake.sh $test" !!
+    
+  val filename = s"ctests/output/$test/$test.array"
+  val bufferedSource = Source.fromFile(filename)
+  val lines = bufferedSource.getLines.toArray
+  bufferedSource.close
+  val blacklist: Set[Char] = Set(',','"')
+  val filtered = lines.map(line => line.filterNot(c => blacklist.contains(c)))
+  runTest(filtered, "RiscvTestFile")
+}
+
+class RiscvTestDirect extends RiscvTest {
   val instructionSet = Array(
         "b00100000000000010000000100010011",
         "b00000000100000000000000011101111",
@@ -71,12 +86,21 @@ class RiscvTest extends FlatSpec with Matchers {
         "b00000101000100000000010000000000",
         "b00110010001100110111011001110010",
         "b00110000011100000011001001101001")
+    val testname = "Riscv"
+    runTest(instructionSet, testname)
+}
+
+
+abstract class RiscvTest extends FlatSpec with Matchers {
+  val chiselParam = Array("--target-dir", "generated", "--generate-vcd-output", "on")
   
-  "Riscv" should "pass" in 
-  {
-    Driver.execute(chiselParam, () => new Riscv(instructionSet))
-    { 
-      c => new RiscvTester(c, instructionSet.length)
-    } should be(true)
+  def runTest(instructions: Array[String], testname: String) {
+    testname should "pass" in 
+    {
+      Driver.execute(chiselParam, () => new Riscv(instructions))
+      { 
+        c => new RiscvTester(c, instructions.length)
+      } should be(true)
+    }
   }
 }

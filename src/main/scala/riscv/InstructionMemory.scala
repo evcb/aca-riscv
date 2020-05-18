@@ -2,7 +2,7 @@ package riscv
 
 import chisel3._
 
-class InstructionMemory(data: Array[String] = Array()) extends Module {
+class InstructionMemory(data: Array[String]) extends Module {
   val io = IO(new Bundle {
     val rdAddr = Input(UInt(10.W)) // read address
     val rdData = Output(UInt(32.W)) // output
