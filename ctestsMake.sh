@@ -18,3 +18,4 @@ riscv32-unknown-elf-objcopy $FILEPATH/$FILE.out --dump-section .text=$FILEPATH/$
 
 # Generate RiscvTest array
 xxd -b -c 4  $FILEPATH/$FILE.bin | awk -v q='"' '{ printf "" q "b%s%s%s%s" q ",\n", $5, $4, $3, $2}' > $FILEPATH/$FILE.array
+sed -i '$ d'  $FILEPATH/$FILE.array
