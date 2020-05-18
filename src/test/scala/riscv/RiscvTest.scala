@@ -42,11 +42,16 @@ class RiscvTester(dut: Riscv, amountOfIntsructions: Int) extends PeekPokeTester(
    17 Beq x14, x5, three // instruction three:  1111110 00101 01110 000 00101 1100011
 */
 
+/**
+ * Run the simulation with a specific c-file from the solution.
+ * Requires the toolchain installed (see how to in README.md)
+ */
 class RiscvTestFile extends RiscvTest {
   //change this value to run test for specific file
   val test = "add"
+
+  //remaining code re-compiles the file and passes it onto the Risc simulator
   val result = s"./ctestsMake.sh $test" !!
-    
   val filename = s"ctests/output/$test/$test.array"
   val bufferedSource = Source.fromFile(filename)
   val lines = bufferedSource.getLines.toArray
