@@ -8,7 +8,7 @@ package riscv
 import chisel3._
 import chisel3.util._
 
-class FetchStage(data: Array[String] = Array()) extends Module {
+class FetchStage(data: Array[String]) extends Module {
   val io = IO(new Bundle {
     val pcSrc = Input(Bool())  // control signal from ID
     val ifIdPc = Input(UInt(32.W)) // branch address from ID
