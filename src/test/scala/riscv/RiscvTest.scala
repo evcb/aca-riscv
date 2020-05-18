@@ -8,11 +8,11 @@ import org.scalatest._
 /*
  * This test should only get stuff to print in the main riscv file
  */
-class RiscvTester(dut: Riscv) extends PeekPokeTester(dut) {
+class RiscvTester(dut: Riscv, amountOfIntsructions: Int) extends PeekPokeTester(dut) {
 
   poke(dut.io.rxd, 0.U)
 
-  step(100)
+  step(amountOfIntsructions + 10)
 
   expect(dut.io.led, 0.U)
   expect(dut.io.txd, 1.U)
@@ -71,16 +71,12 @@ class RiscvTest extends FlatSpec with Matchers {
         "b00000101000100000000010000000000",
         "b00110010001100110111011001110010",
         "b00110000011100000011001001101001")
-
-  
-  
-  
   
   "Riscv" should "pass" in 
   {
     Driver.execute(chiselParam, () => new Riscv(instructionSet))
     { 
-      c => new RiscvTester(c)
+      c => new RiscvTester(c, instructionSet.length)
     } should be(true)
   }
 }
