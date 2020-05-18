@@ -115,8 +115,8 @@ class Riscv(data: Array[String], frequency: Int = 50000000, baudRate: Int = 1152
  */ 
 object RiscvMain extends App {
   // command line arguments for chisel compiler
-  val chiselArgs = "--target-dir generated".split(" +")
-  // instructions to load into instruction memory
+  val chiselParam = "--target-dir generated".split(" +")
+  // instructions to load into instruction memory;
   val instructionSet = Array(
         "b00100000000000010000000100010011",
         "b00000000100000000000000011101111",
@@ -150,5 +150,5 @@ object RiscvMain extends App {
 
   
   // The Driver invokes the chisel3 compiler and the firrtl compiler 
-  chisel3.Driver.execute(chiselArgs, () => new Riscv(instructionSet)) 
+  chisel3.Driver.execute(chiselParam, () => new Riscv(instructionSet)) 
 }
